@@ -554,11 +554,6 @@
             margin-top: 16px;
             padding-top: 16px;
             border-top: 1px solid var(--gray-200);
-            display: none;
-        }
-        
-        .children-ages.show {
-            display: block;
         }
         
         .children-ages label {
@@ -570,13 +565,15 @@
         }
         
         .age-selects {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            display: flex;
+            flex-wrap: wrap;
             gap: 10px;
+            margin-top: 8px;
         }
         
         .age-selects select {
-            width: 100%;
+            flex: 1;
+            min-width: 120px;
             padding: 10px 12px;
             border: 2px solid var(--gray-200);
             border-radius: 8px;
@@ -1201,7 +1198,7 @@
                                     <button type="button" class="passenger-btn" id="children-plus">+</button>
                                 </div>
                             </div>
-                            <div class="children-ages" id="children-ages">
+            <div class="children-ages" id="children-ages" style="display: none;">
                                 <label>Edad de los niños en el viaje</label>
                                 <div class="age-selects" id="age-selects"></div>
                             </div>
@@ -1635,24 +1632,22 @@
             const section = document.getElementById('children-ages');
             const container = document.getElementById('age-selects');
             
-            console.log('renderChildAges called, children:', passengers.children);
-            
             if (passengers.children > 0) {
                 section.style.display = 'block';
                 container.innerHTML = '';
                 
                 for (let i = 0; i < passengers.children; i++) {
                     const wrapper = document.createElement('div');
-                    wrapper.style.cssText = 'display: flex; flex-direction: column; gap: 4px;';
+                    wrapper.style.cssText = 'flex: 1; min-width: 120px; display: flex; flex-direction: column; gap: 4px;';
                     
                     const label = document.createElement('span');
                     label.textContent = `Niño ${i + 1}`;
-                    label.style.cssText = 'font-size: 12px; color: #64748B;';
+                    label.style.cssText = 'font-size: 12px; color: #64748B; font-weight: 500;';
                     
                     const select = document.createElement('select');
-                    select.style.cssText = 'width: 100%; padding: 10px 12px; border: 2px solid #E2E8F0; border-radius: 8px; font-size: 14px; background: white; cursor: pointer;';
+                    select.style.cssText = 'width: 100%; padding: 10px 12px; border: 2px solid #E2E8F0; border-radius: 8px; font-size: 14px; font-family: Inter, sans-serif; background: white; cursor: pointer;';
                     select.innerHTML = `
-                        <option value="">Seleccionar edad</option>
+                        <option value="">Seleccionar</option>
                         <option value="0">&lt; 1 año</option>
                         ${[1,2,3,4,5,6,7,8,9,10,11,12].map(age => `<option value="${age}">${age} años</option>`).join('')}
                     `;
