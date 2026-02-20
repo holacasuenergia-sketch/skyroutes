@@ -486,10 +486,18 @@
             padding: 16px;
         }
         
+        /* Desktop - always show full dropdown */
         @media (min-width: 769px) {
             .passengers-dropdown {
+                position: absolute !important;
                 max-height: none !important;
                 overflow: visible !important;
+                width: auto !important;
+                min-width: 340px !important;
+            }
+            
+            .children-ages {
+                display: block !important;
             }
         }
         
