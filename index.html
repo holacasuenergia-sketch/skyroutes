@@ -1776,7 +1776,14 @@
         document.getElementById('passengers-btn').addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            document.getElementById('passengers-dropdown').classList.toggle('show');
+            const dropdown = document.getElementById('passengers-dropdown');
+            if (dropdown.classList.contains('show')) {
+                dropdown.classList.remove('show');
+                dropdown.style.display = 'none';
+            } else {
+                dropdown.classList.add('show');
+                dropdown.style.display = 'block';
+            }
         });
         
         document.querySelectorAll('.passengers-wrapper .passenger-btn').forEach(btn => {
@@ -1807,12 +1814,16 @@
         
         document.getElementById('passengers-done-btn').addEventListener('click', function(e) {
             e.stopPropagation();
-            document.getElementById('passengers-dropdown').classList.remove('show');
+            const dropdown = document.getElementById('passengers-dropdown');
+            dropdown.classList.remove('show');
+            dropdown.style.display = 'none';
         });
         
         document.addEventListener('click', function(e) {
             if (!e.target.closest('.passengers-wrapper')) {
-                document.getElementById('passengers-dropdown').classList.remove('show');
+                const dropdown = document.getElementById('passengers-dropdown');
+                dropdown.classList.remove('show');
+                dropdown.style.display = 'none';
             }
         });
         
