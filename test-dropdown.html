@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { padding: 50px; font-family: sans-serif; }
+        .passengers-wrapper { position: relative; display: inline-block; }
+        .passengers-btn {
+            padding: 14px 16px;
+            border: 2px solid #ccc;
+            border-radius: 12px;
+            background: #f5f5f5;
+            cursor: pointer;
+        }
+        .passengers-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            min-width: 320px;
+            background: white;
+            border: 2px solid #ccc;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: none;
+            padding: 20px;
+            margin-top: 8px;
+        }
+        .passengers-dropdown.show {
+            display: block !important;
+        }
+        .passenger-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; }
+        .passenger-btn { width: 32px; height: 32px; border-radius: 50%; border: 2px solid #0EA5E9; background: white; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h2>Test Dropdown</h2>
+    <div class="passengers-wrapper">
+        <button class="passengers-btn" id="passengers-btn">1 adulto ▼</button>
+        <div class="passengers-dropdown" id="passengers-dropdown">
+            <div class="passenger-row">
+                <div>Adultos</div>
+                <div>
+                    <button class="passenger-btn" id="adults-minus">-</button>
+                    <span id="adults-count">1</span>
+                    <button class="passenger-btn" id="adults-plus">+</button>
+                </div>
+            </div>
+            <div class="passenger-row">
+                <div>Niños</div>
+                <div>
+                    <button class="passenger-btn" id="children-minus">-</button>
+                    <span id="children-count">0</span>
+                    <button class="passenger-btn" id="children-plus">+</button>
+                </div>
+            </div>
+            <div id="children-ages" style="display: none; margin-top: 16px; padding-top: 16px; border-top: 1px solid #eee;">
+                <label>Edad de los niños:</label>
+                <div id="age-selects"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const passengers = { adults: 1, children: 0, childAges: [] };
+        
+        document.getElementById('passengers-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const dropdown = document.getElementById('passengers-dropdown');
+            console.log('Button clicked, dropdown:', dropdown);
+            console.log('Current display:', dropdown.style.display);
+            if (dropdown.classList.contains('show')) {
+                dropdown.classList.remove('show');
+                dropdown.style.display = 'none';
+            } else {
+                dropdown.classList.add('show');
+                dropdown.style.display = 'block';
+            }
+            console.log('New display:', dropdown.style.display);
+        });
+        
+        document.querySelectorAll('.passenger-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                if (this.id === 'adults-minus' && passengers.adults > 1) passengers.adults--;
+                else if (this.id === 'adults-plus' && passengers.adults < 9) passengers.adults++;
+                else if (this.id === 'children-minus' && passengers.children > 0) {
+                    passengers.children--;
+                    passengers.childAges.splice(passengers.children, 1);
+                }
+                else if (this.id === 'children-plus' && passengers.children < 6) {
+                    passengers.children++;
+                    passengers.childAges.push(null);
+                }
+                
+                document.getElementById('adults-count').textContent = passengers.adults;
+                document.getElementById('children-count').textContent = passengers.children;
+                
+                const section = document.getElementById('children-ages');
+                const container = document.getElementById('age-selects');
+                if (passengers.children > 0) {
+                    section.style.display = 'block';
+                    container.innerHTML = '';
+                    for (let i = 0; i < passengers.children; i++) {
+                        container.innerHTML += `<div style="margin: 8px 0;">Niño ${i+1}: <select><option>Edad</option><option>&lt;1 año</option>${[1,2,3,4,5,6,7,8,9,10,11,12].map(a=>`<option value="${a}">${a} años</option>`).join('')}</select></div>`;
+                    }
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+        });
+        
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.passengers-wrapper')) {
+                const dropdown = document.getElementById('passengers-dropdown');
+                dropdown.classList.remove('show');
+                dropdown.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
