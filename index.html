@@ -865,17 +865,37 @@
         }
         
         /* Testimonials */
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        .testimonials-slider {
+            display: flex;
             gap: 24px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            padding: 10px 0 20px 0;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .testimonials-slider::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .testimonials-slider::-webkit-scrollbar-track {
+            background: var(--gray-100);
+            border-radius: 4px;
+        }
+        
+        .testimonials-slider::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
         }
         
         .testimonial-card {
+            flex: 0 0 340px;
             background: var(--white);
             border-radius: 16px;
             padding: 28px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            scroll-snap-align: start;
         }
         
         .testimonial-stars {
@@ -1751,7 +1771,7 @@
                 <p class="section-subtitle">Miles de viajeros satisfechos nos respaldan</p>
             </div>
             
-            <div class="testimonials-grid">
+            <div class="testimonials-slider">
                 <div class="testimonial-card">
                     <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
                     <p class="testimonial-text">"Encontré un vuelo Lima-Madrid €200 más barato que en otras agencias. El proceso fue súper fácil y me respondieron en menos de 2 horas."</p>
