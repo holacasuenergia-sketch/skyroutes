@@ -472,8 +472,10 @@
         .passengers-dropdown {
             position: absolute;
             top: calc(100% + 8px);
-            left: 0;
+            left: auto;
             right: 0;
+            min-width: 320px;
+            width: auto;
             background: white;
             border: 2px solid var(--gray-200);
             border-radius: 12px;
@@ -549,8 +551,8 @@
         
         /* Children ages */
         .children-ages {
-            margin-top: 12px;
-            padding-top: 12px;
+            margin-top: 16px;
+            padding-top: 16px;
             border-top: 1px solid var(--gray-200);
             display: none;
         }
@@ -561,25 +563,34 @@
         
         .children-ages label {
             font-size: 13px;
-            color: var(--gray-600);
-            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+            margin-bottom: 10px;
             display: block;
         }
         
         .age-selects {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
         }
         
         .age-selects select {
-            padding: 8px 12px;
+            width: 100%;
+            padding: 10px 12px;
             border: 2px solid var(--gray-200);
             border-radius: 8px;
             font-size: 14px;
             font-family: 'Inter', sans-serif;
             background: white;
             cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .age-selects select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
         }
         
         .passengers-done {
