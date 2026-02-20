@@ -495,10 +495,6 @@
                 width: auto !important;
                 min-width: 340px !important;
             }
-            
-            .children-ages {
-                display: block !important;
-            }
         }
         
         @media (max-width: 768px) {
@@ -637,6 +633,11 @@
             margin-top: 16px;
             padding-top: 16px;
             border-top: 1px solid var(--gray-200);
+            display: none;
+        }
+        
+        .children-ages.show {
+            display: block !important;
         }
         
         .children-ages > label {
@@ -1291,7 +1292,7 @@
                                     <button type="button" class="passenger-btn" id="children-plus">+</button>
                                 </div>
                             </div>
-            <div class="children-ages" id="children-ages" style="display: none;">
+            <div class="children-ages" id="children-ages">
                                 <label>Edad de los niños en el viaje</label>
                                 <div class="age-selects" id="age-selects"></div>
                             </div>
@@ -1726,6 +1727,7 @@
             const container = document.getElementById('age-selects');
             
             if (passengers.children > 0) {
+                section.classList.add('show');
                 section.style.display = 'block';
                 container.innerHTML = '';
                 
@@ -1753,6 +1755,7 @@
                     container.appendChild(wrapper);
                 }
             } else {
+                section.classList.remove('show');
                 section.style.display = 'none';
                 container.innerHTML = '';
             }
