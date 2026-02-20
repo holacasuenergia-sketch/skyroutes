@@ -12,6 +12,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
+    <!-- Flatpickr for date picker -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/airbnb.css">
+    
     <style>
         /* Icon styles */
         .icon {
@@ -353,12 +357,259 @@
             opacity: 1;
         }
         
-        /* Datalist styling */
-        datalist {
+        /* Autocomplete dropdown */
+        .autocomplete-wrapper {
+            position: relative;
+        }
+        
+        .autocomplete-dropdown {
             position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
             background: white;
+            border: 2px solid var(--gray-200);
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            max-height: 280px;
+            overflow-y: auto;
+            z-index: 100;
+            display: none;
+        }
+        
+        .autocomplete-dropdown.show {
+            display: block;
+        }
+        
+        .autocomplete-item {
+            padding: 12px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: background 0.15s;
+        }
+        
+        .autocomplete-item:hover,
+        .autocomplete-item.active {
+            background: var(--primary-light);
+            background: rgba(14, 165, 233, 0.1);
+        }
+        
+        .autocomplete-item .city-name {
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .autocomplete-item .country-name {
+            font-size: 13px;
+            color: var(--gray-500);
+        }
+        
+        .autocomplete-item .match-text {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        /* Flatpickr customization */
+        .flatpickr-calendar {
+            font-family: 'Inter', sans-serif !important;
+            border-radius: 16px !important;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2) !important;
+        }
+        
+        .flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange {
+            background: var(--primary) !important;
+            border-color: var(--primary) !important;
+        }
+        
+        .flatpickr-day.inRange {
+            background: rgba(14, 165, 233, 0.15) !important;
+            border-color: transparent !important;
+        }
+        
+        .flatpickr-months .flatpickr-month {
+            background: transparent !important;
+        }
+        
+        .flatpickr-current-month .flatpickr-monthDropdown-months {
+            font-weight: 600;
+        }
+        
+        /* Passengers dropdown */
+        .passengers-wrapper {
+            position: relative;
+        }
+        
+        .passengers-btn {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            background: var(--gray-50);
+            cursor: pointer;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.2s;
+        }
+        
+        .passengers-btn:hover {
+            border-color: var(--primary);
+        }
+        
+        .passengers-btn:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
+        }
+        
+        .passengers-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            z-index: 100;
+            display: none;
+            padding: 16px;
+        }
+        
+        .passengers-dropdown.show {
+            display: block;
+        }
+        
+        .passenger-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .passenger-row:last-child {
+            border-bottom: none;
+        }
+        
+        .passenger-label {
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .passenger-info {
+            font-size: 12px;
+            color: var(--gray-500);
+        }
+        
+        .passenger-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .passenger-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            background: white;
+            color: var(--primary);
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        
+        .passenger-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .passenger-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        
+        .passenger-count {
+            font-size: 18px;
+            font-weight: 600;
+            min-width: 24px;
+            text-align: center;
+        }
+        
+        /* Children ages */
+        .children-ages {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--gray-200);
+            display: none;
+        }
+        
+        .children-ages.show {
+            display: block;
+        }
+        
+        .children-ages label {
+            font-size: 13px;
+            color: var(--gray-600);
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .age-selects {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .age-selects select {
+            padding: 8px 12px;
+            border: 2px solid var(--gray-200);
             border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            background: white;
+            cursor: pointer;
+        }
+        
+        .passengers-done {
+            margin-top: 16px;
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .passengers-done:hover {
+            background: var(--primary-dark);
+        }
+        
+        /* Search form responsive */
+        @media (max-width: 1200px) {
+            .search-form {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .search-form {
+                grid-template-columns: 1fr;
+            }
         }
         
         .search-btn {
@@ -893,64 +1144,58 @@
                 </div>
                 
                 <form class="search-form" id="search-form" onsubmit="handleSearch(event)">
-                    <div class="form-group">
+                    <div class="form-group autocomplete-wrapper">
                         <label class="form-label">Origen</label>
-                        <input type="text" class="form-input" id="origen" list="origenes-list" placeholder="Lima, Buenos Aires..." required autocomplete="off">
-                        <datalist id="origenes-list">
-                            <option value="Lima, Perú">
-                            <option value="Buenos Aires, Argentina">
-                            <option value="Ciudad de México, México">
-                            <option value="Bogotá, Colombia">
-                            <option value="Santiago, Chile">
-                            <option value="Quito, Ecuador">
-                            <option value="Caracas, Venezuela">
-                            <option value="São Paulo, Brasil">
-                            <option value="La Paz, Bolivia">
-                            <option value="Montevideo, Uruguay">
-                            <option value="San José, Costa Rica">
-                            <option value="Panamá, Panamá">
-                        </datalist>
+                        <input type="text" class="form-input" id="origen" placeholder="¿De dónde sales?" required autocomplete="off">
+                        <div class="autocomplete-dropdown" id="origen-dropdown"></div>
                     </div>
                     
-                    <div class="form-group">
+                    <div class="form-group autocomplete-wrapper">
                         <label class="form-label">Destino</label>
-                        <input type="text" class="form-input" id="destino" list="destinos-list" placeholder="Madrid, Barcelona, París..." required autocomplete="off">
-                        <datalist id="destinos-list">
-                            <option value="Madrid, España">
-                            <option value="Barcelona, España">
-                            <option value="París, Francia">
-                            <option value="Roma, Italia">
-                            <option value="Lisboa, Portugal">
-                            <option value="Londres, Reino Unido">
-                            <option value="Ámsterdam, Países Bajos">
-                            <option value="Berlín, Alemania">
-                            <option value="Praga, República Checa">
-                            <option value="Viena, Austria">
-                            <option value="Venecia, Italia">
-                            <option value="Florencia, Italia">
-                            <option value="Sevilla, España">
-                            <option value="Valencia, España">
-                            <option value="Múnich, Alemania">
-                            <option value="Dublín, Irlanda">
-                            <option value="Bruselas, Bélgica">
-                            <option value="Zúrich, Suiza">
-                        </datalist>
+                        <input type="text" class="form-input" id="destino" placeholder="¿A dónde quieres ir?" required autocomplete="off">
+                        <div class="autocomplete-dropdown" id="destino-dropdown"></div>
                     </div>
                     
                     <div class="form-group">
-                        <label class="form-label">Fecha salida</label>
-                        <input type="date" class="form-input" id="fecha-salida" required>
+                        <label class="form-label">Fechas</label>
+                        <input type="text" class="form-input" id="fechas" placeholder="Ida - Vuelta" readonly>
                     </div>
                     
-                    <div class="form-group">
+                    <div class="form-group passengers-wrapper">
                         <label class="form-label">Pasajeros</label>
-                        <select class="form-input" id="pasajeros">
-                            <option value="1">1 adulto</option>
-                            <option value="2">2 adultos</option>
-                            <option value="3">3 adultos</option>
-                            <option value="4">4 adultos</option>
-                            <option value="5">5+ adultos</option>
-                        </select>
+                        <button type="button" class="passengers-btn" id="passengers-btn">
+                            <span id="passengers-text">1 adulto</span>
+                            <span class="icon icon-20"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="passengers-dropdown" id="passengers-dropdown">
+                            <div class="passenger-row">
+                                <div>
+                                    <div class="passenger-label">Adultos</div>
+                                    <div class="passenger-info">13+ años</div>
+                                </div>
+                                <div class="passenger-controls">
+                                    <button type="button" class="passenger-btn" onclick="changePassengers('adults', -1)">−</button>
+                                    <span class="passenger-count" id="adults-count">1</span>
+                                    <button type="button" class="passenger-btn" onclick="changePassengers('adults', 1)">+</button>
+                                </div>
+                            </div>
+                            <div class="passenger-row">
+                                <div>
+                                    <div class="passenger-label">Niños</div>
+                                    <div class="passenger-info">0-12 años</div>
+                                </div>
+                                <div class="passenger-controls">
+                                    <button type="button" class="passenger-btn" onclick="changePassengers('children', -1)">−</button>
+                                    <span class="passenger-count" id="children-count">0</span>
+                                    <button type="button" class="passenger-btn" onclick="changePassengers('children', 1)">+</button>
+                                </div>
+                            </div>
+                            <div class="children-ages" id="children-ages">
+                                <label>Edad de los niños</label>
+                                <div class="age-selects" id="age-selects"></div>
+                            </div>
+                            <button type="button" class="passengers-done" onclick="closePassengers()">Confirmar</button>
+                        </div>
                     </div>
                     
                     <button type="submit" class="btn btn-secondary search-btn">
@@ -1244,33 +1489,237 @@
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
     </a>
     
+    <!-- Flatpickr -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+    
     <script>
+        // Cities data
+        const origenes = [
+            { city: 'Lima', country: 'Perú', code: 'LIM' },
+            { city: 'Buenos Aires', country: 'Argentina', code: 'EZE' },
+            { city: 'Ciudad de México', country: 'México', code: 'MEX' },
+            { city: 'Bogotá', country: 'Colombia', code: 'BOG' },
+            { city: 'Santiago', country: 'Chile', code: 'SCL' },
+            { city: 'Quito', country: 'Ecuador', code: 'UIO' },
+            { city: 'Caracas', country: 'Venezuela', code: 'CCS' },
+            { city: 'São Paulo', country: 'Brasil', code: 'GRU' },
+            { city: 'Río de Janeiro', country: 'Brasil', code: 'GIG' },
+            { city: 'La Paz', country: 'Bolivia', code: 'LPB' },
+            { city: 'Montevideo', country: 'Uruguay', code: 'MVD' },
+            { city: 'San José', country: 'Costa Rica', code: 'SJO' },
+            { city: 'Panamá', country: 'Panamá', code: 'PTY' },
+            { city: 'Guatemala', country: 'Guatemala', code: 'GUA' },
+            { city: 'Managua', country: 'Nicaragua', code: 'MGA' },
+            { city: 'San Salvador', country: 'El Salvador', code: 'SAL' }
+        ];
+        
+        const destinos = [
+            { city: 'Madrid', country: 'España', code: 'MAD' },
+            { city: 'Barcelona', country: 'España', code: 'BCN' },
+            { city: 'París', country: 'Francia', code: 'CDG' },
+            { city: 'Roma', country: 'Italia', code: 'FCO' },
+            { city: 'Lisboa', country: 'Portugal', code: 'LIS' },
+            { city: 'Londres', country: 'Reino Unido', code: 'LHR' },
+            { city: 'Ámsterdam', country: 'Países Bajos', code: 'AMS' },
+            { city: 'Berlín', country: 'Alemania', code: 'BER' },
+            { city: 'Praga', country: 'República Checa', code: 'PRG' },
+            { city: 'Viena', country: 'Austria', code: 'VIE' },
+            { city: 'Venecia', country: 'Italia', code: 'VCE' },
+            { city: 'Florencia', country: 'Italia', code: 'FLR' },
+            { city: 'Milán', country: 'Italia', code: 'MXP' },
+            { city: 'Sevilla', country: 'España', code: 'SVQ' },
+            { city: 'Valencia', country: 'España', code: 'VLC' },
+            { city: 'Múnich', country: 'Alemania', code: 'MUC' },
+            { city: 'Dublín', country: 'Irlanda', code: 'DUB' },
+            { city: 'Bruselas', country: 'Bélgica', code: 'BRU' },
+            { city: 'Zúrich', country: 'Suiza', code: 'ZRH' },
+            { city: 'Copenhague', country: 'Dinamarca', code: 'CPH' },
+            { city: 'Estocolmo', country: 'Suecia', code: 'ARN' },
+            { city: 'Atenas', country: 'Grecia', code: 'ATH' }
+        ];
+        
+        // Autocomplete functionality
+        function setupAutocomplete(inputId, dropdownId, cities) {
+            const input = document.getElementById(inputId);
+            const dropdown = document.getElementById(dropdownId);
+            let activeIndex = -1;
+            
+            input.addEventListener('input', function() {
+                const value = this.value.toLowerCase().trim();
+                if (value.length < 1) {
+                    dropdown.classList.remove('show');
+                    return;
+                }
+                
+                const matches = cities.filter(c => 
+                    c.city.toLowerCase().includes(value) || 
+                    c.country.toLowerCase().includes(value)
+                ).slice(0, 8);
+                
+                if (matches.length === 0) {
+                    dropdown.classList.remove('show');
+                    return;
+                }
+                
+                dropdown.innerHTML = matches.map((c, i) => {
+                    const cityMatch = c.city.toLowerCase().indexOf(value) >= 0;
+                    const displayCity = cityMatch 
+                        ? c.city.replace(new RegExp(`(${value})`, 'gi'), '<span class="match-text">$1</span>')
+                        : c.city;
+                    return `
+                        <div class="autocomplete-item" data-city="${c.city}, ${c.country}" data-index="${i}">
+                            <span class="icon icon-20"><svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></span>
+                            <div>
+                                <div class="city-name">${displayCity}</div>
+                                <div class="country-name">${c.country} (${c.code})</div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                
+                dropdown.classList.add('show');
+                activeIndex = -1;
+            });
+            
+            dropdown.addEventListener('click', function(e) {
+                const item = e.target.closest('.autocomplete-item');
+                if (item) {
+                    input.value = item.dataset.city;
+                    dropdown.classList.remove('show');
+                }
+            });
+            
+            input.addEventListener('blur', () => {
+                setTimeout(() => dropdown.classList.remove('show'), 200);
+            });
+            
+            input.addEventListener('focus', function() {
+                if (this.value.length >= 1) {
+                    this.dispatchEvent(new Event('input'));
+                }
+            });
+        }
+        
+        setupAutocomplete('origen', 'origen-dropdown', origenes);
+        setupAutocomplete('destino', 'destino-dropdown', destinos);
+        
+        // Date range picker
+        let selectedDates = [];
+        flatpickr('#fechas', {
+            mode: 'range',
+            dateFormat: 'd/m/Y',
+            minDate: 'today',
+            locale: 'es',
+            disableMobile: 'true',
+            onChange: function(dates) {
+                selectedDates = dates;
+            }
+        });
+        
+        // Passengers selector
+        let passengers = { adults: 1, children: 0, childAges: [] };
+        
+        function updatePassengersText() {
+            const parts = [];
+            if (passengers.adults > 0) {
+                parts.push(`${passengers.adults} adulto${passengers.adults > 1 ? 's' : ''}`);
+            }
+            if (passengers.children > 0) {
+                parts.push(`${passengers.children} niño${passengers.children > 1 ? 's' : ''}`);
+            }
+            document.getElementById('passengers-text').textContent = parts.join(', ');
+        }
+        
+        function updateChildAges() {
+            const container = document.getElementById('children-ages');
+            const selects = document.getElementById('age-selects');
+            
+            if (passengers.children > 0) {
+                container.classList.add('show');
+                selects.innerHTML = '';
+                
+                for (let i = 0; i < passengers.children; i++) {
+                    const currentAge = passengers.childAges[i] || '';
+                    const ageOptions = Array.from({length: 13}, (_, j) => 
+                        `<option value="${j}" ${currentAge === j ? 'selected' : ''}>${j === 0 ? '< 1 año' : j + ' años'}</option>`
+                    ).join('');
+                    
+                    selects.innerHTML += `
+                        <select onchange="passengers.childAges[${i}] = parseInt(this.value)">
+                            <option value="">Edad niño ${i + 1}</option>
+                            ${ageOptions}
+                        </select>
+                    `;
+                }
+                
+                // Initialize ages array if needed
+                while (passengers.childAges.length < passengers.children) {
+                    passengers.childAges.push(null);
+                }
+            } else {
+                container.classList.remove('show');
+            }
+        }
+        
+        function changePassengers(type, delta) {
+            if (type === 'adults') {
+                passengers.adults = Math.max(1, Math.min(9, passengers.adults + delta));
+                document.getElementById('adults-count').textContent = passengers.adults;
+            } else if (type === 'children') {
+                passengers.children = Math.max(0, Math.min(6, passengers.children + delta));
+                document.getElementById('children-count').textContent = passengers.children;
+                updateChildAges();
+            }
+            updatePassengersText();
+        }
+        
+        function closePassengers() {
+            document.getElementById('passengers-dropdown').classList.remove('show');
+        }
+        
+        // Toggle passengers dropdown
+        document.getElementById('passengers-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('passengers-dropdown').classList.toggle('show');
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.passengers-wrapper')) {
+                document.getElementById('passengers-dropdown').classList.remove('show');
+            }
+        });
+        
         // Search form handler
         function setSearchType(type) {
             document.querySelectorAll('.search-tab').forEach(tab => tab.classList.remove('active'));
-            event.target.classList.add('active');
+            event.target.closest('.search-tab').classList.add('active');
         }
         
         function handleSearch(e) {
             e.preventDefault();
             const origen = document.getElementById('origen').value;
             const destino = document.getElementById('destino').value;
-            const fechaSalida = document.getElementById('fecha-salida').value;
-            const pasajeros = document.getElementById('pasajeros').value;
+            const fechas = document.getElementById('fechas').value;
             
-            // Formatear fecha
-            let fechaFormateada = 'Flexible';
-            if (fechaSalida) {
-                const fecha = new Date(fechaSalida);
-                fechaFormateada = fecha.toLocaleDateString('es-ES', { 
-                    weekday: 'long', 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric' 
-                });
+            // Build passengers text
+            let passengersText = `${passengers.adults} adulto${passengers.adults > 1 ? 's' : ''}`;
+            if (passengers.children > 0) {
+                passengersText += `, ${passengers.children} niño${passengers.children > 1 ? 's' : ''}`;
+                if (passengers.childAges.some(a => a !== null)) {
+                    const ages = passengers.childAges.filter(a => a !== null).map(a => a === 0 ? '<1 año' : a + ' años').join(', ');
+                    if (ages) passengersText += ` (${ages})`;
+                }
             }
             
-            const mensaje = `Hola! Busco vuelo:\n\n📍 Origen: ${origen}\n📍 Destino: ${destino}\n📅 Fecha salida: ${fechaFormateada}\n👥 Pasajeros: ${pasajeros}`;
+            // Build message
+            let mensaje = `Hola! Busco vuelo:\n\n`;
+            mensaje += `📍 Origen: ${origen}\n`;
+            mensaje += `📍 Destino: ${destino}\n`;
+            mensaje += `📅 Fechas: ${fechas || 'Flexible'}\n`;
+            mensaje += `👥 Pasajeros: ${passengersText}`;
+            
             const whatsapp = `https://wa.me/34610243061?text=${encodeURIComponent(mensaje)}`;
             window.open(whatsapp, '_blank');
         }
