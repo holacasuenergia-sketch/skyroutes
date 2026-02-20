@@ -343,6 +343,24 @@
             box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
         }
         
+        /* Date input styling */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+            opacity: 0.6;
+        }
+        
+        input[type="date"]::-webkit-calendar-picker-indicator:hover {
+            opacity: 1;
+        }
+        
+        /* Datalist styling */
+        datalist {
+            position: absolute;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        
         .search-btn {
             padding: 16px 32px;
             font-size: 16px;
@@ -876,18 +894,52 @@
                 
                 <form class="search-form" id="search-form" onsubmit="handleSearch(event)">
                     <div class="form-group">
-                        <label class="form-label"> origen</label>
-                        <input type="text" class="form-input" id="origen" placeholder="Lima, Buenos Aires..." required>
+                        <label class="form-label">Origen</label>
+                        <input type="text" class="form-input" id="origen" list="origenes-list" placeholder="Lima, Buenos Aires..." required autocomplete="off">
+                        <datalist id="origenes-list">
+                            <option value="Lima, Perú">
+                            <option value="Buenos Aires, Argentina">
+                            <option value="Ciudad de México, México">
+                            <option value="Bogotá, Colombia">
+                            <option value="Santiago, Chile">
+                            <option value="Quito, Ecuador">
+                            <option value="Caracas, Venezuela">
+                            <option value="São Paulo, Brasil">
+                            <option value="La Paz, Bolivia">
+                            <option value="Montevideo, Uruguay">
+                            <option value="San José, Costa Rica">
+                            <option value="Panamá, Panamá">
+                        </datalist>
                     </div>
                     
                     <div class="form-group">
                         <label class="form-label">Destino</label>
-                        <input type="text" class="form-input" id="destino" placeholder="Madrid, Barcelona, París..." required>
+                        <input type="text" class="form-input" id="destino" list="destinos-list" placeholder="Madrid, Barcelona, París..." required autocomplete="off">
+                        <datalist id="destinos-list">
+                            <option value="Madrid, España">
+                            <option value="Barcelona, España">
+                            <option value="París, Francia">
+                            <option value="Roma, Italia">
+                            <option value="Lisboa, Portugal">
+                            <option value="Londres, Reino Unido">
+                            <option value="Ámsterdam, Países Bajos">
+                            <option value="Berlín, Alemania">
+                            <option value="Praga, República Checa">
+                            <option value="Viena, Austria">
+                            <option value="Venecia, Italia">
+                            <option value="Florencia, Italia">
+                            <option value="Sevilla, España">
+                            <option value="Valencia, España">
+                            <option value="Múnich, Alemania">
+                            <option value="Dublín, Irlanda">
+                            <option value="Bruselas, Bélgica">
+                            <option value="Zúrich, Suiza">
+                        </datalist>
                     </div>
                     
                     <div class="form-group">
-                        <label class="form-label">Fechas</label>
-                        <input type="text" class="form-input" id="fechas" placeholder=" flexible o fecha exacta">
+                        <label class="form-label">Fecha salida</label>
+                        <input type="date" class="form-input" id="fecha-salida" required>
                     </div>
                     
                     <div class="form-group">
@@ -1091,18 +1143,18 @@
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Ciudad de origen</label>
-                                <input type="text" name="origen" class="form-input" placeholder="Lima, Buenos Aires, México...">
+                                <input type="text" name="origen" class="form-input" list="origenes-list" placeholder="Lima, Buenos Aires, México..." autocomplete="off">
                             </div>
                         </div>
                         
                         <div class="form-row">
                             <div class="form-group">
                                 <label class="form-label">Destinos deseados</label>
-                                <input type="text" name="destinos" class="form-input" placeholder="Madrid, París, Roma...">
+                                <input type="text" name="destinos" class="form-input" list="destinos-list" placeholder="Madrid, París, Roma..." autocomplete="off">
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Fecha aproximada</label>
-                                <input type="text" name="fecha" class="form-input" placeholder="Marzo 2025, flexibles...">
+                                <label class="form-label">Fecha de viaje</label>
+                                <input type="date" name="fecha" class="form-input">
                             </div>
                         </div>
                         
@@ -1203,10 +1255,22 @@
             e.preventDefault();
             const origen = document.getElementById('origen').value;
             const destino = document.getElementById('destino').value;
-            const fechas = document.getElementById('fechas').value;
+            const fechaSalida = document.getElementById('fecha-salida').value;
             const pasajeros = document.getElementById('pasajeros').value;
             
-            const mensaje = `Hola! Busco vuelo:\n\n📍 Origen: ${origen}\n📍 Destino: ${destino}\n📅 Fechas: ${fechas || 'Flexible'}\n👥 Pasajeros: ${pasajeros}`;
+            // Formatear fecha
+            let fechaFormateada = 'Flexible';
+            if (fechaSalida) {
+                const fecha = new Date(fechaSalida);
+                fechaFormateada = fecha.toLocaleDateString('es-ES', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+            }
+            
+            const mensaje = `Hola! Busco vuelo:\n\n📍 Origen: ${origen}\n📍 Destino: ${destino}\n📅 Fecha salida: ${fechaFormateada}\n👥 Pasajeros: ${pasajeros}`;
             const whatsapp = `https://wa.me/34610243061?text=${encodeURIComponent(mensaje)}`;
             window.open(whatsapp, '_blank');
         }
