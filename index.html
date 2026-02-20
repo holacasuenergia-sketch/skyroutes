@@ -477,6 +477,8 @@
             right: 0;
             min-width: 360px;
             width: max-content;
+            max-height: 400px;
+            overflow-y: auto;
             background: white;
             border: 2px solid var(--gray-200);
             border-radius: 12px;
@@ -484,8 +486,37 @@
             z-index: 100;
             display: none;
             padding: 16px;
-            overflow: visible;
-            max-height: none;
+        }
+        
+        @media (max-width: 768px) {
+            .passengers-dropdown {
+                min-width: 280px;
+                max-width: 90vw;
+                right: -50%;
+            }
+            
+            .header-container .btn {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+            
+            .header-container {
+                padding: 12px 16px;
+            }
+            
+            .logo-text {
+                font-size: 18px;
+            }
+            
+            .logo-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 16px;
+            }
+            
+            .nav {
+                display: none;
+            }
         }
         
         .passengers-dropdown.show {
