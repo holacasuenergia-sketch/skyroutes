@@ -506,26 +506,29 @@
         
         .passengers-dropdown {
             position: absolute;
-            top: calc(100% + 8px);
-            left: auto;
-            right: 0;
-            min-width: 340px;
-            width: auto;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            min-width: 320px;
             background: white;
             border: 2px solid var(--gray-200);
             border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
             z-index: 1000;
             display: none;
-            padding: 16px;
+            padding: 20px;
+            margin-top: 8px;
         }
         
-        /* Desktop - dropdown con scroll si es necesario */
+        .passengers-dropdown.show {
+            display: block;
+        }
+        
         @media (min-width: 769px) {
-            .passengers-dropdown.show {
-                display: block !important;
-                max-height: 400px;
-                overflow-y: auto;
+            .passengers-dropdown {
+                left: auto;
+                right: 0;
+                transform: none;
             }
         }
         
@@ -1316,7 +1319,7 @@
                             <div class="passenger-row">
                                 <div>
                                     <div class="passenger-label">Niños</div>
-                                    <div class="passenger-info">0-12 años</div>
+                                    <div class="passenger-info">2-12 años</div>
                                 </div>
                                 <div class="passenger-controls">
                                     <button type="button" class="passenger-btn" id="children-minus">−</button>
@@ -1324,11 +1327,13 @@
                                     <button type="button" class="passenger-btn" id="children-plus">+</button>
                                 </div>
                             </div>
-            <div class="children-ages" id="children-ages">
+                            <div class="children-ages" id="children-ages">
                                 <label>Edad de los niños en el viaje</label>
                                 <div class="age-selects" id="age-selects"></div>
                             </div>
-                            <button type="button" class="passengers-done" id="passengers-done-btn">Confirmar</button>
+                            <div class="passengers-done-wrapper">
+                                <button type="button" class="passengers-done" id="passengers-done-btn">Confirmar</button>
+                            </div>
                         </div>
                     </div>
                     
