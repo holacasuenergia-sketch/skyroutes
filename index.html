@@ -1174,9 +1174,9 @@
                                     <div class="passenger-info">13+ años</div>
                                 </div>
                                 <div class="passenger-controls">
-                                    <button type="button" class="passenger-btn" onclick="changePassengers('adults', -1)">−</button>
+                                    <button type="button" class="passenger-btn" onclick="event.stopPropagation(); changePassengers('adults', -1)">−</button>
                                     <span class="passenger-count" id="adults-count">1</span>
-                                    <button type="button" class="passenger-btn" onclick="changePassengers('adults', 1)">+</button>
+                                    <button type="button" class="passenger-btn" onclick="event.stopPropagation(); changePassengers('adults', 1)">+</button>
                                 </div>
                             </div>
                             <div class="passenger-row">
@@ -1185,16 +1185,16 @@
                                     <div class="passenger-info">0-12 años</div>
                                 </div>
                                 <div class="passenger-controls">
-                                    <button type="button" class="passenger-btn" onclick="changePassengers('children', -1)">−</button>
+                                    <button type="button" class="passenger-btn" onclick="event.stopPropagation(); changePassengers('children', -1)">−</button>
                                     <span class="passenger-count" id="children-count">0</span>
-                                    <button type="button" class="passenger-btn" onclick="changePassengers('children', 1)">+</button>
+                                    <button type="button" class="passenger-btn" onclick="event.stopPropagation(); changePassengers('children', 1)">+</button>
                                 </div>
                             </div>
                             <div class="children-ages" id="children-ages">
                                 <label>Edad de los niños</label>
                                 <div class="age-selects" id="age-selects"></div>
                             </div>
-                            <button type="button" class="passengers-done" onclick="closePassengers()">Confirmar</button>
+                            <button type="button" class="passengers-done" onclick="event.stopPropagation(); closePassengers()">Confirmar</button>
                         </div>
                     </div>
                     
@@ -1640,17 +1640,18 @@
                 selects.innerHTML = '';
                 
                 for (let i = 0; i < passengers.children; i++) {
-                    const currentAge = passengers.childAges[i] || '';
+                    const currentAge = passengers.childAges[i] !== undefined ? passengers.childAges[i] : '';
                     const ageOptions = Array.from({length: 13}, (_, j) => 
                         `<option value="${j}" ${currentAge === j ? 'selected' : ''}>${j === 0 ? '< 1 año' : j + ' años'}</option>`
                     ).join('');
                     
-                    selects.innerHTML += `
-                        <select onchange="passengers.childAges[${i}] = parseInt(this.value)">
-                            <option value="">Edad niño ${i + 1}</option>
-                            ${ageOptions}
-                        </select>
-                    `;
+                    const selectEl = document.createElement('select');
+                    selectEl.innerHTML = `<option value="">Edad niño ${i + 1}</option>${ageOptions}`;
+                    selectEl.onclick = (e) => e.stopPropagation();
+                    selectEl.onchange = function() {
+                        passengers.childAges[i] = this.value ? parseInt(this.value) : null;
+                    };
+                    selects.appendChild(selectEl);
                 }
                 
                 // Initialize ages array if needed
@@ -1659,6 +1660,7 @@
                 }
             } else {
                 container.classList.remove('show');
+                passengers.childAges = [];
             }
         }
         
