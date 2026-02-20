@@ -477,8 +477,6 @@
             right: 0;
             min-width: 360px;
             width: max-content;
-            max-height: 400px;
-            overflow-y: auto;
             background: white;
             border: 2px solid var(--gray-200);
             border-radius: 12px;
@@ -492,29 +490,39 @@
             .passengers-dropdown {
                 min-width: 280px;
                 max-width: 90vw;
-                right: -50%;
+                max-height: 350px;
+                overflow-y: auto;
+                right: -20%;
             }
             
-            .header-container .btn {
-                padding: 8px 12px;
-                font-size: 12px;
+            .header-container .btn-primary {
+                padding: 8px 14px;
+                font-size: 13px;
             }
             
             .header-container {
-                padding: 12px 16px;
+                padding: 10px 12px;
             }
             
             .logo-text {
-                font-size: 18px;
+                font-size: 16px !important;
             }
             
             .logo-icon {
-                width: 32px;
-                height: 32px;
-                font-size: 16px;
+                width: 28px !important;
+                height: 28px !important;
+            }
+            
+            .logo-icon svg {
+                width: 16px !important;
+                height: 16px !important;
             }
             
             .nav {
+                display: none;
+            }
+            
+            .header-container .btn-primary .icon {
                 display: none;
             }
         }
