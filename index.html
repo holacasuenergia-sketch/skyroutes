@@ -515,19 +515,17 @@
             border: 2px solid var(--gray-200);
             border-radius: 12px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-            z-index: 100;
+            z-index: 1000;
             display: none;
             padding: 16px;
         }
         
-        /* Desktop - always show full dropdown */
+        /* Desktop - dropdown con scroll si es necesario */
         @media (min-width: 769px) {
-            .passengers-dropdown {
-                position: absolute !important;
-                max-height: none !important;
-                overflow: visible !important;
-                width: auto !important;
-                min-width: 340px !important;
+            .passengers-dropdown.show {
+                display: block !important;
+                max-height: 400px;
+                overflow-y: auto;
             }
         }
         
