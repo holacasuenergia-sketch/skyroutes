@@ -1185,9 +1185,9 @@
                                     <div class="passenger-info">13+ años</div>
                                 </div>
                                 <div class="passenger-controls">
-                                    <button type="button" class="passenger-btn" onclick="event.stopPropagation(); changePassengers('adults', -1)">−</button>
+                                    <button type="button" class="passenger-btn" id="adults-minus">−</button>
                                     <span class="passenger-count" id="adults-count">1</span>
-                                    <button type="button" class="passenger-btn" onclick="event.stopPropagation(); changePassengers('adults', 1)">+</button>
+                                    <button type="button" class="passenger-btn" id="adults-plus">+</button>
                                 </div>
                             </div>
                             <div class="passenger-row">
@@ -1196,16 +1196,16 @@
                                     <div class="passenger-info">0-12 años</div>
                                 </div>
                                 <div class="passenger-controls">
-                                    <button type="button" class="passenger-btn" onclick="event.stopPropagation(); changePassengers('children', -1)">−</button>
+                                    <button type="button" class="passenger-btn" id="children-minus">−</button>
                                     <span class="passenger-count" id="children-count">0</span>
-                                    <button type="button" class="passenger-btn" onclick="event.stopPropagation(); changePassengers('children', 1)">+</button>
+                                    <button type="button" class="passenger-btn" id="children-plus">+</button>
                                 </div>
                             </div>
                             <div class="children-ages" id="children-ages">
-                                <label>Edad de los niños</label>
+                                <label>Edad de los niños en el viaje</label>
                                 <div class="age-selects" id="age-selects"></div>
                             </div>
-                            <button type="button" class="passengers-done" onclick="event.stopPropagation(); closePassengers()">Confirmar</button>
+                            <button type="button" class="passengers-done" id="passengers-done-btn">Confirmar</button>
                         </div>
                     </div>
                     
@@ -1629,75 +1629,101 @@
         });
         
         // Passengers selector
-        let passengers = { adults: 1, children: 0, childAges: [] };
+        const passengers = { adults: 1, children: 0, childAges: [] };
         
-        function updatePassengersText() {
-            const parts = [];
-            if (passengers.adults > 0) {
-                parts.push(`${passengers.adults} adulto${passengers.adults > 1 ? 's' : ''}`);
-            }
-            if (passengers.children > 0) {
-                parts.push(`${passengers.children} niño${passengers.children > 1 ? 's' : ''}`);
-            }
-            document.getElementById('passengers-text').textContent = parts.join(', ');
-        }
-        
-        function updateChildAges() {
-            const container = document.getElementById('children-ages');
-            const selects = document.getElementById('age-selects');
+        function renderChildAges() {
+            const section = document.getElementById('children-ages');
+            const container = document.getElementById('age-selects');
+            
+            console.log('renderChildAges called, children:', passengers.children);
             
             if (passengers.children > 0) {
-                container.classList.add('show');
-                selects.innerHTML = '';
+                section.style.display = 'block';
+                container.innerHTML = '';
                 
                 for (let i = 0; i < passengers.children; i++) {
-                    const currentAge = passengers.childAges[i] !== undefined ? passengers.childAges[i] : '';
-                    const ageOptions = Array.from({length: 13}, (_, j) => 
-                        `<option value="${j}" ${currentAge === j ? 'selected' : ''}>${j === 0 ? '< 1 año' : j + ' años'}</option>`
-                    ).join('');
+                    const wrapper = document.createElement('div');
+                    wrapper.style.cssText = 'display: flex; flex-direction: column; gap: 4px;';
                     
-                    const selectEl = document.createElement('select');
-                    selectEl.innerHTML = `<option value="">Edad niño ${i + 1}</option>${ageOptions}`;
-                    selectEl.onclick = (e) => e.stopPropagation();
-                    selectEl.onchange = function() {
+                    const label = document.createElement('span');
+                    label.textContent = `Niño ${i + 1}`;
+                    label.style.cssText = 'font-size: 12px; color: #64748B;';
+                    
+                    const select = document.createElement('select');
+                    select.style.cssText = 'width: 100%; padding: 10px 12px; border: 2px solid #E2E8F0; border-radius: 8px; font-size: 14px; background: white; cursor: pointer;';
+                    select.innerHTML = `
+                        <option value="">Seleccionar edad</option>
+                        <option value="0">&lt; 1 año</option>
+                        ${[1,2,3,4,5,6,7,8,9,10,11,12].map(age => `<option value="${age}">${age} años</option>`).join('')}
+                    `;
+                    if (passengers.childAges[i] !== undefined && passengers.childAges[i] !== null) {
+                        select.value = passengers.childAges[i];
+                    }
+                    select.addEventListener('change', function() {
                         passengers.childAges[i] = this.value ? parseInt(this.value) : null;
-                    };
-                    selects.appendChild(selectEl);
-                }
-                
-                // Initialize ages array if needed
-                while (passengers.childAges.length < passengers.children) {
-                    passengers.childAges.push(null);
+                    });
+                    
+                    wrapper.appendChild(label);
+                    wrapper.appendChild(select);
+                    container.appendChild(wrapper);
                 }
             } else {
-                container.classList.remove('show');
-                passengers.childAges = [];
+                section.style.display = 'none';
+                container.innerHTML = '';
             }
         }
         
-        function changePassengers(type, delta) {
-            if (type === 'adults') {
-                passengers.adults = Math.max(1, Math.min(9, passengers.adults + delta));
-                document.getElementById('adults-count').textContent = passengers.adults;
-            } else if (type === 'children') {
-                passengers.children = Math.max(0, Math.min(6, passengers.children + delta));
-                document.getElementById('children-count').textContent = passengers.children;
-                updateChildAges();
+        function updatePassengersDisplay() {
+            document.getElementById('adults-count').textContent = passengers.adults;
+            document.getElementById('children-count').textContent = passengers.children;
+            
+            let text = `${passengers.adults} adulto${passengers.adults > 1 ? 's' : ''}`;
+            if (passengers.children > 0) {
+                text += `, ${passengers.children} niño${passengers.children > 1 ? 's' : ''}`;
             }
-            updatePassengersText();
+            document.getElementById('passengers-text').textContent = text;
+            
+            renderChildAges();
         }
         
-        function closePassengers() {
-            document.getElementById('passengers-dropdown').classList.remove('show');
-        }
-        
-        // Toggle passengers dropdown
+        // Initialize passengers dropdown
         document.getElementById('passengers-btn').addEventListener('click', function(e) {
             e.preventDefault();
+            e.stopPropagation();
             document.getElementById('passengers-dropdown').classList.toggle('show');
         });
         
-        // Close dropdown when clicking outside
+        document.querySelectorAll('.passengers-wrapper .passenger-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const adultsMinus = this.id === 'adults-minus';
+                const adultsPlus = this.id === 'adults-plus';
+                const childrenMinus = this.id === 'children-minus';
+                const childrenPlus = this.id === 'children-plus';
+                
+                if (adultsMinus && passengers.adults > 1) {
+                    passengers.adults--;
+                } else if (adultsPlus && passengers.adults < 9) {
+                    passengers.adults++;
+                } else if (childrenMinus && passengers.children > 0) {
+                    passengers.children--;
+                    passengers.childAges.splice(passengers.children, 1);
+                } else if (childrenPlus && passengers.children < 6) {
+                    passengers.children++;
+                    passengers.childAges.push(null);
+                }
+                
+                updatePassengersDisplay();
+            });
+        });
+        
+        document.getElementById('passengers-done-btn').addEventListener('click', function(e) {
+            e.stopPropagation();
+            document.getElementById('passengers-dropdown').classList.remove('show');
+        });
+        
         document.addEventListener('click', function(e) {
             if (!e.target.closest('.passengers-wrapper')) {
                 document.getElementById('passengers-dropdown').classList.remove('show');
