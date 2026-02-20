@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkyRoutes - Vuelos Latinoamérica ↔ Europa | Paquetes Eurotrip</title>
-    <meta name="description" content="Encuentra los mejores vuelos de Latinoamérica a Europa. Paquetes Eurotrip, hoteles y tours al mejor precio. Reserva online con SkyRoutes.">
-    <meta name="keywords" content="vuelos españa, vuelos europa, eurotrip, viajes latinoamerica europa, paquetes turisticos europa">
+    <title>SkyRoutes - Vuelos Latinoamérica ↔ Europa | Mejores Precios</title>
+    <meta name="description" content="Encuentra los mejores vuelos de Latinoamérica a Europa. Precios competitivos, atención personalizada y soporte 24/7. Reserva tu vuelo con SkyRoutes.">
+    <meta name="keywords" content="vuelos españa, vuelos europa, vuelos latinoamerica europa, boletos avion, ofertas vuelos, vuelos baratos europa">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230EA5E9' stroke-width='2'><path d='M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z'/></svg>">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -284,31 +284,14 @@
             overflow: visible;
         }
         
-        .search-tabs {
+        .search-title {
             display: flex;
-            gap: 8px;
-            margin-bottom: 24px;
-        }
-        
-        .search-tab {
-            padding: 12px 24px;
-            background: var(--gray-100);
-            border: none;
-            border-radius: 10px;
-            font-size: 15px;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
             font-weight: 600;
-            color: var(--gray-500);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .search-tab.active {
-            background: var(--primary);
-            color: white;
-        }
-        
-        .search-tab:hover:not(.active) {
-            background: var(--gray-200);
+            color: var(--primary);
+            margin-bottom: 20px;
         }
         
         .search-form {
@@ -1207,7 +1190,7 @@
             
             <nav class="nav">
                 <a href="#vuelos">Vuelos</a>
-                <a href="#paquetes">Paquetes</a>
+                <a href="#destinos">Destinos</a>
                 <a href="#cotizacion">Cotización</a>
                 <a href="#contacto">Contacto</a>
             </nav>
@@ -1231,26 +1214,19 @@
             </div>
             
             <h1 class="hero-title">
-                Tu viaje a Europa<br>
-                <span>comienza aquí</span>
+                Vuelos a Europa<br>
+                <span>al mejor precio</span>
             </h1>
             
             <p class="hero-subtitle">
-                Vuelos al mejor precio desde Latinoamérica. Paquetes Eurotrip, hoteles y tours personalizados. Reserva con confianza.
+                Encuentra vuelos desde Latinoamérica a España y toda Europa. Precios competitivos, atención personalizada y soporte 24/7.
             </p>
             
             <!-- Search Box -->
             <div class="search-box">
-                <div class="search-tabs">
-                    <button class="search-tab active" onclick="setSearchType('vuelos')">
-                        <span class="icon icon-20"><svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></span> Vuelos
-                    </button>
-                    <button class="search-tab" onclick="setSearchType('paquetes')">
-                        <span class="icon icon-20"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></span> Paquetes
-                    </button>
-                    <button class="search-tab" onclick="setSearchType('hoteles')">
-                        <span class="icon icon-20"><svg viewBox="0 0 24 24"><path d="M3 21h18M3 10h18M3 7l9-4 9 4M4 10v11M20 10v11M8 14v.01M12 14v.01M16 14v.01M8 18v.01M12 18v.01M16 18v.01"/></svg></span> Hoteles
-                    </button>
+                <div class="search-title">
+                    <span class="icon icon-24"><svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></span>
+                    Buscar Vuelos
                 </div>
                 
                 <form class="search-form" id="search-form" onsubmit="handleSearch(event)">
@@ -1320,7 +1296,7 @@
             <!-- Stats -->
             <div class="stats">
                 <div class="stat">
-                    <div class="stat-value">15+</div>
+                    <div class="stat-value">50+</div>
                     <div class="stat-label">Destinos en Europa</div>
                 </div>
                 <div class="stat">
@@ -1328,112 +1304,103 @@
                     <div class="stat-label">Clientes satisfechos</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-value">€150</div>
+                    <div class="stat-value">€200</div>
                     <div class="stat-label">Ahorro promedio</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-value">24h</div>
-                    <div class="stat-label">Respuesta</div>
+                    <div class="stat-value">24/7</div>
+                    <div class="stat-label">Soporte</div>
                 </div>
             </div>
         </div>
     </section>
     
-    <!-- Packages Section -->
-    <section class="section" id="paquetes">
+    <!-- Destinations Section -->
+    <section class="section" id="destinos">
         <div class="section-container">
             <div class="section-header">
                 <div class="section-badge">
-                    <span class="icon icon-16"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
-                    Lo más vendido
+                    <span class="icon icon-16"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+                    Destinos populares
                 </div>
-                <h2 class="section-title">Paquetes Eurotrip</h2>
-                <p class="section-subtitle">Todo incluido: vuelos, hoteles, transfers y tours. Elige tu aventura.</p>
+                <h2 class="section-title">Vuelos a Europa</h2>
+                <p class="section-subtitle">Los destinos más solicitados desde Latinoamérica</p>
             </div>
             
             <div class="packages-grid">
-                <!-- Package 1 -->
+                <!-- Destination 1 -->
                 <div class="package-card">
                     <div class="package-image" style="background-image: url('https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=600')">
-                        <span class="package-badge">🔥 Más vendido</span>
+                        <span class="package-badge">🇪🇸 España</span>
                     </div>
                     <div class="package-content">
-                        <h3 class="package-title">Eurotrip Clásico</h3>
+                        <h3 class="package-title">Madrid - Barcelona</h3>
                         <div class="package-info">
-                            <span><span class="icon icon-16"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span> 15 días</span>
-                            <span><span class="icon icon-16"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span> 4 países</span>
-                            <span><span class="icon icon-16"><svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></span> Vuelos incluidos</span>
+                            <span>Vuelos directos desde Latinoamérica</span>
                         </div>
                         <div class="package-price">
-                            <span class="package-price-value">€1.899</span>
-                            <span class="package-price-note">por persona</span>
+                            <span class="package-price-value">Desde €599</span>
+                            <span class="package-price-note">ida y vuelta</span>
                         </div>
                         <ul class="package-features">
-                            <li><span class="check"><span class="icon icon-16"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></span> Madrid - Barcelona - París - Roma</li>
-                            <li><span class="check"><span class="icon icon-16"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></span> Hoteles 4★ céntricos</li>
-                            <li><span class="check"><span class="icon icon-16"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></span> Desayuno incluido</li>
-                            <li><span class="check"><span class="icon icon-16"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></span> Tours guiados</li>
-                            <li><span class="check"><span class="icon icon-16"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></span> Traslados aeropuerto</li>
+                            <li><span class="check"><span class="icon icon-16"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></span> Madrid, Barcelona, Sevilla, Valencia</li>
+                            <li><span class="check"><span class="icon icon-16"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></span> Vuelos desde México, Colombia, Argentina</li>
+                            <li><span class="check"><span class="icon icon-16"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></span> Aerolíneas: Iberia, Air Europa, Avianca</li>
+                            <li><span class="check"><span class="icon icon-16"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></span> Mejores precios garantizados</li>
                         </ul>
-                        <a href="#cotizacion" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                        <a href="https://wa.me/34610243061?text=Hola!%20Quiero%20cotizar%20un%20vuelo%20a%20Espa%C3%B1a" class="btn btn-primary" style="width: 100%; justify-content: center;" target="_blank">
                             Solicitar cotización
                         </a>
                     </div>
                 </div>
                 
-                <!-- Package 2 -->
+                <!-- Destination 2 -->
                 <div class="package-card">
                     <div class="package-image" style="background-image: url('https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=600')">
-                        <span class="package-badge">❤️ Romántico</span>
+                        <span class="package-badge">🇫🇷 Francia</span>
                     </div>
                     <div class="package-content">
-                        <h3 class="package-title">París + Barcelona</h3>
+                        <h3 class="package-title">París</h3>
                         <div class="package-info">
-                            <span><span class="icon icon-16"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span> 10 días</span>
-                            <span><span class="icon icon-16"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span> 2 países</span>
-                            <span><span class="icon icon-16"><svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></span> Vuelos incluidos</span>
+                            <span>La ciudad del amor</span>
                         </div>
                         <div class="package-price">
-                            <span class="package-price-value">€1.299</span>
-                            <span class="package-price-note">por persona</span>
+                            <span class="package-price-value">Desde €699</span>
+                            <span class="package-price-note">ida y vuelta</span>
                         </div>
                         <ul class="package-features">
-                            <li><span class="check"><span class="icon icon-16"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></span> París - Torre Eiffel - Louvre</li>
-                            <li><span class="check"><span class="icon icon-16"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></span> Barcelona - Sagrada Familia</li>
-                            <li><span class="check"><span class="icon icon-16"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></span> Hoteles boutique 4★</li>
-                            <li><span class="check"><span class="icon icon-16"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></span> Cena romántica incluida</li>
-                            <li><span class="check"><span class="icon icon-16"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></span> Traslados privados</li>
+                            <li><span class="check"><span class="icon icon-16"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></span> Vuelos a París CDG y Orly</li>
+                            <li><span class="check"><span class="icon icon-16"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></span> Conexiones desde España</li>
+                            <li><span class="check"><span class="icon icon-16"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></span> Air France, Vueling, Transavia</li>
+                            <li><span class="check"><span class="icon icon-16"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></span> Escapadas de fin de semana</li>
                         </ul>
-                        <a href="#cotizacion" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                        <a href="https://wa.me/34610243061?text=Hola!%20Quiero%20cotizar%20un%20vuelo%20a%20Par%C3%ADs" class="btn btn-primary" style="width: 100%; justify-content: center;" target="_blank">
                             Solicitar cotización
                         </a>
                     </div>
                 </div>
                 
-                <!-- Package 3 -->
+                <!-- Destination 3 -->
                 <div class="package-card">
                     <div class="package-image" style="background-image: url('https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?w=600')">
-                        <span class="package-badge">⭐ Premium</span>
+                        <span class="package-badge">🇮🇹 Italia</span>
                     </div>
                     <div class="package-content">
-                        <h3 class="package-title">España Completa</h3>
+                        <h3 class="package-title">Roma - Milán</h3>
                         <div class="package-info">
-                            <span><span class="icon icon-16"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span> 12 días</span>
-                            <span><span class="icon icon-16"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span> España</span>
-                            <span><span class="icon icon-16"><svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></span> Vuelos incluidos</span>
+                            <span>Arte, historia y gastronomía</span>
                         </div>
                         <div class="package-price">
-                            <span class="package-price-value">€1.599</span>
-                            <span class="package-price-note">por persona</span>
+                            <span class="package-price-value">Desde €649</span>
+                            <span class="package-price-note">ida y vuelta</span>
                         </div>
                         <ul class="package-features">
-                            <li><span class="check"><span class="icon icon-16"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></span> Madrid - Sevilla - Granada - Barcelona</li>
-                            <li><span class="check"><span class="icon icon-16"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></span> Hoteles 4★ y 5★</li>
-                            <li><span class="check"><span class="icon icon-16"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></span> Alhambra y Sagrada Familia</li>
-                            <li><span class="check"><span class="icon icon-16"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></span> Show de flamenco</li>
-                            <li><span class="check"><span class="icon icon-16"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></span> Gastronomía local</li>
+                            <li><span class="check"><span class="icon icon-16"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></span> Roma, Milán, Venecia, Florencia</li>
+                            <li><span class="check"><span class="icon icon-16"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></span> ITA Airways, Ryanair, Vueling</li>
+                            <li><span class="check"><span class="icon icon-16"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></span> Vuelos con escala en Madrid</li>
+                            <li><span class="check"><span class="icon icon-16"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></span> Descuentos en temporada baja</li>
                         </ul>
-                        <a href="#cotizacion" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                        <a href="https://wa.me/34610243061?text=Hola!%20Quiero%20cotizar%20un%20vuelo%20a%20Italia" class="btn btn-primary" style="width: 100%; justify-content: center;" target="_blank">
                             Solicitar cotización
                         </a>
                     </div>
@@ -1447,8 +1414,8 @@
         <div class="section-container">
             <div class="quote-grid">
                 <div class="quote-content">
-                    <h2>Cotización personalizada</h2>
-                    <p>No encuentras lo que buscas? cuéntanos tu viaje ideal y te preparamos una propuesta a medida.</p>
+                    <h2>Cotización de vuelos</h2>
+                    <p>No encuentras el vuelo que buscas? Cuéntanos tu itinerario y te enviamos las mejores opciones.</p>
                     
                     <div class="quote-features">
                         <div class="quote-feature">
@@ -1461,15 +1428,15 @@
                         </div>
                         <div class="quote-feature">
                             <span class="icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-                            <span>Precios con descuento por reserva anticipada</span>
+                            <span>Comparación de aerolíneas</span>
                         </div>
                         <div class="quote-feature">
                             <span class="icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-                            <span>Asesoría personalizada de destinos</span>
+                            <span>Asesoría de rutas y escalas</span>
                         </div>
                     </div>
                     
-                    <a href="https://wa.me/34610243061?text=Hola!%20Quiero%20cotizar%20un%20viaje%20a%20Europa" class="btn btn-secondary" target="_blank">
+                    <a href="https://wa.me/34610243061?text=Hola!%20Quiero%20cotizar%20un%20vuelo%20a%20Europa" class="btn btn-secondary" target="_blank">
                         <span class="icon icon-20"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span>
                         WhatsApp directo
                     </a>
@@ -1543,8 +1510,8 @@
                     <div class="logo-text">Sky<span>Routes</span></div>
                 </a>
                 <p class="footer-desc">
-                    Tu agencia de viajes de confianza para volar de Latinoamérica a Europa. 
-                    Vuelos, paquetes y experiencias al mejor precio.
+                    Tu agencia de confianza para volar de Latinoamérica a Europa. 
+                    Los mejores precios en vuelos con atención personalizada.
                 </p>
                 <div class="footer-social">
                     <a href="#" title="Facebook"><svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
