@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SkyRoutes - Panel de Pagos</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { font-family: 'Inter', sans-serif; }
@@ -40,9 +41,6 @@
                 <div id="login-error" class="hidden mt-4 bg-red-900/50 border border-red-700 text-red-300 px-4 py-2 rounded-lg text-sm">
                     Contraseña incorrecta
                 </div>
-                <button type="button" onclick="logout()" class="w-full mt-3 bg-gray-700 hover:bg-gray-600 text-gray-300 py-2 rounded-lg text-sm">
-                    Cerrar sesión
-                </button>
             </form>
         </div>
 
@@ -118,139 +116,139 @@
             showMainScreen();
         }
 
-        // Login form
-        document.getElementById('login-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const password = document.getElementById('password').value;
+    // Login form
+    document.getElementById('login-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const password = document.getElementById('password').value;
 
-            showLoading(true);
-            try {
-                const response = await fetch(`${API_URL}/admin/login`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ password })
-                });
+        showLoading(true);
+        try {
+            const response = await fetch(`${API_URL}/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password })
+            });
 
-                const data = await response.json();
+            const data = await response.json();
 
-                if (data.success) {
-                    authToken = data.token;
-                    localStorage.setItem('skyRoutesAuthToken', authToken);
-                    showMainScreen();
-                } else {
-                    document.getElementById('login-error').classList.remove('hidden');
-                }
-            } catch (error) {
-                console.error('Login error:', error);
+            if (data.success) {
+                authToken = data.token;
+                localStorage.setItem('skyRoutesAuthToken', authToken);
+                showMainScreen();
+            } else {
                 document.getElementById('login-error').classList.remove('hidden');
             }
-            showLoading(false);
-        });
+        } catch (error) {
+            console.error('Login error:', error);
+            document.getElementById('login-error').classList.remove('hidden');
+        }
+        showLoading(false);
+    });
 
-        // Payment form
-        document.getElementById('payment-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
+    // Payment form
+    document.getElementById('payment-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
 
-            const customer = document.getElementById('customer').value;
-            const email = document.getElementById('email').value;
-            const concept = document.getElementById('concept').value;
-            const amount = parseFloat(document.getElementById('amount').value);
+        const customer = document.getElementById('customer').value;
+        const email = document.getElementById('email').value;
+        const concept = document.getElementById('concept').value;
+        const amount = parseFloat(document.getElementById('amount').value);
 
-            showLoading(true);
-            document.getElementById('submit-btn').disabled = true;
+        showLoading(true);
+        document.getElementById('submit-btn').disabled = true;
 
-            try {
-                const response = await fetch(`${API_URL}/payment/create`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${authToken}`
-                    },
-                    body: JSON.stringify({ customer, email, amount, concept })
-                });
+        try {
+            const response = await fetch(`${API_URL}/payment`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${authToken}`
+                },
+                body: JSON.stringify({ customer, email, amount, concept })
+            });
 
-                const data = await response.json();
+            const data = await response.json();
 
-                if (data.success) {
-                    showResult(data);
-                } else {
-                    alert('Error: ' + (data.error || 'Error al generar link'));
-                }
-            } catch (error) {
-                console.error('Payment error:', error);
-                alert('Error de conexión al servidor');
+            if (data.success) {
+                showResult(data);
+            } else {
+                alert('Error: ' + (data.error || 'Error al generar link'));
             }
+        } catch (error) {
+            console.error('Payment error:', error);
+            alert('Error de conexión al servidor');
+        }
 
-            showLoading(false);
-            document.getElementById('submit-btn').disabled = false;
+        showLoading(false);
+        document.getElementById('submit-btn').disabled = false;
+    });
+
+    function showMainScreen() {
+        document.getElementById('login-screen').classList.add('hidden');
+        document.getElementById('main-screen').classList.remove('hidden');
+    }
+
+    function showLoginScreen() {
+        document.getElementById('main-screen').classList.add('hidden');
+        document.getElementById('login-screen').classList.remove('hidden');
+    }
+
+    function showResult(data) {
+        const expires = new Date(data.expiresAt).toLocaleString('es-ES', {
+            day: '2-digit',
+            month: 'short',
+            hour: '2-digit',
+            minute: '2-digit'
         });
 
-        function showMainScreen() {
-            document.getElementById('login-screen').classList.add('hidden');
-            document.getElementById('main-screen').classList.remove('hidden');
-        }
+        const whatsappText = encodeURIComponent(
+            `Hola ${document.getElementById('customer').value}. Tu link de pago para "${document.getElementById('concept').value}" (€${document.getElementById('amount').value}):\n\n${data.url}\n\nEl link expira el ${expires}.`
+        );
 
-        function showLoginScreen() {
-            document.getElementById('main-screen').classList.add('hidden');
-            document.getElementById('login-screen').classList.remove('hidden');
-        }
-
-        function showResult(data) {
-            const expires = new Date(data.expiresAt).toLocaleString('es-ES', {
-                day: '2-digit',
-                month: 'short',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-
-            const whatsappText = encodeURIComponent(
-                `Hola ${document.getElementById('customer').value}. Tu link de pago para "${document.getElementById('concept').value}" (€${document.getElementById('amount').value}):\n\n${data.url}\n\nEl link expira el ${expires}.`
-            );
-
-            const resultDiv = document.getElementById('result');
-            resultDiv.innerHTML = `
-                <div class="bg-green-900/30 border border-green-700 rounded-lg p-6">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-green-600 p-2 rounded-full mr-3">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-lg font-semibold text-green-400)">✅ Listo!</h3>
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `
+            <div class="bg-green-900/30 border border-green-700 rounded-lg p-6">
+                <div class="flex items-center mb-4">
+                    <div class="bg-green-600 p-2 rounded-full mr-3">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
                     </div>
-                    <p class="text-gray-300 mb-4">El link de pago ha sido generado con éxito.</p>
-                    <div class="bg-gray-900 rounded p-3 mb-4 text-xs text-gray-400 break-all">
-                        ${data.url}
-                    </div>
-                    <p class="text-sm text-gray-500 mb-4">Expira: ${expires}</p>
-                    <button onclick="copyLink('${data.url}')" class="w-full mb-2 bg-gray-700 hover:bg-gray-600 text-white py-2 rounded-lg text-sm">
-                        📋 Copiar link
-                    </button>
-                    <a href="https://wa.me/34610243061?text=${whatsappText}" target="_blank" class="block w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg text-center font-semibold transition">
-                        📱 Enviar por WhatsApp
-                    </a>
+                    <h3 class="text-lg font-semibold text-green-400">✅ Listo!</h3>
                 </div>
-            `;
-            resultDiv.classList.remove('hidden');
-        }
+                <p class="text-gray-300 mb-4">El link de pago ha sido generado con éxito.</p>
+                <div class="bg-gray-900 rounded p-3 mb-4 text-xs text-gray-400 break-all">
+                    ${data.url}
+                </div>
+                <p class="text-sm text-gray-500 mb-4">Expira: ${expires}</p>
+                <button onclick="copyLink('${data.url}')" class="w-full mb-2 bg-gray-700 hover:bg-gray-600 text-white py-2 rounded-lg text-sm">
+                    📋 Copiar link
+                </button>
+                <a href="https://wa.me/34610243061?text=${whatsappText}" target="_blank" class="block w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg text-center font-semibold transition">
+                    📱 Enviar por WhatsApp
+                </a>
+            </div>
+        `;
+        resultDiv.classList.remove('hidden');
+    }
 
-        function copyLink(url) {
-            navigator.clipboard.writeText(url).then(() => {
-                alert('Link copiado al portapapeles');
-            });
-        }
+    function copyLink(url) {
+        navigator.clipboard.writeText(url).then(() => {
+            alert('Link copiado al portapapeles');
+        });
+    }
 
-        function logout() {
-            localStorage.removeItem('skyRoutesAuthToken');
-            authToken = null;
-            document.getElementById('password').value = '';
-            document.getElementById('result').classList.add('hidden');
-            showLoginScreen();
-        }
+    function logout() {
+        localStorage.removeItem('skyRoutesAuthToken');
+        authToken = null;
+        document.getElementById('password').value = '';
+        document.getElementById('result').classList.add('hidden');
+        showLoginScreen();
+    }
 
-        function showLoading(show) {
-            document.getElementById('loading').classList.toggle('hidden', !show);
-        }
-    </script>
+    function showLoading(show) {
+        document.getElementById('loading').classList.toggle('hidden', !show);
+    }
+</script>
 </body>
 </html>
