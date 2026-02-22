@@ -4,9 +4,7 @@
   "description": "SkyRoutes Payment Dashboard - PayPal, Ría, Western Union",
   "main": "index.js",
   "scripts": {
-    "dev": "vercel dev",
-    "build": "vercel build",
-    "deploy": "vercel --prod"
+    "dev": "vercel dev"
   },
   "dependencies": {
     "jsonwebtoken": "^9.0.2"
