@@ -102,7 +102,7 @@ export default async function handler(req, res) {
 
   const PAYPAL_CLIENT_ID = process.env.PAYPAL_CLIENT_ID;
   const PAYPAL_CLIENT_SECRET = process.env.PAYPAL_CLIENT_SECRET;
-  const PAYPAL_MODE = process.env.PAYPAL_MODE || 'live';
+  const PAYPAL_MODE = process.env.PAYPAL_MODE || 'sandbox';
 
   if (!PAYPAL_CLIENT_ID || !PAYPAL_CLIENT_SECRET) {
     return res.status(500).json({ error: 'PayPal not configured - PAYPAL_CLIENT_ID/SECRET missing' });
@@ -123,8 +123,9 @@ export default async function handler(req, res) {
     }
 
     // PayPal Order
-    const successUrl = `${process.env.NEXT_PUBLIC_URL || 'https://skyroutes-one.vercel.app'}/success?payment_id={payment_id}`;
-    const cancelUrl = `${process.env.NEXT_PUBLIC_URL || 'https://skyroutes-one.vercel.app'}/cancel?payment_id={payment_id}`;
+    const baseUrl = process.env.NEXT_PUBLIC_URL?.replace(/\/$/, '') || 'https://skyroutes-one.vercel.app';
+    const successUrl = `${baseUrl}/success?payment_id={payment_id}`;
+    const cancelUrl = `${baseUrl}/cancel?payment_id={payment_id}`;
 
     const orderData = {
       intent: 'CAPTURE',
