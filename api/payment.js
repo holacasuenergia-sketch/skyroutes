@@ -104,7 +104,11 @@ export default async function handler(req, res) {
 
   const PAYPAL_CLIENT_ID = process.env.PAYPAL_CLIENT_ID;
   const PAYPAL_CLIENT_SECRET = process.env.PAYPAL_CLIENT_SECRET;
-  const PAYPAL_MODE = process.env.PAYPAL_MODE || 'sandbox';
+  const PAYPAL_MODE = (process.env.PAYPAL_MODE || 'sandbox').trim();
+  
+  // Debug log (remove in production)
+  console.log('PAYPAL_MODE:', PAYPAL_MODE);
+  console.log('PAYPAL_CLIENT_ID:', PAYPAL_CLIENT_ID ? `${PAYPAL_CLIENT_ID.substring(0, 10)}...` : 'NOT_SET');
 
   if (!PAYPAL_CLIENT_ID || !PAYPAL_CLIENT_SECRET) {
     return res.status(500).json({ error: 'PayPal not configured - PAYPAL_CLIENT_ID/SECRET missing' });
