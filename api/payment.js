@@ -27,17 +27,19 @@ function verifyToken(token, secret) {
 async function createPayPalOrder(clientId, clientSecret, mode, orderData) {
   const baseUrl = mode === 'live' ? 'https://api-m.paypal.com' : 'https://api-m.sandbox.paypal.com';
 
-  // Get Access Token
+  // Get Access Token - Proper Basic Auth
+  const credentials = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
+
   const tokenResponse = await fetch(`${baseUrl}/v1/oauth2/token`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Accept': 'application/json',
+      'Authorization': `Basic ${credentials}`,
     },
     body: new URLSearchParams({
       grant_type: 'client_credentials'
     }),
-    auth: `${clientId}:${clientSecret}`,
   });
 
   if (!tokenResponse.ok) {
