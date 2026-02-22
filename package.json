@@ -1,12 +1,27 @@
 {
   "name": "skyroutes",
-  "version": "1.0.0",
+  "version": "2.0.0",
+  "description": "SkyRoutes Payment Dashboard - PayPal, Ría, Western Union",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "vercel build",
+    "deploy": "vercel --prod"
+  },
   "dependencies": {
-    "stripe": "^17.0.0",
     "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20.0.0"
-  }
+  },
+  "keywords": [
+    "payment",
+    "paypal",
+    "ria",
+    "western-union",
+    "skyroutes"
+  ],
+  "author": "",
+  "license": "MIT"
 }
