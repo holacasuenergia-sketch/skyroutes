@@ -1,4 +1,4 @@
-// Vercel API Function - PayPal Payment creation
+// Vercel API Function - PayPal Payment creation with enhanced debug
 const crypto = require('crypto');
 
 function verifyToken(token, secret) {
@@ -27,8 +27,14 @@ function verifyToken(token, secret) {
 async function createPayPalOrder(clientId, clientSecret, mode, orderData) {
   const baseUrl = mode === 'live' ? 'https://api-m.paypal.com' : 'https://api-m.sandbox.paypal.com';
 
-  // Get Access Token - Proper Basic Auth
   const credentials = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
+  
+  console.log('DEBUG: PayPal API call');
+  console.log('DEBUG: Mode:', mode);
+  console.log('DEBUG: Client ID length:', clientId.length);
+  console.log('DEBUG: Secret length:', clientSecret.length);
+  console.log('DEBUG: Base64 credentials length:', credentials.length);
+  console.log('DEBUG: Base URL:', baseUrl);
 
   const tokenResponse = await fetch(`${baseUrl}/v1/oauth2/token`, {
     method: 'POST',
@@ -42,8 +48,11 @@ async function createPayPalOrder(clientId, clientSecret, mode, orderData) {
     }),
   });
 
+  console.log('DEBUG: Token response status:', tokenResponse.status);
+
   if (!tokenResponse.ok) {
     const error = await tokenResponse.text();
+    console.log('DEBUG: Token error:', error);
     throw new Error(`PayPal token error: ${error}`);
   }
 
@@ -104,11 +113,16 @@ export default async function handler(req, res) {
 
   const PAYPAL_CLIENT_ID = process.env.PAYPAL_CLIENT_ID;
   const PAYPAL_CLIENT_SECRET = process.env.PAYPAL_CLIENT_SECRET;
-  const PAYPAL_MODE = (process.env.PAYPAL_MODE || 'sandbox').trim();
+  const PAYPAL_MODE = (process.env.PAYPAL_MODE || 'sandbox').trim().replace(/['"]/g, '');
   
-  // Debug log (remove in production)
-  console.log('PAYPAL_MODE:', PAYPAL_MODE);
+  // Debug information
+  console.log('=== PAYPAL DEBUG ===');
+  console.log('PAYPAL_MODE:', JSON.stringify(PAYPAL_MODE));
   console.log('PAYPAL_CLIENT_ID:', PAYPAL_CLIENT_ID ? `${PAYPAL_CLIENT_ID.substring(0, 10)}...` : 'NOT_SET');
+  console.log('PAYPAL_CLIENT_SECRET:', PAYPAL_CLIENT_SECRET ? 'EXISTS' : 'NOT_SET');
+  console.log('CLIENT_ID original:', JSON.stringify(process.env.PAYPAL_CLIENT_ID));
+  console.log('MODE original:', JSON.stringify(process.env.PAYPAL_MODE));
+  console.log('===================');
 
   if (!PAYPAL_CLIENT_ID || !PAYPAL_CLIENT_SECRET) {
     return res.status(500).json({ error: 'PayPal not configured - PAYPAL_CLIENT_ID/SECRET missing' });
