@@ -1,6 +1,7 @@
 {
   "name": "skyroutes",
   "version": "2.0.0",
+  "type": "module",
   "description": "SkyRoutes Payment Dashboard - PayPal, Ría, Western Union",
   "main": "index.js",
   "scripts": {
