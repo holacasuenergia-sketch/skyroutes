@@ -1,5 +1,5 @@
 // Vercel API Function - Login handler
-const crypto = require('crypto');
+import crypto from 'crypto';
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'skyroutes25@';
 const JWT_SECRET = process.env.JWT_SECRET || 'skyroutes_secret_change_me';

@@ -1,5 +1,5 @@
 // Vercel API Function - PayPal Payment creation
-const crypto = require('crypto');
+import crypto from 'crypto';
 
 function verifyToken(token, secret) {
   try {
