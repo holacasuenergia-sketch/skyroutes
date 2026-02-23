@@ -2933,27 +2933,8 @@
             resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
             try {
-                // Call API
-                const response = await fetch('/api/flights', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        origin: origen,
-                        destination: destino,
-                        departure_date: departureDate,
-                        return_date: returnDate,
-                        trip_type: tripType,
-                        passengers: passengers.adults + passengers.children
-                    })
-                });
-
-                if (!response.ok) {
-                    throw new Error('Error en la búsqueda');
-                }
-
-                const data = await response.json();
+                // Use mock flights directly (no API dependency)
+                const data = await searchFlightsOffline();
 
                 if (data.flights && data.flights.length > 0) {
                     // Store flights globally for WhatsApp
@@ -3787,9 +3768,10 @@
             localStorage.setItem('cookieConsent', 'rejected');
             document.getElementById('cookie-banner').classList.remove('show');
         }
-        
         // Show banner on load
         setTimeout(showCookieBanner, 1000);
     </script>
+    <!-- Mock flights data - embedded directly (no API dependency needed) -->
+    <script src="mock-flights.js"></script>
 </body>
 </html>
