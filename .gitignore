@@ -1,6 +1,10 @@
 # Dependencies
 node_modules/
 
+# Next.js build files
+.next/
+out/
+
 # Environment variables (sensitive data)
 .env
 .env.local
