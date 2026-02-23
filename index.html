@@ -3,145 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkyRoutes - Viajes Personalizados</title>
+    <title>SkyRoutes - Agencia de Viajes Personalizada</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { font-family: 'Inter', sans-serif; }
-        .gradient-bg {
-            background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 50%, #4c1d95 100%);
-        }
-        .card-hover:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
         .option-selected {
-            border-color: #3b82f6;
-            background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+            border-color: #0f172a;
+            background: #0f172a;
             color: white;
         }
         .option-selected .option-title {
             color: white;
         }
         .option-selected .option-desc {
-            color: rgba(255,255,255,0.9);
+            color: rgba(255,255,255,0.8);
+        }
+        .option-selected .option-badge {
+            background: rgba(255,255,255,0.2);
+            color: white;
         }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="bg-slate-100">
     <!-- Header -->
-    <div class="gradient-bg text-white">
-        <div class="container mx-auto px-4 py-6">
+    <div class="bg-white border-b border-slate-200">
+        <div class="container mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-3">
-                    <div class="bg-white/20 p-2 rounded-lg backdrop-blur-sm">
-                        <span class="text-2xl">🌍</span>
-                    </div>
                     <div>
-                        <h1 class="text-2xl font-bold">SkyRoutes</h1>
-                        <p class="text-blue-200 text-sm">Viajes Personalizados</p>
+                        <h1 class="text-2xl font-bold text-slate-900">SkyRoutes</h1>
+                        <p class="text-slate-500 text-sm">Agencia de Viajes Personalizada</p>
                     </div>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <button class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg backdrop-blur-sm transition">
-                        <span class="text-sm">📞 +34610243061</span>
-                    </button>
+                    <span class="text-slate-600 text-sm">+34610243061</span>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Hero -->
-    <div class="gradient-bg text-white pb-12">
-        <div class="container mx-auto px-4 py-12 text-center">
-            <h2 class="text-4xl md:text-5xl font-bold mb-4">Viaja más barato, asesoría experta</h2>
-            <p class="text-blue-200 text-lg mb-8 max-w-2xl mx-auto">
-                Comparamos +100 aerolíneas y 500+ hoteles para darte el mejor precio.
-                10-15% más barato que Despegar, Booking o Airbnb.
+    <div class="bg-white py-16">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+                Viajes Personalizados
+            </h2>
+            <p class="text-slate-600 text-lg mb-8 max-w-2xl mx-auto">
+                Comparamos precios de las mejores aerolíneas y hoteles para ofrecerle la mejor tarifa con asesoría personalizada.
             </p>
-
-            <!-- Quick Stats -->
-            <div class="grid grid-cols-3 gap-4 max-w-3xl mx-auto mb-12">
-                <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                    <div class="text-3xl font-bold">100+</div>
-                    <div class="text-blue-200 text-sm">Aerolíneas</div>
-                </div>
-                <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                    <div class="text-3xl font-bold">500+</div>
-                    <div class="text-blue-200 text-sm">Hoteles</div>
-                </div>
-                <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                    <div class="text-3xl font-bold">3K+</div>
-                    <div class="text-blue-200 text-sm">Viajes</div>
-                </div>
-            </div>
         </div>
     </div>
 
     <!-- Search Form -->
-    <div class="container mx-auto px-4 -mt-8">
-        <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-4xl mx-auto">
+    <div class="container mx-auto px-6 -mt-4">
+        <div class="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto border border-slate-200">
             <!-- Travel Type Selector -->
             <div class="mb-8">
-                <h3 class="text-lg font-semibold mb-4 text-gray-800">TIPO DE VIAJE</h3>
+                <h3 class="text-sm font-semibold text-slate-700 mb-4 uppercase tracking-wide">Tipo de Viaje</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <label class="cursor-pointer option-selected card-hover rounded-xl border-2 p-5 transition-all duration-200" id="option-flight">
-                        <div class="flex items-start space-x-3">
-                            <div class="bg-blue-100 p-3 rounded-lg">
-                                <span class="text-2xl">✈️</span>
-                            </div>
-                            <div class="flex-1">
-                                <div class="font-semibold option-title">Solo Vuelo</div>
-                                <div class="text-sm text-gray-500 option-desc mt-1">Precios +100 aerolíneas</div>
-                                <div class="text-xs text-gray-400 mt-2 option-desc">10-15% markup</div>
-                            </div>
+                    <label class="cursor-pointer option-selected rounded-lg border-2 border-slate-900 p-5 transition-all duration-200" id="option-flight">
+                        <div class="flex flex-col">
+                            <span class="font-semibold option-title text-sm">Solo Vuelo</span>
+                            <span class="text-xs text-slate-500 option-desc mt-2">Compare precios de vuelos</span>
                         </div>
                     </label>
 
-                    <label class="cursor-pointer card-hover rounded-xl border-2 border-gray-200 p-5 transition-all duration-200 hover:border-blue-400" id="option-package">
-                        <div class="flex items-start space-x-3">
-                            <div class="bg-purple-100 p-3 rounded-lg">
-                                <span class="text-2xl">✈️🏨</span>
-                            </div>
-                            <div class="flex-1">
-                                <div class="font-semibold text-gray-800">Vuelo + Hotel</div>
-                                <div class="text-sm text-gray-500 mt-1">20% ahorro vs OTAs</div>
-                                <div class="text-xs text-purple-600 mt-2 font-semibold">⭐ RECOMENDADO</div>
-                            </div>
+                    <label class="cursor-pointer rounded-lg border-2 border-slate-300 p-5 transition-all duration-200 hover:border-slate-900" id="option-package">
+                        <div class="flex flex-col">
+                            <span class="font-semibold text-slate-900 text-sm">Vuelo + Hotel</span>
+                            <span class="text-xs option-badge bg-slate-900 text-white px-2 py-1 rounded mt-1 text-xs inline-block w-fit">Recomendado</span>
+                            <span class="text-xs text-slate-500 option-desc mt-2">Mejor tarifa combinada</span>
                         </div>
                     </label>
 
-                    <label class="cursor-pointer card-hover rounded-xl border-2 border-gray-200 p-5 transition-all duration-200 hover:border-blue-400" id="option-hotel">
-                        <div class="flex items-start space-x-3">
-                            <div class="bg-green-100 p-3 rounded-lg">
-                                <span class="text-2xl">🏨</span>
-                            </div>
-                            <div class="flex-1">
-                                <div class="font-semibold text-gray-800">Solo Hotel</div>
-                                <div class="text-sm text-gray-500 mt-1">Location, amenities, reviews</div>
-                                <div class="text-xs text-gray-400 mt-2">10-15% markup</div>
-                            </div>
+                    <label class="cursor-pointer rounded-lg border-2 border-slate-300 p-5 transition-all duration-200 hover:border-slate-900" id="option-hotel">
+                        <div class="flex flex-col">
+                            <span class="font-semibold text-slate-900 text-sm">Solo Hotel</span>
+                            <span class="text-xs text-slate-500 option-desc mt-2">Busque su alojamiento</span>
                         </div>
                     </label>
                 </div>
             </div>
 
             <!-- Search Fields -->
-            <div class="space-y-4" id="flight-form">
+            <div class="space-y-4" id="search-form">
                 <!-- Origin & Destination -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">
-                            📍 Origen
-                        </label>
-                        <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        <label class="block text-sm font-medium text-slate-700 mb-2">Origen</label>
+                        <input type="text" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-900 focus:border-slate-900"
                                placeholder="Barcelona, Madrid, Lima...">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">
-                            🎯 Destino
-                        </label>
-                        <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        <label class="block text-sm font-medium text-slate-700 mb-2">Destino</label>
+                        <input type="text" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-900 focus:border-slate-900"
                                placeholder="Bali, Tóquio, Nueva York...">
                     </div>
                 </div>
@@ -149,130 +105,116 @@
                 <!-- Dates -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">
-                            📅 Ida
-                        </label>
-                        <input type="date" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <label class="block text-sm font-medium text-slate-700 mb-2">Fecha de Ida</label>
+                        <input type="date" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-900 focus:border-slate-900">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">
-                            📅 Vuelta (opcional)
-                        </label>
-                        <input type="date" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <label class="block text-sm font-medium text-slate-700 mb-2">Fecha de Vuelta (opcional)</label>
+                        <input type="date" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-900 focus:border-slate-900">
                     </div>
                 </div>
 
-                <!-- Passengers & Duration (for packages/hotels) -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="package-fields">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">
-                            👥 Pasajeros
-                        </label>
-                        <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                            <option>1 Adulto</option>
-                            <option selected>2 Adultos</option>
-                            <option>3 Adultos</option>
-                            <option>4 Adultos</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">
-                            📏 Duración (nights)
-                        </label>
-                        <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                            <option>3 nights</option>
-                            <option>5 nights</option>
-                            <option selected>7 nights</option>
-                            <option>10 nights</option>
-                            <option>14 nights</option>
-                        </select>
-                    </div>
+                <!-- Passengers -->
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">Pasajeros</label>
+                    <select class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-900 focus:border-slate-900">
+                        <option>1 Adulto</option>
+                        <option selected>2 Adultos</option>
+                        <option>3 Adultos</option>
+                        <option>4 Adultos</option>
+                    </select>
+                </div>
+
+                <!-- Duration (only for packages/hotels) -->
+                <div id="nights-field" class="hidden">
+                    <label class="block text-sm font-medium text-slate-700 mb-2">Duración del Viaje</label>
+                    <select class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-900 focus:border-slate-900">
+                        <option value="3">3 noches</option>
+                        <option value="5">5 noches</option>
+                        <option value="7">7 noches</option>
+                        <option selected value="10">10 noches</option>
+                        <option value="14">14 noches</option>
+                    </select>
                 </div>
             </div>
 
             <!-- Submit -->
-            <button class="w-full gradient-bg text-white font-semibold py-4 rounded-xl mt-6 hover:opacity-90 transition duration-200 flex items-center justify-center space-x-2">
-                <span class="text-xl">🔍</span>
-                <span class="text-lg">Buscar Mejores Ofertas</span>
+            <button class="w-full bg-slate-900 text-white font-semibold py-4 rounded-lg mt-6 hover:bg-slate-800 transition duration-200">
+                Buscar Mejores Tarifas
             </button>
         </div>
     </div>
 
-    <!-- Why SkyRoutes -->
-    <div class="container mx-auto px-4 py-16">
-        <h3 class="text-2xl font-bold text-center mb-12 text-gray-800">
-            ¿Por qué elegir SkyRoutes?
-        </h3>
+    <!-- Value Proposition -->
+    <div class="container mx-auto px-6 py-16">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="bg-white rounded-xl p-6 shadow-lg card-hover transition-all duration-200">
-                <div class="bg-blue-100 w-14 h-14 rounded-lg flex items-center justify-center mb-4">
-                    <span class="text-2xl">👨‍💼</span>
-                </div>
-                <h4 class="font-semibold mb-2">Asesoría Personalizada</h4>
-                <p class="text-gray-600 text-sm">Eduardo te acompaña desde búsqueda hasta vuelta. Soporte WhatsApp 24/7.</p>
+            <div class="bg-white rounded-lg p-6 border border-slate-200 shadow-sm">
+                <h4 class="font-semibold text-slate-900 mb-2">Asesoría Personalizada</h4>
+                <p class="text-slate-600 text-sm">Atención directa con Eduardo desde la búsqueda hasta su vuelta. Soporte por WhatsApp las 24 horas.</p>
             </div>
 
-            <div class="bg-white rounded-xl p-6 shadow-lg card-hover transition-all duration-200">
-                <div class="bg-green-100 w-14 h-14 rounded-lg flex items-center justify-center mb-4">
-                    <span class="text-2xl">💰</span>
-                </div>
-                <h4 class="font-semibold mb-2">Precio Más Bajo</h4>
-                <p class="text-gray-600 text-sm">10-15% más barato que Despegar, Booking o Airbnb. Sin comisiones ocultas.</p>
+            <div class="bg-white rounded-lg p-6 border border-slate-200 shadow-sm">
+                <h4 class="font-semibold text-slate-900 mb-2">Precio Competitivo</h4>
+                <p class="text-slate-600 text-sm">Marcamos 10-15% sobre el precio original, significativamente menor que las agencias online convencionales.</p>
             </div>
 
-            <div class="bg-white rounded-xl p-6 shadow-lg card-hover transition-all duration-200">
-                <div class="bg-purple-100 w-14 h-14 rounded-lg flex items-center justify-center mb-4">
-                    <span class="text-2xl">🔄</span>
-                </div>
-                <h4 class="font-semibold mb-2">Cambios Flexibles</h4>
-                <p class="text-gray-600 text-sm">Modifica tu viaje sin cargos excesivos. Adaptamos a tus necesidades.</p>
+            <div class="bg-white rounded-lg p-6 border border-slate-200 shadow-sm">
+                <h4 class="font-semibold text-slate-900 mb-2">Cambios Flexibles</h4>
+                <p class="text-slate-600 text-sm">Modifique su itinerario sin tarifas excesivas. Nos adaptamos a sus necesidades con flexibilidad total.</p>
             </div>
 
-            <div class="bg-white rounded-xl p-6 shadow-lg card-hover transition-all duration-200">
-                <div class="bg-orange-100 w-14 h-14 rounded-lg flex items-center justify-center mb-4">
-                    <span class="text-2xl">⭐</span>
-                </div>
-                <h4 class="font-semibold mb-2">Experiencia Garantizada</h4>
-                <p class="text-gray-600 text-sm">3,000+ viajes completados. Clientes felices dan 4.8/5 estrellas.</p>
+            <div class="bg-white rounded-lg p-6 border border-slate-200 shadow-sm">
+                <h4 class="font-semibold text-slate-900 mb-2">Experiencia Garantizada</h4>
+                <p class="text-slate-600 text-sm">Más de 3,000 viajes completados. Clientes satisfechos nos otorgan una valoración de 4.8 sobre 5.</p>
             </div>
         </div>
     </div>
 
     <!-- Footer -->
-    <div class="gradient-bg text-white py-8">
-        <div class="container mx-auto px-4 text-center">
-            <p class="text-blue-200">© 2026 SkyRoutes - Agencia Personalizada de Viajes</p>
-            <p class="text-blue-300 text-sm mt-2">Contacto: +34610243061 | Eduardo</p>
+    <div class="bg-slate-50 border-t border-slate-200 py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-slate-600">2024 SkyRoutes - Agencia Personalizada de Viajes</p>
+            <p class="text-slate-500 text-sm mt-1">Contacto: +34610243061</p>
         </div>
     </div>
 
     <script>
         // Option Selection Logic
         const options = ['flight', 'package', 'hotel'];
-        const optionLabels = {
-            'flight': 'Solo Vuelo',
-            'package': 'Vuelo + Hotel',
-            'hotel': 'Solo Hotel'
-        };
+        let currentOption = 'flight';
 
         options.forEach(option => {
             const optionEl = document.getElementById(`option-${option}`);
             optionEl.addEventListener('click', () => {
                 // Remove selected from all
                 options.forEach(opt => {
-                    document.getElementById(`option-${opt}`).classList.remove('option-selected');
-                    document.getElementById(`option-${opt}`).classList.remove('border-blue-500');
-                    document.getElementById(`option-${opt}`).classList.add('border-gray-200');
+                    const el = document.getElementById(`option-${opt}`);
+                    el.classList.remove('option-selected');
+                    el.classList.remove('border-slate-900');
+                    el.classList.add('border-slate-300');
                 });
 
                 // Add selected to clicked
                 optionEl.classList.add('option-selected');
-                optionEl.classList.remove('border-gray-200');
-                optionEl.classList.add('border-blue-500');
+                optionEl.classList.remove('border-slate-300');
+                optionEl.classList.add('border-slate-900');
 
-                // Update label in search
-                document.querySelector('.option-title').textContent = optionLabels[option];
+                currentOption = option;
+
+                // Show/hide nights field based on option
+                const nightsField = document.getElementById('nights-field');
+                if (option === 'hotel' || option === 'package') {
+                    nightsField.classList.remove('hidden');
+                } else {
+                    nightsField.classList.add('hidden');
+                }
             });
+        });
+
+        // Initialize - nights field is hidden for flight only
+        document.addEventListener('DOMContentLoaded', () => {
+            const nightsField = document.getElementById('nights-field');
+            nightsField.classList.add('hidden');
         });
     </script>
 </body>
