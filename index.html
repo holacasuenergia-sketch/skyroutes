@@ -2668,6 +2668,8 @@
             event.target.closest('.search-tab').classList.add('active');
         }
         
+        let currentFlights = []; // Store flights globally
+
         async function handleSearch(e) {
             e.preventDefault();
             
@@ -2687,7 +2689,7 @@
             resultsContainer.innerHTML = `
                 <div class="loading-container">
                     <div class="loading-spinner"></div>
-                    <p class="loading-text">🔍 Buscando los mejores precios...</p>
+                    <p class="loading-text">🔍 Buscando precios directos de aerolíneas...</p>
                     <p class="loading-subtext">Esto puede tomar unos segundos</p>
                 </div>
             `;
@@ -2718,12 +2720,14 @@
                 const data = await response.json();
                 
                 if (data.flights && data.flights.length > 0) {
+                    // Store flights globally for WhatsApp
+                    currentFlights = data.flights;
                     displayFlightResults(data.flights, origen, destino);
                 } else {
                     resultsContainer.innerHTML = `
                         <div class="no-results">
-                            <p class="no-results-text">😔 No se encontraron vuelos</p>
-                            <p class="no-results-subtext">Intenta con otras fechas o destinos</p>
+                            <p class="no-results-text">😔 No se encontraron vuelos directos</p>
+                            <p class="no-results-subtext">Intenta con otras fechas o contáctanos</p>
                             <button onclick="contactWhatsApp()" class="whatsapp-contact-btn">
                                 💬 Consultar por WhatsApp
                             </button>
@@ -2750,8 +2754,11 @@
             
             let html = `
                 <div class="results-header">
-                    <h2 class="results-title">✈️ ${flights.length} Vuelos Encontrados</h2>
-                    <p class="results-subtitle">${origin} → ${destination}</p>
+                    <h2 class="results-title">✈️ ${flights.length} Vuelos Encontrados (Aerolíneas Directas)</h2>
+                    <p class="results-subtitle">${origin} → ${destination} | Precios directos, sin intermediarios</p>
+                    <p class="results-note" style="color: var(--success); font-size: 0.9rem; margin-top: 8px;">
+                        ✓ Buscamos directamente en: Ryanair, EasyJet, Vueling, LATAM, Iberia, Air Europa
+                    </p>
                 </div>
                 
                 <div class="flights-grid">
@@ -2770,7 +2777,7 @@
                                 <span class="airline-name">${flight.airline}</span>
                                 <span class="flight-number">${flight.flight_number}</span>
                             </div>
-                            <div class="source-badge">${flight.source}</div>
+                            <div class="source-badge">Aerolínea directa</div>
                         </div>
                         
                         <div class="flight-times">
@@ -2809,9 +2816,9 @@
                                 </div>
                             </div>
                             
-                            <button onclick="bookFlight('${flight.airline} ${flight.flight_number}')" 
+                            <button onclick="bookFlight()" 
                                     class="book-btn">
-                                Reservar Ahora
+                                Ver Todas las Opciones ✈️
                             </button>
                         </div>
                     </div>
@@ -2823,18 +2830,37 @@
             resultsContainer.innerHTML = html;
         }
         
-        function bookFlight(flightInfo) {
+        function bookFlight() {
             const origen = document.getElementById('origen').value;
             const destino = document.getElementById('destino').value;
             const fechas = document.getElementById('fechas').value;
             
-            let mensaje = `Hola! ✈️\n\n`;
-            mensaje += `Quiero reservar este vuelo:\n\n`;
-            mensaje += `🛫 Vuelo: ${flightInfo}\n`;
-            mensaje += `📍 Origen: ${origen}\n`;
-            mensaje += `📍 Destino: ${destino}\n`;
-            mensaje += `📅 Fechas: ${fechas}\n\n`;
-            mensaje += `Por favor, confirmar disponibilidad y precio final.`;
+            let passengersText = `${passengers.adults} adulto${passengers.adults > 1 ? 's' : ''}`;
+            if (passengers.children > 0) {
+                passengersText += `, ${passengers.children} niño${passengers.children > 1 ? 's' : ''}`;
+            }
+            
+            let mensaje = `Hola! ✈️ *SkyRoutes - Vuelos Encontrados*\n\n`;
+            mensaje += `💫 *Búsqueda:*\n`;
+            mensaje += `📍 *Origen:* ${origen}\n`;
+            mensaje += `🚀 *Destino:* ${destino}\n`;
+            mensaje += `📅 *Fechas:* ${fechas}\n`;
+            mensaje += `👥 *Pasajeros:* ${passengersText}\n\n`;
+            mensaje += `✨ *Top ${currentFlights.length} Opciones (Aerolíneas Directas):*\n\n`;
+            
+            currentFlights.forEach((flight, index) => {
+                mensaje += `━━━━━━━━━━━━━━━━━\n`;
+                mensaje += `*Opción ${index + 1}\n\n`;
+                mensaje += `${flight.airline} ✈️ ${flight.flight_number}\n`;
+                mensaje += `⏰ ${flight.departure_time} → ${flight.arrival_time}\n`;
+                mensaje += `⏱️ ${Math.floor(flight.duration_minutes / 60)}h ${flight.duration_minutes % 60}m | ${flight.stops === 0 ? 'Directo' : flight.stops + ' escalas'}\n`;
+                mensaje += `💰 Precio: *€${flight.skyroutes_price.toFixed(2)}* (markup ${flight.markup_percent}%)\n\n`;
+            });
+            
+            mensaje += `━━━━━━━━━━━━━━━━━\n\n`;
+            mensaje += `📌 *Precios incluyen markup SkyRoutes*\n`;
+            mensaje += `Por favor, indicarme cuál opción prefieres para proceder con la reserva.\n\n`;
+            mensaje += `¡Gracias! 🙏`;
             
             const whatsapp = `https://wa.me/34610243061?text=${encodeURIComponent(mensaje)}`;
             window.open(whatsapp, '_blank');
