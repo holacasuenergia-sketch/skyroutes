@@ -2991,6 +2991,60 @@
 
         let currentFlights = []; // Store flights globally
 
+        // Get airlines based on route (origin + destination)
+        function getAirlinesForRoute(origin, destination) {
+            const originLower = origin.toLowerCase();
+            const destLower = destination.toLowerCase();
+
+            // LATAM routes (Lima, Bogotá, Medellín, Santiago, Buenos Aires, etc.) → Europe
+            if (['lima', 'bogotá', 'medellíbogotán', 'santiago', 'buenos aires', 'quito', 'guayaquil', 'cali', 'caracas', 'montevideo'].includes(originLower)) {
+                if (['españa', 'madrid', 'barcelona', 'lisboa', 'parís', 'paris', 'londres', 'london', 'roma', 'milán', 'fráncfort', 'amsterdam', 'berlín', 'munich'].includes(destLower)) {
+                    // LATAM → Europe: LATAM carriers + European legacy
+                    return [
+                        { airline: 'LATAM', flight_prefix: 'LA', base_price: 350, base_duration: 740 },
+                        { airline: 'Avianca', flight_prefix: 'AV', base_price: 380, base_duration: 720 },
+                        { airline: 'Iberia', flight_prefix: 'IB', base_price: 400, base_duration: 680 },
+                        { airline: 'Air Europa', flight_prefix: 'UX', base_price: 420, base_duration: 700 },
+                        { airline: 'KLM', flight_prefix: 'KL', base_price: 410, base_duration: 720 }
+                    ];
+                }
+            }
+
+            // Europe internal routes (Spain → UK, France, Italy, Germany, etc.)
+            if (['españa', 'madrid', 'barcelona', 'valencia', 'sevilla', 'málaga', 'parís', 'paris', 'londres', 'london', 'berlín', 'fráncfort', 'amsterdam', 'milán', 'roma', 'lisboa'].includes(originLower)) {
+                if (['españa', 'madrid', 'barcelona', 'londres', 'london', 'parís', 'paris', 'berlín', 'fráncfort', 'amsterdam', 'milán', 'roma', 'lisboa'].includes(destLower)) {
+                    return [
+                        { airline: 'Ryanair', flight_prefix: 'FR', base_price: 45, base_duration: 135 },
+                        { airline: 'EasyJet', flight_prefix: 'U2', base_price: 55, base_duration: 150 },
+                        { airline: 'Vueling', flight_prefix: 'VY', base_price: 60, base_duration: 135 },
+                        { airline: 'Iberia', flight_prefix: 'IB', base_price: 85, base_duration: 120 },
+                        { airline: 'TAP Portugal', flight_prefix: 'TP', base_price: 75, base_duration: 160 }
+                    ];
+                }
+            }
+
+            // USA/Europe routes
+            if (['new york', 'los angeles', 'miami', 'chicago', 'houston', 'dallas', 'washington', 'san francisco'].includes(originLower)) {
+                if (['españa', 'madrid', 'barcelona', 'fráncfort', 'amsterdam', 'parís', 'paris', 'londres', 'london'].includes(destLower)) {
+                    return [
+                        { airline: 'Iberia', flight_prefix: 'IB', base_price: 450, base_duration: 480 },
+                        { airline: 'American Airlines', flight_prefix: 'AA', base_price: 480, base_duration: 540 },
+                        { airline: 'Delta', flight_prefix: 'DL', base_price: 470, base_duration: 520 },
+                        { airline: 'KLM', flight_prefix: 'KL', base_price: 460, base_duration: 510 },
+                        { airline: 'Air France', flight_prefix: 'AF', base_price: 475, base_duration: 500 }
+                    ];
+                }
+            }
+
+            // Default: Popular global routes
+            return [
+                { airline: 'LATAM', flight_prefix: 'LA', base_price: 250, base_duration: 420 },
+                { airline: 'Iberia', flight_prefix: 'IB', base_price: 280, base_duration: 300 },
+                { airline: 'Air Europa', flight_prefix: 'UX', base_price: 260, base_duration: 320 },
+                { airline: 'KLM', flight_prefix: 'KL', base_price: 290, base_duration: 310 }
+            ];
+        }
+
         async function handleSearch(e) {
             e.preventDefault();
 
@@ -3020,6 +3074,9 @@
                 return;
             }
 
+            // Get airlines based on route
+            const airlines = getAirlinesForRoute(origen, destino);
+
             // Show loading
             const resultsContainer = document.getElementById('flight-results');
             let loadingMessage = tripType === 'oneway'
@@ -3030,59 +3087,55 @@
                 <div class="loading-container">
                     <div class="loading-spinner"></div>
                     <p class="loading-text">${loadingMessage}</p>
-                    <p class="loading-subtext">Esto puede tomar unos segundos</p>
+                    <p class="loading-subtext">Buscando en las mejores aerolíneas para tu ruta...</p>
                 </div>
             `;
 
             // Scroll to results
             resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
             try {
-                // EMBEDDED FLIGHTS - No file dependency
+                // Generate flights dynamically based on route
                 await new Promise(resolve => setTimeout(resolve, 800));  // Simulate loading
 
+                const flights = airlines.map((airlineObj, index) => {
+                    const airline = airlineObj.airline;
+                    const basePrice = airlineObj.base_price;
+                    const baseDuration = airlineObj.base_duration;
+                    const flightPrefix = airlineObj.flight_prefix;
+
+                    // Generate flight times
+                    const departureHour = 8 + (index * 3); // 08:00, 11:00, 14:00, 17:00, 20:00
+                    const departureTime = String(departureHour).padStart(2, '0') + ':30';
+                    const arrivalHour = departureHour + Math.floor(baseDuration / 60);
+                    const arrivalMinute = 30 + (baseDuration % 60);
+                    const arrivalHourFinal = arrivalHour >= 24 ? arrivalHour - 24 : arrivalHour;
+                    const arrivalTime = String(arrivalHourFinal).padStart(2, '0') + ':' + String(arrivalMinute).padStart(2, '0');
+
+                    const markup = Math.floor(basePrice * 0.10); // 10% markup
+
+                    return {
+                        airline: airline,
+                        flight_number: flightPrefix + Math.floor(Math.random() * 9000 + 1000),
+                        departure_time: departureTime,
+                        arrival_time: arrivalTime,
+                        duration_minutes: baseDuration + Math.floor(Math.random() * 40 - 20), // Variation ±20 min
+                        stops: baseDuration > 600 ? (Math.random() > 0.7 ? 1 : 0) : 0, // Long flights might have 1 stop
+                        original_price: basePrice,
+                        skyroutes_price: basePrice + markup,
+                        markup_percent: 10
+                    };
+                });
+
                 const data = {
-                    flights: [
-                        {
-                            airline: 'Ryanair',
-                            flight_number: 'FR' + Math.floor(Math.random() * 9000 + 1000),
-                            departure_time: '08:30',
-                            arrival_time: '10:45',
-                            duration_minutes: 135,
-                            stops: 0,
-                            original_price: 45,
-                            skyroutes_price: 50,
-                            markup_percent: 10
-                        },
-                        {
-                            airline: 'EasyJet',
-                            flight_number: 'U2' + Math.floor(Math.random() * 9000 + 1000),
-                            departure_time: '12:00',
-                            arrival_time: '14:30',
-                            duration_minutes: 150,
-                            stops: 0,
-                            original_price: 55,
-                            skyroutes_price: 60,
-                            markup_percent: 10
-                        },
-                        {
-                            airline: 'Vueling',
-                            flight_number: 'VY' + Math.floor(Math.random() * 9000 + 1000),
-                            departure_time: '16:30',
-                            arrival_time: '18:45',
-                            duration_minutes: 135,
-                            stops: 0,
-                            original_price: 60,
-                            skyroutes_price: 66,
-                            markup_percent: 10
-                        }
-                    ],
+                    flights: flights,
                     meta: {
-                        origin: 'search',
-                        destination: 'search',
+                        origin: origen,
+                        destination: destino,
                         trip_type: 'roundtrip',
                         passengers: 1,
                         demo_mode: true,
-                        timestamp: new Date().toISOString()
+                        timestamp: new Date().toISOString(),
+                        region_filtered: true
                     }
                 };
 
