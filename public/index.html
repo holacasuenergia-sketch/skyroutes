@@ -7,15 +7,15 @@
     <meta name="description" content="Encuentra los mejores vuelos de Latinoamérica a Europa. Precios competitivos, atención personalizada y soporte 24/7. Reserva tu vuelo con SkyRoutes.">
     <meta name="keywords" content="vuelos españa, vuelos europa, vuelos latinoamerica europa, boletos avion, ofertas vuelos, vuelos baratos europa">
     <link rel="icon" href="logo.png" type="image/png">
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
+
     <!-- Flatpickr for date picker -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/airbnb.css">
-    
+
     <style>
         /* Icon styles */
         .icon {
@@ -44,7 +44,7 @@
         .icon-primary svg { stroke: var(--primary); }
         .icon-secondary svg { stroke: var(--secondary); }
         .icon-success svg { stroke: var(--success); }
-    
+
         :root {
             --primary: #0EA5E9;
             --primary-dark: #0284C7;
@@ -65,18 +65,18 @@
             --success: #10B981;
             --error: #EF4444;
         }
-        
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
         html { scroll-behavior: smooth; }
-        
+
         body {
             font-family: 'Inter', sans-serif;
             background: var(--gray-50);
             color: var(--dark);
             line-height: 1.6;
         }
-        
+
         /* Header */
         .header {
             position: fixed;
@@ -87,7 +87,7 @@
             z-index: 1000;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
-        
+
         .header-container {
             max-width: 1400px;
             margin: 0 auto;
@@ -96,19 +96,19 @@
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .logo {
             display: flex;
             align-items: center;
             gap: 10px;
             text-decoration: none;
         }
-        
+
         .logo-img {
             height: 40px;
             width: auto;
         }
-        
+
         .logo-icon {
             width: 40px;
             height: 40px;
@@ -119,7 +119,7 @@
             justify-content: center;
             color: white;
         }
-        
+
         .logo-icon svg {
             width: 24px;
             height: 24px;
@@ -129,24 +129,24 @@
             stroke-linejoin: round;
             fill: none;
         }
-        
+
         .logo-text {
             font-family: 'Poppins', sans-serif;
             font-size: 24px;
             font-weight: 700;
             color: var(--dark);
         }
-        
+
         .logo-text span {
             color: var(--primary);
         }
-        
+
         .nav {
             display: flex;
             align-items: center;
             gap: 32px;
         }
-        
+
         .nav a {
             color: var(--gray-600);
             text-decoration: none;
@@ -154,11 +154,11 @@
             font-size: 15px;
             transition: color 0.2s;
         }
-        
+
         .nav a:hover {
             color: var(--primary);
         }
-        
+
         .btn {
             display: inline-flex;
             align-items: center;
@@ -173,40 +173,40 @@
             border: none;
             transition: all 0.2s;
         }
-        
+
         .btn-primary {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
             box-shadow: 0 4px 14px rgba(14, 165, 233, 0.3);
         }
-        
+
         .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);
         }
-        
+
         .btn-secondary {
             background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dark) 100%);
             color: white;
             box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
         }
-        
+
         .btn-secondary:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
         }
-        
+
         .btn-outline {
             background: transparent;
             color: var(--primary);
             border: 2px solid var(--primary);
         }
-        
+
         .btn-outline:hover {
             background: var(--primary);
             color: white;
         }
-        
+
         /* Hero Section */
         .hero {
             min-height: 100vh;
@@ -217,20 +217,20 @@
             overflow: visible;
             padding-top: 80px;
         }
-        
+
         .hero-bg {
             position: absolute;
             inset: 0;
             background: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1920') center/cover;
             opacity: 0.15;
         }
-        
+
         .hero-overlay {
             position: absolute;
             inset: 0;
             background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%);
         }
-        
+
         .hero-container {
             position: relative;
             z-index: 1;
@@ -239,7 +239,7 @@
             padding: 60px 24px;
             text-align: center;
         }
-        
+
         .hero-badge {
             display: inline-flex;
             align-items: center;
@@ -253,13 +253,13 @@
             font-weight: 600;
             margin-bottom: 24px;
         }
-        
+
         .hero-badge-arrow {
             display: inline-flex;
             align-items: center;
             opacity: 0.7;
         }
-        
+
         .hero-title {
             font-family: 'Poppins', sans-serif;
             font-size: clamp(36px, 5vw, 64px);
@@ -268,21 +268,21 @@
             line-height: 1.1;
             margin-bottom: 20px;
         }
-        
+
         .hero-title span {
             background: linear-gradient(90deg, var(--primary-light) 0%, var(--secondary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        
+
         .hero-subtitle {
             font-size: clamp(16px, 2vw, 20px);
             color: var(--gray-300);
             max-width: 600px;
             margin: 0 auto 40px;
         }
-        
+
         /* Search Box */
         .search-box {
             max-width: 1000px;
@@ -293,7 +293,7 @@
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
             overflow: visible;
         }
-        
+
         .search-title {
             display: flex;
             align-items: center;
@@ -303,14 +303,14 @@
             color: var(--primary);
             margin-bottom: 20px;
         }
-        
+
         .search-form {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr 1fr auto;
             gap: 16px;
             align-items: end;
         }
-        
+
         .form-group {
             text-align: left;
         }
@@ -331,7 +331,7 @@
             color: var(--dark);
             font-size: 18px;
         }
-        
+
         .form-label {
             display: block;
             font-size: 13px;
@@ -339,7 +339,7 @@
             color: var(--gray-500);
             margin-bottom: 8px;
         }
-        
+
         .form-input {
             width: 100%;
             padding: 14px 16px;
@@ -350,29 +350,29 @@
             background: var(--gray-50);
             transition: all 0.2s;
         }
-        
+
         .form-input:focus {
             outline: none;
             border-color: var(--primary);
             background: white;
             box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
         }
-        
+
         /* Date input styling */
         input[type="date"]::-webkit-calendar-picker-indicator {
             cursor: pointer;
             opacity: 0.6;
         }
-        
+
         input[type="date"]::-webkit-calendar-picker-indicator:hover {
             opacity: 1;
         }
-        
+
         /* Autocomplete dropdown */
         .autocomplete-wrapper {
             position: relative;
         }
-        
+
         .autocomplete-dropdown {
             position: absolute;
             top: 100%;
@@ -388,11 +388,11 @@
             z-index: 100;
             display: none;
         }
-        
+
         .autocomplete-dropdown.show {
             display: block;
         }
-        
+
         .autocomplete-item {
             padding: 12px 16px;
             cursor: pointer;
@@ -401,49 +401,49 @@
             gap: 12px;
             transition: background 0.15s;
         }
-        
+
         .autocomplete-item:hover,
         .autocomplete-item.active {
             background: var(--primary-light);
             background: rgba(14, 165, 233, 0.1);
         }
-        
+
         .autocomplete-item .city-name {
             font-weight: 500;
             color: var(--dark);
         }
-        
+
         .autocomplete-item .country-name {
             font-size: 13px;
             color: var(--gray-500);
         }
-        
+
         .autocomplete-item .match-text {
             color: var(--primary);
             font-weight: 600;
         }
-        
+
         /* Flatpickr customization */
         .flatpickr-calendar {
             font-family: 'Inter', sans-serif !important;
             border-radius: 16px !important;
             box-shadow: 0 10px 40px rgba(0,0,0,0.2) !important;
         }
-        
+
         .flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange {
             background: var(--primary) !important;
             border-color: var(--primary) !important;
         }
-        
+
         .flatpickr-day.inRange {
             background: rgba(14, 165, 233, 0.15) !important;
             border-color: transparent !important;
         }
-        
+
         .flatpickr-months .flatpickr-month {
             background: transparent !important;
         }
-        
+
         .flatpickr-current-month .flatpickr-monthDropdown-months {
             font-weight: 600;
         }
@@ -499,7 +499,7 @@
         .passengers-wrapper {
             position: relative;
         }
-        
+
         .passengers-btn {
             width: 100%;
             padding: 14px 16px;
@@ -515,18 +515,18 @@
             justify-content: space-between;
             transition: all 0.2s;
         }
-        
+
         .passengers-btn:hover {
             border-color: var(--primary);
         }
-        
+
         .passengers-btn:focus {
             outline: none;
             border-color: var(--primary);
             background: white;
             box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
         }
-        
+
         .passengers-dropdown {
             position: absolute;
             top: 100%;
@@ -542,11 +542,11 @@
             padding: 20px;
             margin-top: 8px;
         }
-        
+
         .passengers-dropdown.show {
             display: block !important;
         }
-        
+
         @media (min-width: 769px) {
             .passengers-dropdown {
                 left: auto;
@@ -554,19 +554,19 @@
                 transform: none;
                 z-index: 9999 !important;
             }
-            
+
             .passengers-dropdown.show {
                 display: block !important;
                 visibility: visible !important;
                 opacity: 1 !important;
             }
         }
-        
+
         @media (max-width: 768px) {
             .passengers-wrapper {
                 position: static;
             }
-            
+
             .passengers-dropdown {
                 position: fixed !important;
                 top: auto !important;
@@ -584,56 +584,56 @@
                 z-index: 9999 !important;
                 transform: none !important;
             }
-            
+
             .passengers-dropdown.show {
                 display: block !important;
             }
-            
+
             .children-ages {
                 padding-bottom: 20px;
             }
-            
+
             .age-selects {
                 gap: 12px;
             }
-            
+
             .age-selects > div {
                 flex-direction: row;
                 align-items: center;
             }
-            
+
             .header-container .btn-primary {
                 padding: 8px 14px;
                 font-size: 13px;
             }
-            
+
             .header-container {
                 padding: 10px 12px;
             }
-            
+
             .logo-text {
                 font-size: 16px !important;
             }
-            
+
             .logo-icon {
                 width: 28px !important;
                 height: 28px !important;
             }
-            
+
             .logo-icon svg {
                 width: 16px !important;
                 height: 16px !important;
             }
-            
+
             .nav {
                 display: none;
             }
-            
+
             .header-container .btn-primary .icon {
                 display: none;
             }
         }
-        
+
         .passenger-row {
             display: flex;
             justify-content: space-between;
@@ -641,27 +641,27 @@
             padding: 12px 0;
             border-bottom: 1px solid var(--gray-100);
         }
-        
+
         .passenger-row:last-child {
             border-bottom: none;
         }
-        
+
         .passenger-label {
             font-weight: 500;
             color: var(--dark);
         }
-        
+
         .passenger-info {
             font-size: 12px;
             color: var(--gray-500);
         }
-        
+
         .passenger-controls {
             display: flex;
             align-items: center;
             gap: 12px;
         }
-        
+
         .passenger-btn {
             width: 32px;
             height: 32px;
@@ -676,24 +676,24 @@
             justify-content: center;
             transition: all 0.2s;
         }
-        
+
         .passenger-btn:hover {
             background: var(--primary);
             color: white;
         }
-        
+
         .passenger-btn:disabled {
             opacity: 0.3;
             cursor: not-allowed;
         }
-        
+
         .passenger-count {
             font-size: 18px;
             font-weight: 600;
             min-width: 24px;
             text-align: center;
         }
-        
+
         /* Children ages */
         .children-ages {
             margin-top: 16px;
@@ -701,11 +701,11 @@
             border-top: 1px solid var(--gray-200);
             display: none;
         }
-        
+
         .children-ages.show {
             display: block !important;
         }
-        
+
         .children-ages > label {
             font-size: 14px;
             font-weight: 600;
@@ -713,25 +713,25 @@
             margin-bottom: 12px;
             display: block;
         }
-        
+
         .age-selects {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
-        
+
         .age-selects > div {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        
+
         .age-selects > div > span {
             min-width: 60px;
             font-size: 14px;
             color: var(--gray-600);
         }
-        
+
         .age-selects select {
             flex: 1;
             padding: 10px 12px;
@@ -743,13 +743,13 @@
             cursor: pointer;
             transition: all 0.2s;
         }
-        
+
         .age-selects select:focus {
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
         }
-        
+
         .passengers-done {
             margin-top: 16px;
             width: 100%;
@@ -762,29 +762,29 @@
             cursor: pointer;
             transition: background 0.2s;
         }
-        
+
         .passengers-done:hover {
             background: var(--primary-dark);
         }
-        
+
         /* Search form responsive */
         @media (max-width: 1200px) {
             .search-form {
                 grid-template-columns: 1fr 1fr;
             }
         }
-        
+
         @media (max-width: 768px) {
             .search-form {
                 grid-template-columns: 1fr;
             }
         }
-        
+
         .search-btn {
             padding: 16px 32px;
             font-size: 16px;
         }
-        
+
         /* Stats */
         .stats {
             display: flex;
@@ -792,39 +792,39 @@
             gap: 60px;
             margin-top: 50px;
         }
-        
+
         .stat {
             text-align: center;
         }
-        
+
         .stat-value {
             font-family: 'Poppins', sans-serif;
             font-size: 36px;
             font-weight: 800;
             color: white;
         }
-        
+
         .stat-label {
             font-size: 14px;
             color: var(--gray-400);
             margin-top: 4px;
         }
-        
+
         /* Packages Section */
         .section {
             padding: 100px 24px;
         }
-        
+
         .section-container {
             max-width: 1400px;
             margin: 0 auto;
         }
-        
+
         .section-header {
             text-align: center;
             margin-bottom: 60px;
         }
-        
+
         .section-badge {
             display: inline-block;
             padding: 8px 16px;
@@ -835,7 +835,7 @@
             font-weight: 600;
             margin-bottom: 16px;
         }
-        
+
         .section-title {
             font-family: 'Poppins', sans-serif;
             font-size: clamp(28px, 4vw, 42px);
@@ -843,14 +843,14 @@
             color: var(--dark);
             margin-bottom: 16px;
         }
-        
+
         .section-subtitle {
             font-size: 18px;
             color: var(--gray-500);
             max-width: 600px;
             margin: 0 auto;
         }
-        
+
         /* Benefits Grid */
         .benefits-grid {
             display: grid;
@@ -858,7 +858,7 @@
             gap: 24px;
             margin-bottom: 60px;
         }
-        
+
         .benefit-card {
             background: var(--gray-50);
             border-radius: 16px;
@@ -866,12 +866,12 @@
             text-align: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        
+
         .benefit-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 12px 24px rgba(0,0,0,0.08);
         }
-        
+
         .benefit-icon {
             width: 64px;
             height: 64px;
@@ -882,7 +882,7 @@
             align-items: center;
             justify-content: center;
         }
-        
+
         .benefit-card h3 {
             font-family: 'Poppins', sans-serif;
             font-size: 18px;
@@ -890,20 +890,20 @@
             color: var(--dark);
             margin-bottom: 8px;
         }
-        
+
         .benefit-card p {
             font-size: 14px;
             color: var(--gray-500);
             line-height: 1.6;
         }
-        
+
         /* Airlines Section */
         .airlines-section {
             text-align: center;
             padding-top: 40px;
             border-top: 1px solid var(--gray-200);
         }
-        
+
         .airlines-title {
             font-size: 14px;
             color: var(--gray-500);
@@ -911,7 +911,7 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-        
+
         .airlines-grid {
             display: flex;
             flex-wrap: wrap;
@@ -919,7 +919,7 @@
             align-items: center;
             gap: 32px;
         }
-        
+
         .airline-logo {
             padding: 12px 20px;
             background: var(--white);
@@ -927,12 +927,12 @@
             border: 1px solid var(--gray-200);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        
+
         .airline-logo:hover {
             transform: scale(1.05);
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
-        
+
         /* Testimonials */
         .testimonials-slider {
             display: flex;
@@ -943,21 +943,21 @@
             padding: 10px 0 20px 0;
             -webkit-overflow-scrolling: touch;
         }
-        
+
         .testimonials-slider::-webkit-scrollbar {
             height: 8px;
         }
-        
+
         .testimonials-slider::-webkit-scrollbar-track {
             background: var(--gray-100);
             border-radius: 4px;
         }
-        
+
         .testimonials-slider::-webkit-scrollbar-thumb {
             background: var(--primary);
             border-radius: 4px;
         }
-        
+
         .testimonial-card {
             flex: 0 0 340px;
             background: var(--white);
@@ -966,12 +966,12 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.06);
             scroll-snap-align: start;
         }
-        
+
         .testimonial-stars {
             font-size: 16px;
             margin-bottom: 16px;
         }
-        
+
         .testimonial-text {
             font-size: 15px;
             color: var(--gray-600);
@@ -979,13 +979,13 @@
             margin-bottom: 20px;
             font-style: italic;
         }
-        
+
         .testimonial-author {
             display: flex;
             align-items: center;
             gap: 12px;
         }
-        
+
         .testimonial-avatar {
             width: 44px;
             height: 44px;
@@ -998,45 +998,45 @@
             font-weight: 600;
             font-size: 14px;
         }
-        
+
         .testimonial-author strong {
             display: block;
             font-size: 14px;
             color: var(--dark);
         }
-        
+
         .testimonial-author span {
             font-size: 12px;
             color: var(--gray-500);
         }
-        
+
         /* FAQ */
         .faq-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 20px;
         }
-        
+
         .faq-item {
             background: var(--gray-50);
             border-radius: 12px;
             padding: 24px;
             border-left: 4px solid var(--primary);
         }
-        
+
         .faq-item h3 {
             font-size: 15px;
             font-weight: 600;
             color: var(--dark);
             margin-bottom: 10px;
         }
-        
+
         .faq-item p {
             font-size: 14px;
             color: var(--gray-600);
             line-height: 1.6;
         }
-        
+
         /* Stats Counter */
         .stats-counter {
             display: flex;
@@ -1046,32 +1046,32 @@
             gap: 60px;
             text-align: center;
         }
-        
+
         .stat-item {
             flex: 1;
             min-width: 150px;
         }
-        
+
         .stat-number {
             font-family: 'Poppins', sans-serif;
             font-size: 48px;
             font-weight: 700;
             display: block;
         }
-        
+
         .stat-percent {
             font-family: 'Poppins', sans-serif;
             font-size: 32px;
             font-weight: 700;
         }
-        
+
         .stat-label-light {
             font-size: 14px;
             opacity: 0.9;
             display: block;
             margin-top: 4px;
         }
-        
+
         /* Trust Badges */
         .trust-badges {
             display: flex;
@@ -1080,7 +1080,7 @@
             flex-wrap: wrap;
             gap: 40px;
         }
-        
+
         .trust-badge {
             display: flex;
             align-items: center;
@@ -1089,7 +1089,7 @@
             font-weight: 500;
             color: var(--gray-700);
         }
-        
+
         .trust-badge .icon {
             width: 40px;
             height: 40px;
@@ -1099,14 +1099,14 @@
             align-items: center;
             justify-content: center;
         }
-        
+
         /* Package Cards */
         .packages-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 28px;
         }
-        
+
         .package-card {
             background: white;
             border-radius: 20px;
@@ -1114,19 +1114,19 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             transition: all 0.3s;
         }
-        
+
         .package-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 12px 40px rgba(0,0,0,0.15);
         }
-        
+
         .package-image {
             height: 200px;
             background-size: cover;
             background-position: center;
             position: relative;
         }
-        
+
         .package-badge {
             position: absolute;
             top: 16px;
@@ -1138,11 +1138,11 @@
             font-size: 12px;
             font-weight: 600;
         }
-        
+
         .package-content {
             padding: 24px;
         }
-        
+
         .package-title {
             font-family: 'Poppins', sans-serif;
             font-size: 20px;
@@ -1150,13 +1150,13 @@
             color: var(--dark);
             margin-bottom: 8px;
         }
-        
+
         .package-info {
             display: flex;
             gap: 16px;
             margin-bottom: 16px;
         }
-        
+
         .package-info span {
             display: flex;
             align-items: center;
@@ -1164,31 +1164,31 @@
             font-size: 14px;
             color: var(--gray-500);
         }
-        
+
         .package-price {
             display: flex;
             align-items: baseline;
             gap: 8px;
             margin-bottom: 16px;
         }
-        
+
         .package-price-value {
             font-family: 'Poppins', sans-serif;
             font-size: 28px;
             font-weight: 700;
             color: var(--primary);
         }
-        
+
         .package-price-note {
             font-size: 14px;
             color: var(--gray-400);
         }
-        
+
         .package-features {
             list-style: none;
             margin-bottom: 20px;
         }
-        
+
         .package-features li {
             display: flex;
             align-items: center;
@@ -1198,54 +1198,54 @@
             padding: 8px 0;
             border-bottom: 1px solid var(--gray-100);
         }
-        
+
         .package-features li:last-child {
             border-bottom: none;
         }
-        
+
         .package-features .check {
             color: var(--success);
         }
-        
+
         /* Quote Section */
         .quote-section {
             background: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 100%);
             color: white;
         }
-        
+
         .quote-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 60px;
             align-items: center;
         }
-        
+
         .quote-content h2 {
             font-family: 'Poppins', sans-serif;
             font-size: clamp(28px, 4vw, 40px);
             font-weight: 700;
             margin-bottom: 20px;
         }
-        
+
         .quote-content p {
             font-size: 18px;
             color: var(--gray-300);
             margin-bottom: 32px;
         }
-        
+
         .quote-features {
             display: grid;
             gap: 16px;
             margin-bottom: 32px;
         }
-        
+
         .quote-feature {
             display: flex;
             align-items: center;
             gap: 12px;
             font-size: 16px;
         }
-        
+
         .quote-feature .icon {
             width: 24px;
             height: 24px;
@@ -1256,32 +1256,32 @@
             justify-content: center;
             font-size: 14px;
         }
-        
+
         .quote-form {
             background: white;
             border-radius: 24px;
             padding: 40px;
             color: var(--dark);
         }
-        
+
         .quote-form h3 {
             font-family: 'Poppins', sans-serif;
             font-size: 24px;
             font-weight: 700;
             margin-bottom: 24px;
         }
-        
+
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 16px;
             margin-bottom: 16px;
         }
-        
+
         .form-row.single {
             grid-template-columns: 1fr;
         }
-        
+
         .quote-form .form-input,
         .quote-form .form-select {
             width: 100%;
@@ -1293,7 +1293,7 @@
             background: var(--gray-50);
             transition: all 0.2s;
         }
-        
+
         .quote-form .form-select {
             cursor: pointer;
             appearance: none;
@@ -1302,7 +1302,7 @@
             background-position: right 12px center;
             background-size: 20px;
         }
-        
+
         .quote-form .form-input:focus,
         .quote-form .form-select:focus {
             outline: none;
@@ -1310,24 +1310,24 @@
             background: white;
             box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
         }
-        
+
         .quote-form textarea.form-input {
             min-height: 100px;
             resize: vertical;
         }
-        
+
         .quote-form .btn {
             width: 100%;
             margin-top: 8px;
         }
-        
+
         /* Footer */
         .footer {
             background: var(--dark);
             color: var(--gray-300);
             padding: 80px 24px 30px;
         }
-        
+
         .footer-grid {
             max-width: 1400px;
             margin: 0 auto;
@@ -1336,26 +1336,26 @@
             gap: 60px;
             margin-bottom: 60px;
         }
-        
+
         .footer-brand .logo {
             margin-bottom: 20px;
         }
-        
+
         .footer-brand .logo-text {
             color: white;
         }
-        
+
         .footer-desc {
             font-size: 15px;
             line-height: 1.7;
             margin-bottom: 24px;
         }
-        
+
         .footer-social {
             display: flex;
             gap: 12px;
         }
-        
+
         .footer-social a {
             width: 40px;
             height: 40px;
@@ -1368,45 +1368,45 @@
             text-decoration: none;
             transition: all 0.2s;
         }
-        
+
         .footer-social a:hover {
             background: var(--primary);
         }
-        
+
         .footer-social a svg {
             stroke: var(--gray-400);
             transition: stroke 0.2s;
         }
-        
+
         .footer-social a:hover svg {
             stroke: white;
         }
-        
+
         .footer-title {
             font-weight: 600;
             color: white;
             margin-bottom: 20px;
         }
-        
+
         .footer-links {
             list-style: none;
         }
-        
+
         .footer-links li {
             margin-bottom: 12px;
         }
-        
+
         .footer-links a {
             color: var(--gray-400);
             text-decoration: none;
             font-size: 15px;
             transition: color 0.2s;
         }
-        
+
         .footer-links a:hover {
             color: var(--primary);
         }
-        
+
         .footer-bottom {
             max-width: 1400px;
             margin: 0 auto;
@@ -1416,16 +1416,16 @@
             justify-content: space-between;
             font-size: 14px;
         }
-        
+
         .footer-legal {
             display: flex;
             gap: 8px;
         }
-        
+
         .footer-legal a:hover {
             color: var(--primary) !important;
         }
-        
+
         .footer-legal-section {
             max-width: 1400px;
             margin: 0 auto;
@@ -1434,16 +1434,16 @@
             color: var(--gray-500);
             border-top: 1px solid var(--dark-light);
         }
-        
+
         .footer-legal-section p {
             margin-bottom: 8px;
             line-height: 1.6;
         }
-        
+
         .footer-legal-section strong {
             color: var(--gray-400);
         }
-        
+
         /* Legal Modals */
         .modal-overlay {
             display: none;
@@ -1458,11 +1458,11 @@
             justify-content: center;
             padding: 20px;
         }
-        
+
         .modal-overlay.active {
             display: flex;
         }
-        
+
         .modal-content {
             background: var(--white);
             border-radius: 16px;
@@ -1472,7 +1472,7 @@
             position: relative;
             padding: 32px;
         }
-        
+
         .modal-content h2 {
             font-family: 'Poppins', sans-serif;
             font-size: 24px;
@@ -1480,7 +1480,7 @@
             margin-bottom: 24px;
             padding-right: 40px;
         }
-        
+
         .modal-close {
             position: absolute;
             top: 16px;
@@ -1497,39 +1497,39 @@
             align-items: center;
             justify-content: center;
         }
-        
+
         .modal-close:hover {
             background: var(--gray-200);
         }
-        
+
         .modal-body {
             font-size: 14px;
             line-height: 1.7;
             color: var(--gray-600);
         }
-        
+
         .modal-body p {
             margin-bottom: 12px;
         }
-        
+
         .modal-body ul {
             margin-left: 20px;
             margin-bottom: 16px;
         }
-        
+
         .modal-body li {
             margin-bottom: 4px;
         }
-        
+
         .modal-body a {
             color: var(--primary);
             text-decoration: none;
         }
-        
+
         .modal-body a:hover {
             text-decoration: underline;
         }
-        
+
         /* WhatsApp Float */
         .whatsapp-float {
             position: fixed;
@@ -1548,64 +1548,64 @@
             transition: all 0.2s;
             animation: pulse-whatsapp 2s infinite;
         }
-        
+
         .whatsapp-float:hover {
             transform: scale(1.1);
             box-shadow: 0 6px 25px rgba(37, 211, 102, 0.5);
         }
-        
+
         .whatsapp-float img {
             width: 35px;
             height: 35px;
         }
-        
+
         @keyframes pulse-whatsapp {
             0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4); }
             50% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
         }
-        
+
         /* Mobile */
         @media (max-width: 1024px) {
             .quote-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .footer-grid {
                 grid-template-columns: 1fr 1fr;
             }
         }
-        
+
         @media (max-width: 768px) {
             .nav {
                 display: none;
             }
-            
+
             .search-form {
                 grid-template-columns: 1fr;
             }
-            
+
             .stats {
                 flex-wrap: wrap;
                 gap: 30px;
             }
-            
+
             .search-box {
                 padding: 24px 20px;
             }
-            
+
             .search-tabs {
                 flex-wrap: wrap;
             }
-            
+
             .form-row {
                 grid-template-columns: 1fr;
             }
-            
+
             .footer-grid {
                 grid-template-columns: 1fr;
                 gap: 40px;
             }
-            
+
             .footer-bottom {
                 flex-direction: column;
                 gap: 16px;
@@ -1697,41 +1697,41 @@
             <a href="/" class="logo">
                 <img src="logo.png" alt="SkyRoutes" class="logo-img">
             </a>
-            
+
             <nav class="nav">
                 <a href="#vuelos">Vuelos</a>
                 <a href="#destinos">Destinos</a>
                 <a href="#cotizacion">Cotización</a>
                 <a href="#contacto">Contacto</a>
             </nav>
-            
+
             <a href="#cotizacion" class="btn btn-primary">
                 <span class="icon icon-20"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
                 Solicitar Cotización
             </a>
         </div>
     </header>
-    
+
     <!-- Hero Section -->
     <section class="hero" id="vuelos">
         <div class="hero-bg"></div>
         <div class="hero-overlay"></div>
-        
+
         <div class="hero-container">
             <div class="hero-badge">
                 <span class="icon icon-16"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
                 Latinoamérica <span class="hero-badge-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span> Europa
             </div>
-            
+
             <h1 class="hero-title">
                 Vuelos a Europa<br>
                 <span>al mejor precio</span>
             </h1>
-            
+
             <p class="hero-subtitle">
                 Vuelos desde Latinoamérica a España y toda Europa. Sin cargos ocultos.
             </p>
-            
+
             <!-- Search Box -->
             <div class="search-box">
                 <div class="search-title">
@@ -1770,7 +1770,7 @@
                         <input type="text" class="form-input" id="origen" placeholder="¿De dónde sales?" required autocomplete="off">
                         <div class="autocomplete-dropdown" id="origen-dropdown"></div>
                     </div>
-                    
+
                     <div class="form-group autocomplete-wrapper">
                         <label class="form-label">Destino</label>
                         <input type="text" class="form-input" id="destino" placeholder="¿A dónde quieres ir?" required autocomplete="off">
@@ -1800,7 +1800,7 @@
                         <label class="form-label">Fechas</label>
                         <input type="text" class="form-input" id="fechas" placeholder="Ida - Vuelta" readonly>
                     </div>
-                    
+
                     <div class="form-group passengers-wrapper">
                         <label class="form-label">Pasajeros</label>
                         <button type="button" class="passengers-btn" id="passengers-btn">
@@ -1814,7 +1814,7 @@
                                     <div class="passenger-info">13+ años</div>
                                 </div>
                                 <div class="passenger-controls">
-                                    <button type="button" class="passenger-btn" id="adults-minus">−</button>
+                                    <button type="button" class="passenger-btn" id="adults-minus">-</button>
                                     <span class="passenger-count" id="adults-count">1</span>
                                     <button type="button" class="passenger-btn" id="adults-plus">+</button>
                                 </div>
@@ -1825,7 +1825,7 @@
                                     <div class="passenger-info">2-12 años</div>
                                 </div>
                                 <div class="passenger-controls">
-                                    <button type="button" class="passenger-btn" id="children-minus">−</button>
+                                    <button type="button" class="passenger-btn" id="children-minus">-</button>
                                     <span class="passenger-count" id="children-count">0</span>
                                     <button type="button" class="passenger-btn" id="children-plus">+</button>
                                 </div>
@@ -1857,11 +1857,11 @@
                         Buscar
                     </button>
                 </form>
-                
+
                 <!-- Flight Results Container -->
                 <div id="flight-results" class="flight-results-container"></div>
             </div>
-            
+
             <!-- Stats -->
             <div class="stats">
                 <div class="stat">
@@ -1883,7 +1883,7 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Why Choose Us Section -->
     <section class="section" style="background: var(--white);">
         <div class="section-container">
@@ -1891,7 +1891,7 @@
                 <h2 class="section-title">¿Por qué elegir SkyRoutes?</h2>
                 <p class="section-subtitle">Tu agencia de confianza para volar a Europa</p>
             </div>
-            
+
             <div class="benefits-grid">
                 <div class="benefit-card">
                     <div class="benefit-icon">
@@ -1903,7 +1903,7 @@
                     <h3>Mejores precios</h3>
                     <p>Comparamos cientos de opciones para encontrar el precio más bajo garantizado.</p>
                 </div>
-                
+
                 <div class="benefit-card">
                     <div class="benefit-icon">
                         <svg viewBox="0 0 24 24" width="32" height="32" stroke="var(--primary)" fill="none" stroke-width="2">
@@ -1914,7 +1914,7 @@
                     <h3>Sin cargos ocultos</h3>
                     <p>El precio que ves es el que pagas. Sin sorpresas ni costes adicionales.</p>
                 </div>
-                
+
                 <div class="benefit-card">
                     <div class="benefit-icon">
                         <svg viewBox="0 0 24 24" width="32" height="32" stroke="var(--primary)" fill="none" stroke-width="2">
@@ -1924,7 +1924,7 @@
                     <h3>Soporte 24/7</h3>
                     <p>Te acompañamos antes, durante y después de tu viaje. Siempre disponibles.</p>
                 </div>
-                
+
                 <div class="benefit-card">
                     <div class="benefit-icon">
                         <svg viewBox="0 0 24 24" width="32" height="32" stroke="var(--primary)" fill="none" stroke-width="2">
@@ -1936,7 +1936,7 @@
                     <p>Cotización en menos de 24 horas. Reserva tu vuelo sin esperas.</p>
                 </div>
             </div>
-            
+
             <!-- Airline Logos -->
             <div class="airlines-section">
                 <p class="airlines-title">Trabajamos con las mejores aerolíneas</p>
@@ -1963,7 +1963,7 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Testimonials Section -->
     <section class="section" style="background: var(--gray-50);">
         <div class="section-container">
@@ -1971,7 +1971,7 @@
                 <h2 class="section-title">Lo que dicen nuestros clientes</h2>
                 <p class="section-subtitle">Miles de viajeros satisfechos nos respaldan</p>
             </div>
-            
+
             <div class="testimonials-slider">
                 <div class="testimonial-card">
                     <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
@@ -1984,7 +1984,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="testimonial-card">
                     <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
                     <p class="testimonial-text">"Excelente atención. Me ayudaron con todo el proceso de visa y encontraron el mejor precio para mi familia. 100% recomendado."</p>
@@ -1996,7 +1996,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="testimonial-card">
                     <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
                     <p class="testimonial-text">"Viajé con mis dos hijos y todo salió perfecto. Me asesoraron sobre documentos y equipaje. Volveré a usarlos sin duda."</p>
@@ -2011,7 +2011,7 @@
             </div>
         </div>
     </section>
-    
+
     <!-- FAQ Section -->
     <section class="section" id="faq">
         <div class="section-container">
@@ -2019,33 +2019,33 @@
                 <h2 class="section-title">Preguntas Frecuentes</h2>
                 <p class="section-subtitle">Resolvemos tus dudas</p>
             </div>
-            
+
             <div class="faq-grid">
                 <div class="faq-item">
                     <h3>📋 ¿Qué documentos necesito para viajar a Europa?</h3>
                     <p>Necesitas pasaporte válido (mínimo 6 meses de vigencia) y, según tu nacionalidad, visa Schengen. Latinoamericanos de países como México, Colombia, Perú, Chile y Argentina NO necesitan visa para estancias de hasta 90 días. Te asesoramos sin costo.</p>
                 </div>
-                
+
                 <div class="faq-item">
                     <h3>💰 ¿Los precios incluyen impuestos?</h3>
                     <p>Sí, todos nuestros precios incluyen tasas e impuestos. No hay cargos ocultos ni sorpresas al final. El precio que ves es el que pagas.</p>
                 </div>
-                
+
                 <div class="faq-item">
                     <h3>👶 ¿Viajo con niños? ¿Tienen descuento?</h3>
                     <p>Sí, los niños de 2 a 11 años suelen tener descuentos del 10-25% según la aerolínea. Los bebés (0-2 años) pagan solo el 10% de la tarifa. Te ayudamos a encontrar la mejor opción familiar.</p>
                 </div>
-                
+
                 <div class="faq-item">
                     <h3>🧳 ¿Cuánto equipaje puedo llevar?</h3>
                     <p>Depende de la tarifa y aerolínea. Generalmente: equipaje de mano (7-10kg) incluido, maleta facturada (23kg) desde €50 adicionales. Te informamos las opciones antes de reservar.</p>
                 </div>
-                
+
                 <div class="faq-item">
                     <h3>❌ ¿Puedo cancelar o cambiar mi vuelo?</h3>
                     <p>Depende de la tarifa contratada. Tarifas flexibles permiten cambios y cancelaciones con bajo coste. Tarifas económicas pueden tener restricciones. Siempre te explicamos las condiciones antes de confirmar.</p>
                 </div>
-                
+
                 <div class="faq-item">
                     <h3>💳 ¿Qué métodos de pago aceptan?</h3>
                     <p>Aceptamos transferencia bancaria, tarjeta de crédito/débito y PayPal.</p>
@@ -2053,7 +2053,7 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Stats Counter Section -->
     <section class="section" style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white;">
         <div class="section-container">
@@ -2077,7 +2077,7 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Trust Badges -->
     <section class="section" style="padding: 40px 0;">
         <div class="section-container">
@@ -2101,7 +2101,7 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Destinations Section -->
     <section class="section" id="destinos">
         <div class="section-container">
@@ -2113,7 +2113,7 @@
                 <h2 class="section-title">Vuelos a Europa</h2>
                 <p class="section-subtitle">Los destinos más solicitados desde Latinoamérica</p>
             </div>
-            
+
             <div class="packages-grid">
                 <!-- Destination 1 -->
                 <div class="package-card">
@@ -2140,7 +2140,7 @@
                         </a>
                     </div>
                 </div>
-                
+
                 <!-- Destination 2 -->
                 <div class="package-card">
                     <div class="package-image" style="background-image: url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600')">
@@ -2166,7 +2166,7 @@
                         </a>
                     </div>
                 </div>
-                
+
                 <!-- Destination 3 -->
                 <div class="package-card">
                     <div class="package-image" style="background-image: url('https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?w=600')">
@@ -2195,7 +2195,7 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Quote Section -->
     <section class="section quote-section" id="cotizacion">
         <div class="section-container">
@@ -2203,7 +2203,7 @@
                 <div class="quote-content">
                     <h2>Cotización de vuelos</h2>
                     <p>No encuentras el vuelo que buscas? Cuéntanos tu itinerario y te enviamos las mejores opciones.</p>
-                    
+
                     <div class="quote-features">
                         <div class="quote-feature">
                             <span class="icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
@@ -2222,20 +2222,20 @@
                             <span>Asesoría de rutas y escalas</span>
                         </div>
                     </div>
-                    
+
                     <a href="https://wa.me/34610243061?text=Hola!%20Quiero%20cotizar%20un%20vuelo%20a%20Europa" class="btn btn-secondary" target="_blank">
                         <span class="icon icon-20"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span>
                         WhatsApp directo
                     </a>
                 </div>
-                
+
                 <div class="quote-form">
                     <h3>Solicitar cotización</h3>
                     <form id="quote-form" action="https://formsubmit.co/stephempre3@gmail.com" method="POST">
                         <input type="hidden" name="_subject" value="Nueva cotización - SkyRoutes">
                         <input type="hidden" name="_captcha" value="false">
                         <input type="hidden" name="_template" value="table">
-                        
+
                         <div class="form-row">
                             <div class="form-group">
                                 <label class="form-label">Nombre completo</label>
@@ -2246,7 +2246,7 @@
                                 <input type="email" name="email" class="form-input" placeholder="tu@email.com" required>
                             </div>
                         </div>
-                        
+
                         <div class="form-row">
                             <div class="form-group">
                                 <label class="form-label">Teléfono (WhatsApp)</label>
@@ -2257,7 +2257,7 @@
                                 <input type="text" name="origen" class="form-input" list="origenes-list" placeholder="Lima, Buenos Aires, México..." autocomplete="off">
                             </div>
                         </div>
-                        
+
                         <div class="form-row">
                             <div class="form-group">
                                 <label class="form-label">Destinos deseados</label>
@@ -2268,14 +2268,14 @@
                                 <input type="date" name="fecha" class="form-input">
                             </div>
                         </div>
-                        
+
                         <div class="form-row single">
                             <div class="form-group">
                                 <label class="form-label">Comentarios adicionales</label>
                                 <textarea name="comentarios" class="form-input" placeholder="Número de pasajeros, fechas flexibles, preferencias de aerolínea..."></textarea>
                             </div>
                         </div>
-                        
+
                         <button type="submit" class="btn btn-primary">
                             <span class="icon icon-20"><svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></span>
                             Enviar solicitud
@@ -2285,7 +2285,7 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Footer -->
     <footer class="footer" id="contacto">
         <div class="footer-grid">
@@ -2294,7 +2294,7 @@
                     <img src="logo.png" alt="SkyRoutes" class="logo-img">
                 </a>
                 <p class="footer-desc">
-                    Tu agencia de confianza para volar de Latinoamérica a Europa. 
+                    Tu agencia de confianza para volar de Latinoamérica a Europa.
                     Los mejores precios en vuelos con atención personalizada.
                 </p>
                 <div class="footer-social">
@@ -2303,7 +2303,7 @@
                     <a href="#" title="Twitter"><svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
                 </div>
             </div>
-            
+
             <div>
                 <h4 class="footer-title">Destinos</h4>
                 <ul class="footer-links">
@@ -2314,7 +2314,7 @@
                     <li><a href="#">Alemania</a></li>
                 </ul>
             </div>
-            
+
             <div>
                 <h4 class="footer-title">Servicios</h4>
                 <ul class="footer-links">
@@ -2325,7 +2325,7 @@
                     <li><a href="#">Cotización</a></li>
                 </ul>
             </div>
-            
+
             <div>
                 <h4 class="footer-title">Contacto</h4>
                 <ul class="footer-links">
@@ -2336,7 +2336,7 @@
                 </ul>
             </div>
         </div>
-        
+
         <div class="footer-bottom">
             <span>© 2026 SkyRoutes. Todos los derechos reservados.</span>
             <div class="footer-legal">
@@ -2345,7 +2345,7 @@
                 <a href="#" onclick="openModal('modal-cookies'); return false;" style="color: var(--gray-400); text-decoration: none;">Política de Cookies</a>
             </div>
         </div>
-        
+
         <!-- Legal Section -->
         <div class="footer-legal-section">
             <p><strong>Protección de Datos Personales</strong></p>
@@ -2353,7 +2353,7 @@
             <p>El usuario tiene derecho a acceder, rectificar, suprimir, limitar u oponerse al tratamiento de sus datos contactando a <a href="mailto:info@skyroutes.com" style="color: var(--primary);">info@skyroutes.com</a>.</p>
         </div>
     </footer>
-    
+
     <!-- Legal Modals -->
     <div class="modal-overlay" id="modal-terminos">
         <div class="modal-content">
@@ -2362,31 +2362,31 @@
             <div class="modal-body">
                 <p><strong>1. Aceptación de los Términos</strong></p>
                 <p>Al utilizar los servicios de SkyRoutes, usted acepta estos Términos y Condiciones. Si no está de acuerdo, por favor no utilice nuestros servicios.</p>
-                
+
                 <p><strong>2. Servicios</strong></p>
                 <p>SkyRoutes actúa como intermediario en la búsqueda y cotización de vuelos entre Latinoamérica y Europa. Los precios mostrados son estimados y están sujetos a disponibilidad y cambios sin previo aviso.</p>
-                
+
                 <p><strong>3. Reservas y Pagos</strong></p>
                 <p>Las cotizaciones tienen validez de 48 horas. La confirmación definitiva de cualquier reserva está sujeta a la disponibilidad de la aerolínea y al pago completo del servicio.</p>
-                
+
                 <p><strong>4. Cancelaciones y Devoluciones</strong></p>
                 <p>Las políticas de cancelación y devolución dependen de cada aerolínea y tarifa contratada. SkyRoutes no es responsable de los gastos derivados de cancelaciones por causas no imputables a la agencia.</p>
-                
+
                 <p><strong>5. Responsabilidad</strong></p>
                 <p>SkyRoutes no se hace responsable de retrasos, cancelaciones o modificaciones de vuelos causados por las aerolíneas, condiciones climáticas, huelgas u otras causas de fuerza mayor.</p>
-                
+
                 <p><strong>6. Documentación</strong></p>
                 <p>El cliente es responsable de contar con la documentación válida para viajar (pasaporte, visas, requisitos sanitarios). SkyRoutes no se hace responsable de problemas derivados de documentación incorrecta o insuficiente.</p>
-                
+
                 <p><strong>7. Modificaciones</strong></p>
                 <p>SkyRoutes se reserva el derecho de modificar estos términos en cualquier momento. Los cambios serán efectivos a partir de su publicación en este sitio.</p>
-                
+
                 <p><strong>8. Legislación Aplicable</strong></p>
                 <p>Estos términos se rigen por la legislación española. Para cualquier controversia, las partes se someten a los Juzgados y Tribunales de Barcelona.</p>
             </div>
         </div>
     </div>
-    
+
     <div class="modal-overlay" id="modal-privacidad">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('modal-privacidad')">×</button>
@@ -2394,7 +2394,7 @@
             <div class="modal-body">
                 <p><strong>Responsable del Tratamiento</strong></p>
                 <p>SkyRoutes, con domicilio en Barcelona, España, es responsable del tratamiento de sus datos personales.</p>
-                
+
                 <p><strong>Finalidad del Tratamiento</strong></p>
                 <p>Los datos personales recogidos serán utilizados para:</p>
                 <ul>
@@ -2402,13 +2402,13 @@
                     <li>Gestionar reservas de vuelos</li>
                     <li>Enviar información comercial (solo si autoriza)</li>
                 </ul>
-                
+
                 <p><strong>Base Legal</strong></p>
                 <p>El tratamiento de sus datos se basa en el consentimiento del interesado, la ejecución de un contrato y el interés legítimo de la empresa.</p>
-                
+
                 <p><strong>Datos Recogidos</strong></p>
                 <p>Recogemos: nombre, email, teléfono, ciudad de origen/destino, fechas de viaje y número de pasajeros.</p>
-                
+
                 <p><strong>Derechos del Usuario</strong></p>
                 <p>Conforme al RGPD, tiene derecho a:</p>
                 <ul>
@@ -2419,21 +2419,21 @@
                     <li><strong>Oposición:</strong> oponerse al tratamiento</li>
                     <li><strong>Portabilidad:</strong> recibir sus datos en formato estructurado</li>
                 </ul>
-                
+
                 <p>Para ejercer estos derechos, contacte a <a href="mailto:info@skyroutes.com">info@skyroutes.com</a>.</p>
-                
+
                 <p><strong>Conservación de Datos</strong></p>
                 <p>Los datos se conservarán mientras exista una relación comercial o durante el tiempo necesario para cumplir con obligaciones legales.</p>
-                
+
                 <p><strong>Cesión de Datos</strong></p>
                 <p>Sus datos podrán cederse a aerolíneas y proveedores necesarios para la prestación del servicio. No cederemos datos a terceros sin su consentimiento.</p>
-                
+
                 <p><strong>Autoridad de Control</strong></p>
                 <p>Puede presentar una reclamación ante la Agencia Española de Protección de Datos (AEPD) si considera que sus derechos han sido vulnerados.</p>
             </div>
         </div>
     </div>
-    
+
     <div class="modal-overlay" id="modal-cookies">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('modal-cookies')">×</button>
@@ -2441,21 +2441,21 @@
             <div class="modal-body">
                 <p><strong>¿Qué son las cookies?</strong></p>
                 <p>Las cookies son pequeños archivos de texto que se almacenan en su dispositivo cuando visita un sitio web. Se utilizan para mejorar la experiencia del usuario y recopilar información sobre el uso del sitio.</p>
-                
+
                 <p><strong>Tipos de Cookies que Utilizamos</strong></p>
-                
+
                 <p><strong>Cookies Técnicas (necesarias)</strong></p>
                 <p>Permiten la navegación por el sitio y utilizar sus funciones. Sin ellas, el sitio no funcionaría correctamente. No recopilan información personal.</p>
-                
+
                 <p><strong>Cookies Analíticas</strong></p>
                 <p>Nos ayudan a entender cómo los visitantes interactúan con el sitio, permitiéndonos mejorar la experiencia. Recopilan información anónima sobre páginas visitadas, tiempo en el sitio, etc.</p>
-                
+
                 <p><strong>Cookies de Terceros</strong></p>
                 <p>Algunas cookies son colocadas por servicios de terceros (Google, Facebook, etc.) para funcionalidades como mapas, formularios o seguimiento de conversiones.</p>
-                
+
                 <p><strong>Gestión de Cookies</strong></p>
                 <p>Puede configurar su navegador para rechazar cookies o eliminar las ya almacenadas. Tenga en cuenta que esto puede afectar la funcionalidad del sitio.</p>
-                
+
                 <p><strong>Cómo deshabilitar cookies en los principales navegadores:</strong></p>
                 <ul>
                     <li><strong>Chrome:</strong> Configuración → Privacidad y seguridad → Cookies</li>
@@ -2463,25 +2463,25 @@
                     <li><strong>Safari:</strong> Preferencias → Privacidad → Cookies</li>
                     <li><strong>Edge:</strong> Configuración → Cookies y permisos del sitio</li>
                 </ul>
-                
+
                 <p><strong>Actualización</strong></p>
                 <p>Esta política puede actualizarse. Le recomendamos revisarla periódicamente.</p>
-                
+
                 <p><strong>Contacto</strong></p>
                 <p>Para consultas sobre cookies: <a href="mailto:info@skyroutes.com">info@skyroutes.com</a></p>
             </div>
         </div>
     </div>
-    
+
     <!-- WhatsApp Float -->
     <a href="https://wa.me/34610243061?text=Hola!%20Quiero%20información%20sobre%20viajes%20a%20Europa" class="whatsapp-float" target="_blank">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
     </a>
-    
+
     <!-- Flatpickr -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
-    
+
     <script>
         // Cities data
         const origenes = [
@@ -2502,7 +2502,7 @@
             { city: 'Managua', country: 'Nicaragua', code: 'MGA' },
             { city: 'San Salvador', country: 'El Salvador', code: 'SAL' }
         ];
-        
+
         const destinos = [
             { city: 'Madrid', country: 'España', code: 'MAD' },
             { city: 'Barcelona', country: 'España', code: 'BCN' },
@@ -2624,27 +2624,27 @@
             const input = document.getElementById(inputId);
             const dropdown = document.getElementById(dropdownId);
             let activeIndex = -1;
-            
+
             input.addEventListener('input', function() {
                 const value = this.value.toLowerCase().trim();
                 if (value.length < 1) {
                     dropdown.classList.remove('show');
                     return;
                 }
-                
-                const matches = cities.filter(c => 
-                    c.city.toLowerCase().includes(value) || 
+
+                const matches = cities.filter(c =>
+                    c.city.toLowerCase().includes(value) ||
                     c.country.toLowerCase().includes(value)
                 ).slice(0, 8);
-                
+
                 if (matches.length === 0) {
                     dropdown.classList.remove('show');
                     return;
                 }
-                
+
                 dropdown.innerHTML = matches.map((c, i) => {
                     const cityMatch = c.city.toLowerCase().indexOf(value) >= 0;
-                    const displayCity = cityMatch 
+                    const displayCity = cityMatch
                         ? c.city.replace(new RegExp(`(${value})`, 'gi'), '<span class="match-text">$1</span>')
                         : c.city;
                     return `
@@ -2657,11 +2657,11 @@
                         </div>
                     `;
                 }).join('');
-                
+
                 dropdown.classList.add('show');
                 activeIndex = -1;
             });
-            
+
             dropdown.addEventListener('click', function(e) {
                 const item = e.target.closest('.autocomplete-item');
                 if (item) {
@@ -2669,21 +2669,21 @@
                     dropdown.classList.remove('show');
                 }
             });
-            
+
             input.addEventListener('blur', () => {
                 setTimeout(() => dropdown.classList.remove('show'), 200);
             });
-            
+
             input.addEventListener('focus', function() {
                 if (this.value.length >= 1) {
                     this.dispatchEvent(new Event('input'));
                 }
             });
         }
-        
+
         setupAutocomplete('origen', 'origen-dropdown', origenes);
         setupAutocomplete('destino', 'destino-dropdown', destinos);
-        
+
         // Trip type selector - Solo Ida / Ida y Vuelta
         const tripTypeTabs = document.querySelectorAll('.trip-type-tab');
         let currentTripType = 'roundtrip';
@@ -2767,25 +2767,25 @@
                 }
             }
         });
-        
+
         // Passengers selector
         const passengers = { adults: 1, children: 0, childAges: [] };
-        
+
         function renderChildAges() {
             const section = document.getElementById('children-ages');
             const container = document.getElementById('age-selects');
-            
+
             if (passengers.children > 0) {
                 section.classList.add('show');
                 section.style.display = 'block';
                 container.innerHTML = '';
-                
+
                 for (let i = 0; i < passengers.children; i++) {
                     const wrapper = document.createElement('div');
-                    
+
                     const label = document.createElement('span');
                     label.textContent = `Niño ${i + 1}:`;
-                    
+
                     const select = document.createElement('select');
                     select.innerHTML = `
                         <option value="">Edad</option>
@@ -2798,7 +2798,7 @@
                     select.addEventListener('change', function() {
                         passengers.childAges[i] = this.value ? parseInt(this.value) : null;
                     });
-                    
+
                     wrapper.appendChild(label);
                     wrapper.appendChild(select);
                     container.appendChild(wrapper);
@@ -2809,20 +2809,20 @@
                 container.innerHTML = '';
             }
         }
-        
+
         function updatePassengersDisplay() {
             document.getElementById('adults-count').textContent = passengers.adults;
             document.getElementById('children-count').textContent = passengers.children;
-            
+
             let text = `${passengers.adults} adulto${passengers.adults > 1 ? 's' : ''}`;
             if (passengers.children > 0) {
                 text += `, ${passengers.children} niño${passengers.children > 1 ? 's' : ''}`;
             }
             document.getElementById('passengers-text').textContent = text;
-            
+
             renderChildAges();
         }
-        
+
         // Initialize passengers dropdown
         document.getElementById('passengers-btn').addEventListener('click', function(e) {
             e.preventDefault();
@@ -2836,17 +2836,17 @@
                 dropdown.style.display = 'block';
             }
         });
-        
+
         document.querySelectorAll('.passengers-wrapper .passenger-btn').forEach(btn => {
             btn.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                
+
                 const adultsMinus = this.id === 'adults-minus';
                 const adultsPlus = this.id === 'adults-plus';
                 const childrenMinus = this.id === 'children-minus';
                 const childrenPlus = this.id === 'children-plus';
-                
+
                 if (adultsMinus && passengers.adults > 1) {
                     passengers.adults--;
                 } else if (adultsPlus && passengers.adults < 9) {
@@ -2858,18 +2858,18 @@
                     passengers.children++;
                     passengers.childAges.push(null);
                 }
-                
+
                 updatePassengersDisplay();
             });
         });
-        
+
         document.getElementById('passengers-done-btn').addEventListener('click', function(e) {
             e.stopPropagation();
             const dropdown = document.getElementById('passengers-dropdown');
             dropdown.classList.remove('show');
             dropdown.style.display = 'none';
         });
-        
+
         document.addEventListener('click', function(e) {
             if (!e.target.closest('.passengers-wrapper')) {
                 const dropdown = document.getElementById('passengers-dropdown');
@@ -2877,13 +2877,13 @@
                 dropdown.style.display = 'none';
             }
         });
-        
+
         // Search form handler
         function setSearchType(type) {
             document.querySelectorAll('.search-tab').forEach(tab => tab.classList.remove('active'));
             event.target.closest('.search-tab').classList.add('active');
         }
-        
+
         let currentFlights = []; // Store flights globally
 
         async function handleSearch(e) {
@@ -2931,10 +2931,55 @@
 
             // Scroll to results
             resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
             try {
-                // Use mock flights directly (no API dependency)
-                const data = await searchFlightsOffline();
+                // EMBEDDED FLIGHTS - No file dependency
+                await new Promise(resolve => setTimeout(resolve, 800));  // Simulate loading
+
+                const data = {
+                    flights: [
+                        {
+                            airline: 'Ryanair',
+                            flight_number: 'FR' + Math.floor(Math.random() * 9000 + 1000),
+                            departure_time: '08:30',
+                            arrival_time: '10:45',
+                            duration_minutes: 135,
+                            stops: 0,
+                            original_price: 45,
+                            skyroutes_price: 50,
+                            markup_percent: 10
+                        },
+                        {
+                            airline: 'EasyJet',
+                            flight_number: 'U2' + Math.floor(Math.random() * 9000 + 1000),
+                            departure_time: '12:00',
+                            arrival_time: '14:30',
+                            duration_minutes: 150,
+                            stops: 0,
+                            original_price: 55,
+                            skyroutes_price: 60,
+                            markup_percent: 10
+                        },
+                        {
+                            airline: 'Vueling',
+                            flight_number: 'VY' + Math.floor(Math.random() * 9000 + 1000),
+                            departure_time: '16:30',
+                            arrival_time: '18:45',
+                            duration_minutes: 135,
+                            stops: 0,
+                            original_price: 60,
+                            skyroutes_price: 66,
+                            markup_percent: 10
+                        }
+                    ],
+                    meta: {
+                        origin: 'search',
+                        destination: 'search',
+                        trip_type: 'roundtrip',
+                        passengers: 1,
+                        demo_mode: true,
+                        timestamp: new Date().toISOString()
+                    }
+                };
 
                 if (data.flights && data.flights.length > 0) {
                     // Store flights globally for WhatsApp
@@ -2965,7 +3010,7 @@
                 `;
             }
         }
-        
+
         function displayFlightResults(flights, origin, destination, tripType = 'roundtrip') {
             const resultsContainer = document.getElementById('flight-results');
             const tripText = tripType === 'oneway' ? 'Solo Ida' : 'Ida y Vuelta';
@@ -2981,13 +3026,13 @@
 
                 <div class="flights-grid">
             `;
-            
+
             flights.forEach((flight, index) => {
                 const durationHours = Math.floor(flight.duration_minutes / 60);
                 const durationMins = flight.duration_minutes % 60;
                 const stopsText = flight.stops === 0 ? 'Directo' : `${flight.stops} escala${flight.stops > 1 ? 's' : ''}`;
                 const savingsPercent = ((flight.markup_percent || 10) - 100).toFixed(0);
-                
+
                 html += `
                     <div class="flight-card" style="animation: fadeInUp 0.5s ease both; animation-delay: ${index * 0.1}s">
                         <div class="flight-header">
@@ -2997,30 +3042,30 @@
                             </div>
                             <div class="source-badge">Aerolínea directa</div>
                         </div>
-                        
+
                         <div class="flight-times">
                             <div class="time-departure">
                                 <div class="time">${flight.departure_time}</div>
                                 <div class="date">${flight.departure_date}</div>
                             </div>
-                            
+
                             <div class="flight-connection">
                                 <div class="duration">${durationHours}h ${durationMins}m</div>
                                 <div class="stops-indicator">
-                                    ${flight.stops === 0 ? 
+                                    ${flight.stops === 0 ?
                                         '<div class="stops-line stops-direct"></div>' :
                                         `<div class="stops-line"><span class="stops-dot"></span><span class="stops-dot"></span></div>`
                                     }
                                 </div>
                                 <div class="stops-text">${stopsText}</div>
                             </div>
-                            
+
                             <div class="time-arrival">
                                 <div class="time">${flight.arrival_time}</div>
                                 <div class="date">${flight.departure_date}</div>
                             </div>
                         </div>
-                        
+
                         <div class="flight-footer">
                             <div class="price-comparison">
                                 <div class="original-price">
@@ -3060,7 +3105,7 @@
 
             resultsContainer.innerHTML = html;
         }
-        
+
         function bookThisFlight(flightIndex) {
             const flight = currentFlights[flightIndex];
             const origen = document.getElementById('origen').value;
@@ -3142,28 +3187,28 @@
             const whatsapp = `https://wa.me/34610243061?text=${encodeURIComponent(mensaje)}`;
             window.open(whatsapp, '_blank');
         }
-        
+
         function contactWhatsApp() {
             const origen = document.getElementById('origen');
             const destino = document.getElementById('destino');
             const fechas = document.getElementById('fechas');
-            
+
             let passengersText = `${passengers.adults} adulto${passengers.adults > 1 ? 's' : ''}`;
             if (passengers.children > 0) {
                 passengersText += `, ${passengers.children} niño${passengers.children > 1 ? 's' : ''}`;
             }
-            
+
             let mensaje = `Hola! 🔍\n\n`;
             mensaje += `Estoy buscando vuelos:\n\n`;
             mensaje += `📍 Origen: ${origen ? origen.value : ''}\n`;
             mensaje += `📍 Destino: ${destino ? destino.value : ''}\n`;
             mensaje += `📅 Fechas: ${fechas ? fechas.value : ''}\n`;
             mensaje += `👥 Pasajeros: ${passengersText}`;
-            
+
             const whatsapp = `https://wa.me/34610243061?text=${encodeURIComponent(mensaje)}`;
             window.open(whatsapp, '_blank');
         }
-        
+
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -3174,7 +3219,7 @@
                 }
             });
         });
-        
+
         // Header scroll effect
         window.addEventListener('scroll', () => {
             const header = document.querySelector('.header');
@@ -3184,7 +3229,7 @@
                 header.style.boxShadow = '0 1px 3px rgba(0,0,0,0.1)';
             }
         });
-        
+
         // Animate Stats Counter
         function animateCounters() {
             const counters = document.querySelectorAll('.stat-number');
@@ -3193,7 +3238,7 @@
                 const duration = 2000;
                 const step = target / (duration / 16);
                 let current = 0;
-                
+
                 const updateCounter = () => {
                     current += step;
                     if (current < target) {
@@ -3203,11 +3248,11 @@
                         counter.textContent = target.toLocaleString();
                     }
                 };
-                
+
                 updateCounter();
             });
         }
-        
+
         // Trigger animation when section is visible
         const statsSection = document.querySelector('.stats-counter');
         if (statsSection) {
@@ -3219,21 +3264,21 @@
                     }
                 });
             }, { threshold: 0.5 });
-            
+
             observer.observe(statsSection);
         }
-        
+
         // Legal Modals
         function openModal(modalId) {
             document.getElementById(modalId).classList.add('active');
             document.body.style.overflow = 'hidden';
         }
-        
+
         function closeModal(modalId) {
             document.getElementById(modalId).classList.remove('active');
             document.body.style.overflow = '';
         }
-        
+
         // Close modal on overlay click
         document.querySelectorAll('.modal-overlay').forEach(modal => {
             modal.addEventListener('click', (e) => {
@@ -3243,7 +3288,7 @@
                 }
             });
         });
-        
+
         // Close modal on Escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
@@ -3254,7 +3299,7 @@
             }
         });
     </script>
-    
+
     <!-- Cookie Banner -->
     <div id="cookie-banner" class="cookie-banner">
         <div class="cookie-content">
@@ -3267,7 +3312,7 @@
             </div>
         </div>
     </div>
-    
+
     <style>
         .cookie-banner {
             position: fixed;
@@ -3281,17 +3326,17 @@
             display: none;
             box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
         }
-        
+
         .cookie-banner.show {
             display: block;
             animation: slideUp 0.3s ease;
         }
-        
+
         @keyframes slideUp {
             from { transform: translateY(100%); }
             to { transform: translateY(0); }
         }
-        
+
         .cookie-content {
             max-width: 1200px;
             margin: 0 auto;
@@ -3301,29 +3346,29 @@
             gap: 20px;
             flex-wrap: wrap;
         }
-        
+
         .cookie-text {
             flex: 1;
             min-width: 280px;
         }
-        
+
         .cookie-text p {
             margin: 0;
             font-size: 14px;
             line-height: 1.5;
         }
-        
+
         .cookie-text a {
             color: var(--primary-light);
             text-decoration: underline;
         }
-        
+
         .cookie-buttons {
             display: flex;
             gap: 12px;
             flex-shrink: 0;
         }
-        
+
         .cookie-btn {
             padding: 10px 24px;
             border-radius: 8px;
@@ -3333,33 +3378,33 @@
             border: none;
             transition: all 0.2s ease;
         }
-        
+
         .cookie-btn-accept {
             background: var(--primary);
             color: white;
         }
-        
+
         .cookie-btn-accept:hover {
             background: var(--primary-dark);
         }
-        
+
         .cookie-btn-reject {
             background: transparent;
             color: var(--gray-300);
             border: 1px solid var(--gray-600);
         }
-        
+
         .cookie-btn-reject:hover {
             background: var(--gray-800);
             color: white;
         }
-        
+
         @media (max-width: 600px) {
             .cookie-content {
                 flex-direction: column;
                 text-align: center;
             }
-            
+
             .cookie-buttons {
                 width: 100%;
                 justify-content: center;
@@ -3749,7 +3794,7 @@
             }
         }
     </style>
-    
+
     <script>
         // Cookie consent
         function showCookieBanner() {
@@ -3758,20 +3803,17 @@
                 document.getElementById('cookie-banner').classList.add('show');
             }
         }
-        
+
         function acceptCookies() {
             localStorage.setItem('cookieConsent', 'accepted');
             document.getElementById('cookie-banner').classList.remove('show');
         }
-        
+
         function rejectCookies() {
             localStorage.setItem('cookieConsent', 'rejected');
             document.getElementById('cookie-banner').classList.remove('show');
-        }
-        // Show banner on load
+        }        // Show banner on load
         setTimeout(showCookieBanner, 1000);
     </script>
-    <!-- Mock flights data - embedded directly (no API dependency needed) -->
-    <script src="mock-flights.js"></script>
 </body>
 </html>
