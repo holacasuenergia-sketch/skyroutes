@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyRoutes API Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        pre {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid #ddd;
+        }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>🧪 SkyRoutes API Test</h1>
+
+    <button onclick="testAPI()">Test /api/flights</button>
+    <button onclick="testAPITest()">Test /api/flights_test</button>
+    <button onclick="testGET()">Test GET request</button>
+
+    <div id="result"></div>
+
+    <script>
+        async function testAPI() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<p>⏳ Testing /api/flights...</p>';
+
+            try {
+                const response = await fetch('/api/flights', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        origin: 'MAD',
+                        destination: 'BCN',
+                        departure_date: '2026-05-15',
+                        return_date: '2026-05-22',
+                        trip_type: 'roundtrip',
+                        passengers: 1
+                    })
+                });
+
+                console.log('Response status:', response.status);
+                console.log('Response ok:', response.ok);
+                console.log('Response headers:', [...response.headers.entries()]);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+
+                resultDiv.innerHTML = `
+                    <p class="success">✅ SUCCESS!</p>
+                    <p>Status: ${response.status} ${response.statusText}</p>
+                    <p>Response ok: ${response.ok}</p>
+                    <h3>Response Data:</h3>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                    <p>Aerolineas: ${data.flights?.map(f => f.airline).join(', ')}</p>
+                    <p>Precios: ${data.flights?.map(f => f.skyroutes_price).join(', ')} €</p>
+                `;
+            } catch (error) {
+                console.error('Error:', error);
+                resultDiv.innerHTML = `
+                    <p class="error">❌ ERROR!</p>
+                    <p>${error.message}</p>
+                    <pre>${error.stack}</pre>
+                `;
+            }
+        }
+
+        async function testAPITest() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<p>⏳ Testing /api/flights_test...</p>';
+
+            try {
+                const response = await fetch('/api/flights_test');
+                const data = await response.json();
+
+                resultDiv.innerHTML = `
+                    <p class="success">✅ SUCCESS!</p>
+                    <h3>Response Data:</h3>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <p class="error">❌ ERROR!</p>
+                    <p>${error.message}</p>
+                `;
+            }
+        }
+
+        async function testGET() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<p>⏳ Testing GET /api/flights...</p>';
+
+            try {
+                const response = await fetch('/api/flights');
+                const data = await response.json();
+
+                resultDiv.innerHTML = `
+                    <p class="success">✅ SUCCESS!</p>
+                    <h3>Response Data:</h3>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <p class="error">❌ ERROR!</p>
+                    <p>${error.message}</p>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
