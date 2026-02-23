@@ -39,6 +39,7 @@
 <body>
     <h1>🧪 SkyRoutes API Test</h1>
 
+    <button onclick="testTest()">Test /api/test (Super Simple - NEW!)</button>
     <button onclick="testSimple()">Test /api/flights-simple (Ultra Simple)</button>
     <button onclick="testAPITest()">Test /api/flights_test</button>
     <button onclick="testAPI()">Test /api/flights (POST)</button>
@@ -47,6 +48,70 @@
     <div id="result"></div>
 
     <script>
+        async function testTest() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<p>⏳ Testing /api/test (Super Simple)...</p>';
+
+            try {
+                console.log('=== testTest() ===');
+                console.log('URL:', '/api/test');
+
+                const response = await fetch('/api/test', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                console.log('Response status:', response.status);
+                console.log('Response ok:', response.ok);
+                console.log('Response type:', response.type);
+                console.log('Response headers:', [...response.headers.entries()]);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const text = await response.text();
+                console.log('Response text (first 500 chars):', text.substring(0, 500));
+
+                if (text.startsWith('<!DOCTYPE') || text.startsWith('<html')) {
+                    throw new Error('Returned HTML instead of JSON - API route not working');
+                }
+
+                const data = JSON.parse(text);
+
+                resultDiv.innerHTML = `
+                    <p class="success">✅ SUCCESS (Test Endpoint)!</p>
+                    <p>Status: ${response.status} ${response.statusText}</p>
+                    <p>Response ok: ${response.ok}</p>
+                    <p>Method: ${data.method}</p>
+                    <p>Message: ${data.message}</p>
+                    <p>Timestamp: ${data.timestamp}</p>
+                    <h3>Response Data:</h3>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                    <p style="color: var(--success); font-weight: bold;">
+                        ✓ API Routes ARE working on Vercel!
+                    </p>
+                `;
+            } catch (error) {
+                console.error('=== Error in testTest() ===');
+                console.error('Error:', error);
+                resultDiv.innerHTML = `
+                    <p class="error">❌ ERROR (Test Endpoint)!</p>
+                    <p><strong>${error.message}</strong></p>
+                    <pre>${error.stack}</pre>
+                    <p><strong>Debug:</strong> If this fails, API routes are NOT deployed on Vercel</p>
+                    <p><strong>Next steps:</strong></p>
+                    <ul>
+                        <li>Check Vercel Dashboard → Deployments</li>
+                        <li>Look for build errors</li>
+                        <li>Contact agent with error details</li>
+                    </ul>
+                `;
+            }
+        }
+
         async function testSimple() {
             const resultDiv = document.getElementById('result');
             resultDiv.innerHTML = '<p>⏳ Testing /api/flights-simple...</p>';
