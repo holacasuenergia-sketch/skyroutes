@@ -10,12 +10,15 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { origin, destination, departure_date, return_date, passengers } = req.body;
+    const { origin, destination, departure_date, return_date, trip_type, passengers } = req.body;
 
     // Validate inputs
     if (!origin || !destination || !departure_date) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
+
+    // Default trip_type to roundtrip if not specified
+    const tripType = trip_type || 'roundtrip';
 
     // Spawn Python scraper with virtual environment
     const scraper = spawn('./venv/bin/python', [
@@ -23,7 +26,8 @@ export default async function handler(req, res) {
       '--origin', origin,
       '--destination', destination,
       '--departure-date', departure_date,
-      ...(return_date ? ['--return-date', return_date] : []),
+      ...(return_date && tripType !== 'oneway' ? ['--return-date', return_date] : []),
+      '--trip-type', tripType,
       '--passengers', passengers || '1'
     ]);
 
@@ -41,15 +45,15 @@ export default async function handler(req, res) {
     scraper.on('close', (code) => {
       if (code !== 0) {
         console.error('Scraping error:', errorData);
-        return res.status(500).json({ 
-          error: 'Scraping failed', 
-          details: errorData 
+        return res.status(500).json({
+          error: 'Scraping failed',
+          details: errorData
         });
       }
 
       try {
         const results = JSON.parse(outputData);
-        
+
         // Apply 10-15% markup
         const markedResults = results.map(flight => ({
           ...flight,
@@ -67,7 +71,8 @@ export default async function handler(req, res) {
             origin,
             destination,
             departure_date,
-            return_date,
+            return_date: tripType === 'oneway' ? null : return_date,
+            trip_type: tripType,
             passengers,
             timestamp: new Date().toISOString()
           }

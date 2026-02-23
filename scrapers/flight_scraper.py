@@ -405,6 +405,7 @@ def parse_args():
         'destination': '',
         'departure_date': '',
         'return_date': '',
+        'trip_type': 'roundtrip',
         'passengers': '1'
     }
 
@@ -427,6 +428,11 @@ def parse_args():
         idx = sys.argv.index('--return-date') + 1
         if idx < len(sys.argv):
             args['return_date'] = sys.argv[idx]
+
+    if '--trip-type' in sys.argv:
+        idx = sys.argv.index('--trip-type') + 1
+        if idx < len(sys.argv):
+            args['trip_type'] = sys.argv[idx]
 
     if '--passengers' in sys.argv:
         idx = sys.argv.index('--passengers') + 1
@@ -453,6 +459,7 @@ async def main():
     destination = args['destination']
     departure_date = args['departure_date']
     return_date = args['return_date']
+    trip_type = args['trip_type']  # 'oneway' or 'roundtrip'
     passengers = args['passengers']
 
     print("🚀 SkyRoutes Flight Scraper with Regional Filtering")
@@ -463,8 +470,9 @@ async def main():
 
     print(f"\n📍 Origin: {origin}")
     print(f"🚀 Destination: {destination}")
+    print(f"📅 Trip Type: {'Solo Ida' if trip_type == 'oneway' else 'Ida y Vuelta'}")
     print(f"📅 Departure: {departure_date}")
-    if return_date:
+    if return_date and trip_type != 'oneway':
         print(f"📅 Return: {return_date}")
     print(f"👥 Passengers: {passengers}")
 
@@ -513,7 +521,8 @@ async def main():
                     'origin_region': detect_region_from_airport(origin),
                     'destination_region': detect_region_from_airport(destination),
                     'departure_date': departure_date,
-                    'return_date': return_date,
+                    'return_date': return_date if trip_type != 'oneway' else None,
+                    'trip_type': trip_type,
                     'passengers': passengers,
                     'scraped_airlines': relevant_airlines,
                     'scraped_at': datetime.now().isoformat()
@@ -529,6 +538,7 @@ async def main():
             'meta': {
                 'origin': origin,
                 'destination': destination,
+                'trip_type': trip_type,
                 'message': 'No airlines available for this route'
             }
         }

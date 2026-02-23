@@ -430,7 +430,55 @@
         .flatpickr-current-month .flatpickr-monthDropdown-months {
             font-weight: 600;
         }
-        
+
+        /* Trip Type Tabs */
+        .trip-type-tabs {
+            display: flex;
+            gap: 8px;
+            background: var(--gray-100);
+            padding: 4px;
+            border-radius: 12px;
+        }
+
+        .trip-type-tab {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.2s;
+            position: relative;
+            background: transparent;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--gray-600);
+        }
+
+        .trip-type-tab input[type="radio"] {
+            display: none;
+        }
+
+        .trip-type-tab:hover {
+            background: var(--gray-200);
+            color: var(--dark);
+        }
+
+        .trip-type-tab.selected {
+            background: var(--white);
+            color: var(--primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            font-weight: 600;
+        }
+
+        .trip-type-tab span {
+            position: relative;
+            z-index: 1;
+        }
+
         .passengers-wrapper {
             position: relative;
         }
@@ -1712,6 +1760,21 @@
                         <div class="autocomplete-dropdown" id="destino-dropdown"></div>
                     </div>
                     
+                    <!-- Tipo de Vuelo Selector -->
+                    <div class="form-group">
+                        <label class="form-label">Tipo de Vuelo</label>
+                        <div class="trip-type-tabs">
+                            <label class="trip-type-tab selected" data-value="roundtrip">
+                                <input type="radio" name="trip-type" value="roundtrip" checked>
+                                <span>Ida y Vuelta</span>
+                            </label>
+                            <label class="trip-type-tab" data-value="oneway">
+                                <input type="radio" name="trip-type" value="oneway">
+                                <span>Solo Ida</span>
+                            </label>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label class="form-label">Fechas</label>
                         <input type="text" class="form-input" id="fechas" placeholder="Ida - Vuelta" readonly>
@@ -2539,9 +2602,64 @@
         setupAutocomplete('origen', 'origen-dropdown', origenes);
         setupAutocomplete('destino', 'destino-dropdown', destinos);
         
-        // Date range picker
+        // Trip type selector - Solo Ida / Ida y Vuelta
+        const tripTypeTabs = document.querySelectorAll('.trip-type-tab');
+        let currentTripType = 'roundtrip';
+        let datepicker = null;
+
+        tripTypeTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const selectedValue = this.dataset.value;
+
+                // Update UI
+                tripTypeTabs.forEach(t => t.classList.remove('selected'));
+                this.classList.add('selected');
+                currentTripType = selectedValue;
+
+                // Update flatpickr mode
+                const fechasInput = document.getElementById('fechas');
+
+                if (selectedValue === 'oneway') {
+                    fechasInput.placeholder = 'Ida';
+                    // Destroy existing instance if exists
+                    if (datepicker) {
+                        datepicker.destroy();
+                    }
+                    // Create new single-date picker
+                    datepicker = flatpickr('#fechas', {
+                        mode: 'single',
+                        dateFormat: 'd/m/Y',
+                        minDate: 'today',
+                        locale: 'es',
+                        disableMobile: 'true',
+                        onChange: function(dates) {
+                            selectedDates = dates;
+                        }
+                    });
+                } else {
+                    fechasInput.placeholder = 'Ida - Vuelta';
+                    // Destroy existing instance if exists
+                    if (datepicker) {
+                        datepicker.destroy();
+                    }
+                    // Create new range picker
+                    datepicker = flatpickr('#fechas', {
+                        mode: 'range',
+                        dateFormat: 'd/m/Y',
+                        minDate: 'today',
+                        locale: 'es',
+                        disableMobile: 'true',
+                        onChange: function(dates) {
+                            selectedDates = dates;
+                        }
+                    });
+                }
+            });
+        });
+
+        // Date range picker (initialize as roundtrip by default)
         let selectedDates = [];
-        flatpickr('#fechas', {
+        datepicker = flatpickr('#fechas', {
             mode: 'range',
             dateFormat: 'd/m/Y',
             minDate: 'today',
@@ -2672,31 +2790,50 @@
 
         async function handleSearch(e) {
             e.preventDefault();
-            
+
             const origen = document.getElementById('origen').value;
             const destino = document.getElementById('destino').value;
             const fechas = document.getElementById('fechas').value;
-            const fechasArray = fechas ? fechas.split(' a ') : [];
-            
+            const tripType = currentTripType; // 'roundtrip' or 'oneway'
+
+            // Parse dates based on trip type
+            let departureDate = '';
+            let returnDate = '';
+
+            if (tripType === 'oneway') {
+                // Solo Ida: single date
+                departureDate = fechas || '';
+                returnDate = '';
+            } else {
+                // Ida y Vuelta: range (separated by ' a ')
+                const fechasArray = fechas ? fechas.split(' a ') : [];
+                departureDate = fechasArray[0] || '';
+                returnDate = fechasArray[1] || '';
+            }
+
             // Validate inputs
-            if (!origen || !destino) {
-                alert('Por favor, completa los campos de origen y destino');
+            if (!origen || !destino || !departureDate) {
+                alert('Por favor, completa los campos de origen, destino y al menos una fecha de ida');
                 return;
             }
-            
+
             // Show loading
             const resultsContainer = document.getElementById('flight-results');
+            let loadingMessage = tripType === 'oneway'
+                ? '🔍 Buscando vuelos de solo ida...'
+                : '🔍 Buscando vuelos de ida y vuelta...';
+
             resultsContainer.innerHTML = `
                 <div class="loading-container">
                     <div class="loading-spinner"></div>
-                    <p class="loading-text">🔍 Buscando precios directos de aerolíneas...</p>
+                    <p class="loading-text">${loadingMessage}</p>
                     <p class="loading-subtext">Esto puede tomar unos segundos</p>
                 </div>
             `;
-            
+
             // Scroll to results
             resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            
+
             try {
                 // Call API
                 const response = await fetch('/api/flights', {
@@ -2707,22 +2844,23 @@
                     body: JSON.stringify({
                         origin: origen,
                         destination: destino,
-                        departure_date: fechasArray[0] || '',
-                        return_date: fechasArray[1] || '',
+                        departure_date: departureDate,
+                        return_date: returnDate,
+                        trip_type: tripType,
                         passengers: passengers.adults + passengers.children
                     })
                 });
-                
+
                 if (!response.ok) {
                     throw new Error('Error en la búsqueda');
                 }
-                
+
                 const data = await response.json();
-                
+
                 if (data.flights && data.flights.length > 0) {
                     // Store flights globally for WhatsApp
                     currentFlights = data.flights;
-                    displayFlightResults(data.flights, origen, destino);
+                    displayFlightResults(data.flights, origen, destino, tripType);
                 } else {
                     resultsContainer.innerHTML = `
                         <div class="no-results">
@@ -2734,7 +2872,7 @@
                         </div>
                     `;
                 }
-                
+
             } catch (error) {
                 console.error('Error:', error);
                 resultsContainer.innerHTML = `
@@ -2749,12 +2887,13 @@
             }
         }
         
-        function displayFlightResults(flights, origin, destination) {
+        function displayFlightResults(flights, origin, destination, tripType = 'roundtrip') {
             const resultsContainer = document.getElementById('flight-results');
-            
+            const tripText = tripType === 'oneway' ? 'Solo Ida' : 'Ida y Vuelta';
+
             let html = `
                 <div class="results-header">
-                    <h2 class="results-title">✈️ ${flights.length} Vuelos Encontrados (Aerolíneas Directas)</h2>
+                    <h2 class="results-title">✈️ ${flights.length} Vuelos Encontrados (${tripText})</h2>
                     <p class="results-subtitle">${origin} → ${destination} | Precios directos, sin intermediarios</p>
                     <p class="results-note" style="color: var(--success); font-size: 0.9rem; margin-top: 8px;">
                         ✓ Filtrado por región: Aerolíneas relevantes para tu ruta
