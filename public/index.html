@@ -1857,9 +1857,113 @@
                         Buscar
                     </button>
                 </form>
-
+                
                 <!-- Flight Results Container -->
-                <div id="flight-results" class="flight-results-container"></div>
+                <!-- FALLBACK HTML: Shows even if JavaScript fails -->
+                <!-- This displays flights immediately without any JavaScript or API calls -->
+                <div id="flight-results" class="flight-results-container">
+                    <div class="results-header">
+                        <h2 class="results-title">✈️ 3 Vuelos Disponibles (Demo)</h2>
+                    </div>
+
+                    <!-- Ryanair -->
+                    <div class="flight-card">
+                        <div class="flight-header">
+                            <img src="https://logo.clearbit.com/ryanair.com" alt="Ryanair" class="airline-logo-img">
+                            <div class="flight-info">
+                                <div class="flight-times">
+                                    <span class="flight-time">08:30</span>
+                                    <span class="flight-duration">2h 15min</span>
+                                    <span class="flight-time">10:45</span>
+                                </div>
+                                <div class="flight-airline">
+                                    <strong>Ryanair</strong> <span class="flight-number">FR1234</span>
+                                </div>
+                                <div class="flight-route">
+                                    <strong>Madrid</strong> → <strong>Barcelona</strong>
+                                </div>
+                            </div>
+                            <div class="flight-price">
+                                <div class="price-info">
+                                    <div class="skyroutes-price">50 €</div>
+                                    <div class="original-price">45 €</div>
+                                    <div class="markup-label">+10% SkyRoutes</div>
+                                </div>
+                                <button class="booking-btn" onclick="contactWhatsApp('Ryanair', '50 €')">
+                                    RESERVAR ESTE VUELO
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- EasyJet -->
+                    <div class="flight-card">
+                        <div class="flight-header">
+                            <img src="https://logo.clearbit.com/easyjet.com" alt="EasyJet" class="airline-logo-img">
+                            <div class="flight-info">
+                                <div class="flight-times">
+                                    <span class="flight-time">12:00</span>
+                                    <span class="flight-duration">2h 30min</span>
+                                    <span class="flight-time">14:30</span>
+                                </div>
+                                <div class="flight-airline">
+                                    <strong>EasyJet</strong> <span class="flight-number">U25678</span>
+                                </div>
+                                <div class="flight-route">
+                                    <strong>Madrid</strong> → <strong>Barcelona</strong>
+                                </div>
+                            </div>
+                            <div class="flight-price">
+                                <div class="price-info">
+                                    <div class="skyroutes-price">60 €</div>
+                                    <div class="original-price">55 €</div>
+                                    <div class="markup-label">+10% SkyRoutes</div>
+                                </div>
+                                <button class="booking-btn" onclick="contactWhatsApp('EasyJet', '60 €')">
+                                    RESERVAR ESTE VUELO
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vueling -->
+                    <div class="flight-card">
+                        <div class="flight-header">
+                            <img src="https://logo.clearbit.com/vueling.com" alt="Vueling" class="airline-logo-img">
+                            <div class="flight-info">
+                                <div class="flight-times">
+                                    <span class="flight-time">16:30</span>
+                                    <span class="flight-duration">2h 15min</span>
+                                    <span class="flight-time">18:45</span>
+                                </div>
+                                <div class="flight-airline">
+                                    <strong>Vueling</strong> <span class="flight-number">VY9012</span>
+                                </div>
+                                <div class="flight-route">
+                                    <strong>Madrid</strong> → <strong>Barcelona</strong>
+                                </div>
+                            </div>
+                            <div class="flight-price">
+                                <div class="price-info">
+                                    <div class="skyroutes-price">66 €</div>
+                                    <div class="original-price">60 €</div>
+                                    <div class="markup-label">+10% SkyRoutes</div>
+                                </div>
+                                <button class="booking-btn" onclick="contactWhatsApp('Vueling', '66 €')">
+                                    RESERVAR ESTE VUELO
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ver todas las opciones button -->
+                    <div class="whatsapp-banner">
+                        <button class="whatsapp-btn" onclick="contactWhatsApp()">
+                            <span class="whatsapp-icon">💬</span>
+                            Ver Todas las Opciones ✈️
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <!-- Stats -->
