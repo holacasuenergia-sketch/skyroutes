@@ -1874,7 +1874,7 @@
                             <div class="flight-info">
                                 <div class="flight-times">
                                     <span class="flight-time">08:30</span>
-                                    <span class="flight-duration">Duración del Viaje: 2h 15min</span>
+                                    <span class="flight-duration">2h 15min</span>
                                     <span class="flight-time">10:45</span>
                                 </div>
                                 <div class="flight-airline">
@@ -1904,7 +1904,7 @@
                             <div class="flight-info">
                                 <div class="flight-times">
                                     <span class="flight-time">12:00</span>
-                                    <span class="flight-duration">Duración del Viaje: 2h 30min</span>
+                                    <span class="flight-duration">2h 30min</span>
                                     <span class="flight-time">14:30</span>
                                 </div>
                                 <div class="flight-airline">
@@ -1934,7 +1934,7 @@
                             <div class="flight-info">
                                 <div class="flight-times">
                                     <span class="flight-time">16:30</span>
-                                    <span class="flight-duration">Duración del Viaje: 2h 15min</span>
+                                    <span class="flight-duration">2h 15min</span>
                                     <span class="flight-time">18:45</span>
                                 </div>
                                 <div class="flight-airline">
@@ -3208,7 +3208,7 @@
                             </div>
 
                             <div class="flight-connection">
-                                <div class="duration">Duración del Viaje: ${durationHours}h ${durationMins}m</div>
+                                <div class="duration">${durationHours}h ${durationMins}m</div>
                                 <div class="stops-indicator">
                                     ${flight.stops === 0 ?
                                         '<div class="stops-line stops-direct"></div>' :
@@ -3237,14 +3237,10 @@
                                 </div>
                             </div>
 
-                            <div style="font-size: 12px; color: #64748B; margin-top: 8px; font-style: italic; text-align: left;">
-                                Precio sujeto a confirmación al momento de emisión
-                            </div>
-
                             <div style="display: flex; flex-direction: column; gap: 8px;">
                                 <button onclick="bookThisFlight(${index})"
                                         class="book-btn">
-                                    SOLICITAR GESTIÓN DE RESERVA
+                                    Reservar Esta Opción 💳
                                 </button>
                                 <button onclick="askDoubts(${index})"
                                         class="doubts-btn">
@@ -4054,11 +4050,8 @@
                     <strong>Salida:</strong> ${selectedFlight.departureDate || 'Pendiente'}
                 </div>
                 ${currentTripType === 'roundtrip' ? `<div style="margin-bottom: 8px;"><strong>Regreso:</strong> ${selectedFlight.returnDate || 'Pendiente'}</div>` : ''}
-                <div style="margin-bottom: 8px;">
-                    <strong>Horario:</strong> ${selectedFlight.departure_time} → ${selectedFlight.arrival_time}
-                </div>
                 <div style="margin-bottom: 12px;">
-                    <strong>Duración del Viaje:</strong> ${Math.floor(selectedFlight.duration_minutes / 60)}h ${selectedFlight.duration_minutes % 60}m
+                    <strong>Horario:</strong> ${selectedFlight.departure_time} → ${selectedFlight.arrival_time}
                 </div>
                 <div style="font-size: 24px; font-weight: 700; color: #0EA5E9; background: #DBEAFE; padding: 12px; border-radius: 8px;">
                     €${selectedFlight.finalPrice}
