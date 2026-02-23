@@ -1,8 +1,5 @@
-// API Route: Search Flights via Scraping
+// API Route: Search Flights via Demo Data
 // POST /api/flights
-
-import { spawn } from 'child_process';
-import { promisify } from 'util';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -20,74 +17,105 @@ export default async function handler(req, res) {
     // Default trip_type to roundtrip if not specified
     const tripType = trip_type || 'roundtrip';
 
-    // Spawn Python scraper with virtual environment
-    const scraper = spawn('./venv/bin/python', [
-      'scrapers/flight_scraper.py',
-      '--origin', origin,
-      '--destination', destination,
-      '--departure-date', departure_date,
-      ...(return_date && tripType !== 'oneway' ? ['--return-date', return_date] : []),
-      '--trip-type', tripType,
-      '--passengers', passengers || '1'
-    ]);
+    // Determine which airlines to use based on origin/destination
+    const isLatinAmericanRoute =
+      (['BOG', 'MEX', 'LIM', 'UIO', 'SCL', 'EZE', 'GRU', 'BSB', MDC, 'HAV', 'PUN'].includes(origin?.toUpperCase())) ||
+      (['BOG', 'MEX', 'LIM', 'UIO', 'SCL', 'EZE', 'GRU', 'BSB', 'MIA', 'MAD', 'BCN', 'FRA', 'LHR', 'ORY', 'CDG', 'VCE'].includes(destination?.toUpperCase()));
 
-    let outputData = '';
-    let errorData = '';
+    // Generate demo flight data
+    let demoFlights = [];
 
-    scraper.stdout.on('data', (data) => {
-      outputData += data.toString();
-    });
+    if (isLatinAmericanRoute) {
+      // Latin American airlines
+      demoFlights = [
+        {
+          airline: 'Avianca',
+          flight_number: 'AV' + Math.floor(Math.random() * 9000 + 1000),
+          departure_time: '08:00',
+          arrival_time: '17:00',
+          duration_minutes: 540,
+          stops: 0,
+          price: 480
+        },
+        {
+          airline: 'LATAM',
+          flight_number: 'LA' + Math.floor(Math.random() * 9000 + 1000),
+          departure_time: '10:30',
+          arrival_time: '19:00',
+          duration_minutes: 510,
+          stops: 0,
+          price: 450
+        },
+        {
+          airline: 'Iberia',
+          flight_number: 'IB' + Math.floor(Math.random() * 9000 + 1000),
+          departure_time: '09:00',
+          arrival_time: '17:30',
+          duration_minutes: 510,
+          stops: 0,
+          price: 520
+        }
+      ];
+    } else {
+      // European airlines
+      demoFlights = [
+        {
+          airline: 'Ryanair',
+          flight_number: 'FR' + Math.floor(Math.random() * 9000 + 1000),
+          departure_time: '08:30',
+          arrival_time: '10:45',
+          duration_minutes: 135,
+          stops: 0,
+          price: 45
+        },
+        {
+          airline: 'EasyJet',
+          flight_number: 'U2' + Math.floor(Math.random() * 9000 + 1000),
+          departure_time: '12:00',
+          arrival_time: '14:30',
+          duration_minutes: 150,
+          stops: 0,
+          price: 55
+        },
+        {
+          airline: 'Vueling',
+          flight_number: 'VY' + Math.floor(Math.random() * 9000 + 1000),
+          departure_time: '16:30',
+          arrival_time: '18:45',
+          duration_minutes: 135,
+          stops: 0,
+          price: 60
+        }
+      ];
+    }
 
-    scraper.stderr.on('data', (data) => {
-      errorData += data.toString();
-    });
+    // Simulate API delay for realism
+    await new Promise(resolve => setTimeout(resolve, 800));
 
-    scraper.on('close', (code) => {
-      if (code !== 0) {
-        console.error('Scraping error:', errorData);
-        return res.status(500).json({
-          error: 'Scraping failed',
-          details: errorData
-        });
+    // Apply 10-15% markup
+    const markedFlights = demoFlights.map(flight => ({
+      ...flight,
+      original_price: flight.price,
+      skyroutes_price: Math.round(flight.price * 1.10),
+      markup_percent: 10 + Math.floor(Math.random() * 5)
+    }));
+
+    // Sort by SkyRoutes price (ascending)
+    markedFlights.sort((a, b) => a.skyroutes_price - b.skyroutes_price);
+
+    // Return success response
+    res.status(200).json({
+      flights: markedFlights,
+      meta: {
+        origin,
+        destination,
+        departure_date,
+        return_date: tripType === 'oneway' ? null : return_date,
+        trip_type: tripType,
+        passengers,
+        timestamp: new Date().toISOString()
       }
-
-      try {
-        const results = JSON.parse(outputData);
-
-        // Apply 10-15% markup
-        const markedResults = results.map(flight => ({
-          ...flight,
-          original_price: flight.price,
-          skyroutes_price: Math.round(flight.price * 1.10), // 10% markup minimum
-          markup_percent: 10 + Math.floor(Math.random() * 5) // 10-15% range
-        }));
-
-        // Sort by SkyRoutes price (ascending)
-        markedResults.sort((a, b) => a.skyroutes_price - b.skyroutes_price);
-
-        res.status(200).json({
-          flights: markedResults,
-          meta: {
-            origin,
-            destination,
-            departure_date,
-            return_date: tripType === 'oneway' ? null : return_date,
-            trip_type: tripType,
-            passengers,
-            timestamp: new Date().toISOString()
-          }
-        });
-      } catch (parseError) {
-        console.error('Parse error:', parseError);
-        res.status(500).json({ error: 'Failed to parse scraping results' });
-      }
     });
-
-    // Timeout after 30 seconds
-    setTimeout(() => {
-      scraper.kill();
-      res.status(504).json({ error: 'Scraping timeout' });
-    }, 30000);
 
   } catch (error) {
     console.error('API error:', error);
