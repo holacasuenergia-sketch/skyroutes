@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyRoutes - Test Simple</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 0;
+            display: block;
+            width: 100%;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        #result {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            border: 2px solid #ddd;
+            margin-top: 20px;
+        }
+        .success { color: green; font-weight: bold; }
+        .error { color: red; font-weight: bold; }
+        .flight-card {
+            background: #f9f9f9;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 SkyRoutes Test Simple</h1>
+
+    <button onclick="testInlineData()">Test 1: Datos Inline ✏️</button>
+    <button onclick="testFunction()">Test 2: Llamar Función 📞</button>
+    <button onclick="testWithDelay()">Test 3: Con Delay ⏱️</button>
+
+    <div id="result">
+        <p>Click en los botones para testear</p>
+    </div>
+
+    <script>
+        // Test 1: Datos inline directos
+        function testInlineData() {
+            const resultDiv = document.getElementById('result');
+
+            const flights = [
+                { airline: 'Ryanair', price: 50 },
+                { airline: 'EasyJet', price: 60 },
+                { airline: 'Vueling', price: 66 }
+            ];
+
+            resultDiv.innerHTML = `
+                <p class="success">✅ Test 1 PASÓ: Datos inline funcionan</p>
+                <pre>${JSON.stringify(flights, null, 2)}</pre>
+            `;
+        }
+
+        // Test 2: Llamar función
+        function getFlightData() {
+            return {
+                flights: [
+                    { airline: 'Ryanair', flight_number: 'FR1234', price: 50 },
+                    { airline: 'EasyJet', flight_number: 'U25678', price: 60 },
+                    { airline: 'Vueling', flight_number: 'VY9012', price: 66 }
+                ]
+            };
+        }
+
+        function testFunction() {
+            const resultDiv = document.getElementById('result');
+            const data = getFlightData();
+
+            resultDiv.innerHTML = `
+                <p class="success">✅ Test 2 PASÓ: Función retorna datos</p>
+                <h3>Vuelos:</h3>
+                ${data.flights.map(f => `
+                    <div class="flight-card">
+                        <strong>${f.airline} ${f.flight_number}</strong> - €${f.price}
+                    </div>
+                `).join('')}
+            `;
+        }
+
+        // Test 3: Con delay (como handleSearch)
+        async function getFlightsWithDelay() {
+            await new Promise(resolve => setTimeout(resolve, 800));
+
+            return {
+                flights: [
+                    { airline: 'Ryanair', flight_number: 'FR1234', price: 50 },
+                    { airline: 'EasyJet', flight_number: 'U25678', price: 60 },
+                    { airline: 'Vueling', flight_number: 'VY9012', price: 66 }
+                ],
+                meta: { timestamp: new Date().toISOString() }
+            };
+        }
+
+        async function testWithDelay() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<p>⏳ Cargando vuelos...</p>';
+
+            try {
+                const data = await getFlightsWithDelay();
+
+                resultDiv.innerHTML = `
+                    <p class="success">✅ Test 3 PASÓ: Async con delay funciona</p>
+                    <p><strong>Timestamp:</strong> ${data.meta.timestamp}</p>
+                    <h3>Vuelos:</h3>
+                    ${data.flights.map(f => `
+                        <div class="flight-card">
+                            <strong>${f.airline} ${f.flight_number}</strong><br>
+                            Precio: €${f.price}
+                        </div>
+                    `).join('')}
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <p class="error">❌ Test 3 FALLÓ: ${error.message}</p>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
