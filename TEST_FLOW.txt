@@ -1,0 +1,144 @@
+# Cómo probar SkyRoutes - Instrucciones
+
+## Paso 1: Iniciar servidor Next.js
+
+```bash
+cd /Users/agentebond/.openclaw/workspace/skyroutes
+npm run dev
+```
+
+Servidor está en: http://localhost:3000
+
+## Paso 2: Abrir browser
+
+Navega a: http://localhost:3000
+
+## Paso 3: Probar búsqueda
+
+1. **Completa el formulario:**
+   - Origen: Madrid
+   - Destino: Barcelona
+   - Fechas: 15-05-2026 a 22-05-2026
+   - Pasajeros: 1 adulto
+
+2. **Haz clic en "Buscar"**
+
+3. **Verás:**
+   - Loading spinner: "🔍 Buscando precios directos de aerolíneas..."
+   - Después de 10-15s, aparecerán resultados
+
+4. **Resultados incluyen:**
+   - Cards de vuelos (Ryanair, EasyJet, Vueling)
+   - Horarios (salida, llegada)
+   - Duración y escalas
+   - Precio original vs SkyRoutes price
+   - Badge "10%" or "15%" markup
+
+5. **Haz clic en "Ver Todas las Opciones ✈️"**
+
+6. **WhatsApp se abre con:**
+   - Resumen de búsqueda
+   - Top X opciones con:
+     * Airline + Flight number
+     * Times (departure → arrival)
+     * Duration + escalas
+     * Price (con markup)
+   - Botón puede copiar mensaje o enviar directamente
+
+## Test rápido (Local)
+
+Si no quieres esperar el scraper real:
+
+```javascript
+// Abre consola del browser (F12) y pega:
+
+// Mock flights para testing rápido
+const mockFlights = [
+    {
+        airline: 'Ryanair',
+        flight_number: 'FR1234',
+        departure_time: '08:30',
+        arrival_time: '10:45',
+        duration_minutes: 135,
+        stops: 0,
+        original_price: 45.00,
+        skyroutes_price: 50.00,
+        markup_percent: 10,
+        departure_date: '15-05-2026'
+    },
+    {
+        airline: 'EasyJet',
+        flight_number: 'EZY5678',
+        departure_time: '12:00',
+        arrival_time: '14:15',
+        duration_minutes: 135,
+        stops: 0,
+        original_price: 55.00,
+        skyroutes_price: 61.00,
+        markup_percent: 11,
+        departure_date: '15-05-2026'
+    },
+    {
+        airline: 'Vueling',
+        flight_number: 'VY9012',
+        departure_time: '16:30',
+        arrival_time: '18:50',
+        duration_minutes: 140,
+        stops: 0,
+        original_price: 62.00,
+        skyroutes_price: 69.00,
+        markup_percent: 11,
+        departure_date: '15-05-2026'
+    }
+];
+
+// Simula displayFlightResults
+const resultsContainer = document.getElementById('flight-results');
+resultsContainer.innerHTML = `
+    <div class="loading-container">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">🔍 Mostrando resultados de prueba...</p>
+    </div>
+`;
+
+setTimeout(() => {
+    displayFlightResults(mockFlights, 'Madrid', 'Barcelona');
+}, 1000);
+```
+
+## Notas
+
+- Scraper real puede tardar 10-20s (busca en paralelo 3 aerolíneas)
+- Si scraper falla, verás botón de fallback a WhatsApp
+- Playwright Chromium ya instalado (162MB)
+- Virtual environment activa: `./venv/bin/python`
+
+## Troubleshooting
+
+**Error "Module not found: next"**
+→ Ejecuta: `npm install`
+
+**Error "Playwright not found"**
+→ Ya está instalado en `./venv/`
+
+**Scraping timeout (30s)**
+→ Normal, es scraping real. Si pasa mucho, ajusta timeout en `pages/api/flights.js`
+
+**No aparecen resultados**
+→ Ve consola browser (F12) para errores de API
+
+---
+
+**Deploy a Vercel:**
+```bash
+git push origin main
+# Vercel hará auto-deploy
+# URL: https://skyroutes-one.vercel.app
+```
+
+**Testing con scraper real:**
+```bash
+# Test directo de Python scraper
+cd /Users/agentebond/.openclaw/workspace/skyroutes
+./venv/bin/python scrapers/flight_scraper.py --origin MAD --destination BCN --departure-date "2026-05-15"
+```
