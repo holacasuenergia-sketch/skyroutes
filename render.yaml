@@ -1,0 +1,47 @@
+# Render.com Blueprint Configuration for SkyRoutes
+# This file defines how Render.com builds and deploys the SkyRoutes application
+
+services:
+  - type: web
+    name: skyroutes
+    runtime: node
+    region: frankfurt
+    plan: free
+    env: node
+    buildCommand: npm run build
+    startCommand: npm start
+
+    # Environment variables (configured in Render dashboard)
+    envVars:
+      # Next.js configuration
+      - key: NODE_ENV
+        value: production
+
+      # Stripe configuration (test mode - configure via Render dashboard)
+      - key: NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+        value: pk_test_51T3iST4K5J6L7M8N9O0P1Q2R3S4T5U6V7W8X9Y0Z
+        description: Stripe publishable key (test mode)
+
+      - key: STRIPE_SECRET_KEY
+        value: sk_test_51T3iST4K5J6L7M8N9O0P1Q2R3S4T5U6V7W8X9Y0Z
+        description: Stripe secret key (test mode)
+
+      - key: STRIPE_WEBHOOK_SECRET
+        value: whsec_test_placeholder
+        description: Stripe webhook secret (configure in test mode)
+
+    # Health check
+    healthCheckPath: /
+
+    # Build optimization
+    buildFilter:
+      paths:
+        - src/**
+        - public/**
+        - package.json
+        - next.config.js
+      ignoredPaths:
+        - .vercelignore
+        - vercel.json
+        - netlify.toml
+        - node_modules/**
