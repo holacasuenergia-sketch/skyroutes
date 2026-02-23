@@ -1547,6 +1547,82 @@
                 text-align: center;
             }
         }
+
+        /* Travel Type Selector */
+        .travel-type-selector {
+            margin-bottom: 24px;
+        }
+
+        .travel-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .travel-options {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .travel-option {
+            display: block;
+            cursor: pointer;
+            background: var(--gray-100);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .travel-option input[type="radio"] {
+            display: none;
+        }
+
+        .travel-option:hover {
+            border-color: var(--primary);
+            background: white;
+        }
+
+        .travel-option.selected {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, rgba(14, 165, 233, 0.05) 100%);
+        }
+
+        .travel-option-text {
+            display: block;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .travel-option.selected .travel-option-text {
+            color: var(--primary);
+        }
+
+        .travel-option-recommended {
+            display: inline-block;
+            padding: 4px 10px;
+            background: var(--primary);
+            color: white;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .travel-option-desc {
+            display: block;
+            color: var(--gray-500);
+            font-size: 12px;
+        }
+
+        .travel-option.selected .travel-option-desc {
+            color: var(--gray-600);
+        }
     </style>
 </head>
 <body>
@@ -1597,7 +1673,32 @@
                     <span class="icon icon-24"><svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></span>
                     Buscar Vuelos
                 </div>
-                
+
+                <!-- Tipo de Viaje Selector -->
+                <div class="travel-type-selector">
+                    <label class="form-label" style="margin-bottom: 12px;">Tipo de Viaje</label>
+                    <div class="travel-options">
+                        <label class="travel-option selected" id="option-flight">
+                            <input type="radio" name="travel-type" value="flight" checked>
+                            <span class="travel-option-text">Solo Vuelo</span>
+                            <span class="travel-option-desc">Compare precios de vuelos</span>
+                        </label>
+
+                        <label class="travel-option" id="option-package">
+                            <input type="radio" name="travel-type" value="package">
+                            <span class="travel-option-text">Vuelo + Hotel</span>
+                            <span class="travel-option-recommended">Recomendado</span>
+                            <span class="travel-option-desc">Mejor tarifa combinada</span>
+                        </label>
+
+                        <label class="travel-option" id="option-hotel">
+                            <input type="radio" name="travel-type" value="hotel">
+                            <span class="travel-option-text">Solo Hotel</span>
+                            <span class="travel-option-desc">Busque su alojamiento</span>
+                        </label>
+                    </div>
+                </div>
+
                 <form class="search-form" id="search-form" onsubmit="handleSearch(event)">
                     <div class="form-group autocomplete-wrapper">
                         <label class="form-label">Origen</label>
@@ -1654,7 +1755,19 @@
                             </div>
                         </div>
                     </div>
-                    
+
+                    <!-- Duración del viaje (sólo para hotel y paquete) -->
+                    <div class="form-group" id="nights-field" style="display: none;">
+                        <label class="form-label">Duración del Viaje</label>
+                        <select class="form-input" id="nights" style="background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%2364748B%22%20stroke-width%3D%222%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%2F%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 12px center; background-size: 16px;">
+                            <option value="3">3 noches</option>
+                            <option value="5">5 noches</option>
+                            <option value="7">7 noches</option>
+                            <option value="10">10 noches</option>
+                            <option value="14">14 noches</option>
+                        </select>
+                    </div>
+
                     <button type="submit" class="btn btn-secondary search-btn">
                         <span class="icon icon-20"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
                         Buscar
@@ -2327,7 +2440,37 @@
             { city: 'Estocolmo', country: 'Suecia', code: 'ARN' },
             { city: 'Atenas', country: 'Grecia', code: 'ATH' }
         ];
-        
+
+        // Travel type selector functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const travelOptions = document.querySelectorAll('.travel-option');
+            const nightsField = document.getElementById('nights-field');
+
+            travelOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove selected from all
+                    travelOptions.forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+
+                    // Add selected to clicked
+                    this.classList.add('selected');
+
+                    // Show/hide nights field based on selection
+                    const selectedType = this.querySelector('input[type="radio"]').value;
+
+                    if (selectedType === 'hotel' || selectedType === 'package') {
+                        nightsField.style.display = 'block';
+                    } else {
+                        nightsField.style.display = 'none';
+                    }
+                });
+            });
+
+            // Initialize: nights field is hidden (only flight selected)
+            nightsField.style.display = 'none';
+        });
+
         // Autocomplete functionality
         function setupAutocomplete(inputId, dropdownId, cities) {
             const input = document.getElementById(inputId);
