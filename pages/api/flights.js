@@ -13,6 +13,9 @@ export default async function handler(req, res) {
     return;
   }
 
+  // Set JSON header
+  res.setHeader('Content-Type', 'application/json');
+
   // Only allow POST for simplicity
   if (req.method !== 'POST') {
     return res.status(200).json({
@@ -28,11 +31,13 @@ export default async function handler(req, res) {
     // Extract params (but accept anything)
     const { origin, destination, departure_date, return_date, trip_type, passengers } = req.body || {};
 
+    console.log('Flights API called:', { origin, destination, departure_date, return_date, trip_type, passengers });
+
     // Return demo flights
     const flights = getDemoFlights(origin || 'demo', destination || 'demo');
 
     // Return success immediately
-    res.status(200).json({
+    return res.status(200).json({
       flights,
       meta: {
         origin: origin || 'demo',
@@ -49,7 +54,7 @@ export default async function handler(req, res) {
   } catch (error) {
     console.error('API error:', error);
     // Even if error, return demo flights
-    res.status(200).json({
+    return res.status(200).json({
       flights: getDemoFlights('demo', 'demo'),
       meta: {
         error_mode: true,
