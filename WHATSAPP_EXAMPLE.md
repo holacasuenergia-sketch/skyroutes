@@ -13,7 +13,7 @@ Hola! ✈️ *SkyRoutes - Vuelos Encontrados*
 📅 *Fechas:* 15-05-2026 a 22-05-2026
 👥 *Pasajeros:* 1 adulto
 
-✨ *Top 3 Opciones (Aerolíneas Directas):*
+✨ *Top 4 Opciones (Aerolíneas Directas):*
 
 ━━━━━━━━━━━━━━━━━
 *Opción 1
@@ -38,6 +38,14 @@ Vueling ✈️ VY9012
 ⏰ 16:30 → 18:50
 ⏱️ 2h 20m | Directo
 💰 Precio: *€69.00* (markup 11%)
+
+━━━━━━━━━━━━━━━━━
+*Opción 4
+
+Avianca 🇨🇴 AV456
+⏰ 10:00 → 14:30
+⏱️ 6h 30m | 1 escala
+💰 Precio: *€185.00* (markup 12%)
 
 ━━━━━━━━━━━━━━━━━
 
@@ -114,6 +122,20 @@ Por favor, indicarme cuál opción prefieres para proceder con la reserva.
 │                                     │
 │  [Ver Todas las Opciones ✈️]        │
 └─────────────────────────────────────┘
+
+┌─────────────────────────────────────┐
+│ Avianca 🇨🇴 AV456          [Aerolínea directa] │
+│                                     │
+│ 10:00               16:30           │
+│ 15-05-2026          15-05-2026      │
+│      ───────────────               │
+│      6h 30m | 1 escala             │
+│                                     │
+│ Original: €165.00                   │
+│ SkyRoutes: €185.00           [12%]  │
+│                                     │
+│  [Ver Todas las Opciones ✈️]        │
+└─────────────────────────────────────┘
 ```
 
 ## Flujo Completo del Usuario:
@@ -182,6 +204,18 @@ Si prefieres la Opción 1 (Ryanair) es €11 más barato pero sale más temprano
 
 ---
 
+**Para rutas LATAM (ejemplo: Bogotá → Madrid):**
+
+**Eduardo:** También tengo Avianca 🇨🇴 con opción:
+- Bogotá → Madrid directo
+- 10h de vuelo
+- Precio competitivo con mejor servicio
+
+¿Interesado?
+
+---
+
 **Beneficio:** Cliente ve valor real (Eduardo recomienda, no solo bot)
 **Speed:** Transacción en 1-2 mensajes, no 10+
 **Trust:** Precios transparentes, markup visible
+**Avianca added:** Más opciones para mercado latinoamericano 🇨🇴

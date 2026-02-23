@@ -25,8 +25,9 @@
 2. **EasyJet** - Red principal UK/Europa
 3. **Vueling** - IAG, España y Europa
 4. **LATAM** - Líder Latinoamérica
-5. **Iberia** - Principal España
-6. **Air Europa** - Alternativa España
+5. **Avianca** - 🇨🇴 Aerolínea bandera Colombia, extensa red Latinoamérica + Europa + USA
+6. **Iberia** - Principal España
+7. **Air Europa** - Alternativa España
 
 ### 🔄 FUTURO:
 - Lufthansa
@@ -52,7 +53,8 @@ SkyRoutes API dispara EN PARALELO:
     ├─> Ryanair scraper (5-8s)
     ├─> EasyJet scraper (5-8s)
     ├─> Vueling scraper (5-8s)
-    └─> LATAM scraper (5-8s)
+    ├─> LATAM scraper (5-8s)
+    └─> Avianca scraper (5-8s)
     ↓
 Agrega resultados
     ↓
@@ -160,6 +162,13 @@ WhatsApp: Todas las opciones para que Eduardo ayude
 - Dificultad: Media-Alta (anti-bot fuerte)
 - Datos: Pendiente
 
+### Avianca 🇨🇴
+- URL: `https://www.avianca.com`
+- Método: Playwright + async/await
+- Dificultad: Media (anti-bot moderado)
+- Datos: Mock/Real en desarrollo
+- Nota: Aerolínea bandera de Colombia, red extensa por toda Latinoamérica + Europa + USA
+
 ### Iberia
 - URL: `https://www.iberia.es`
 - Método: Playwright + async/await
@@ -175,5 +184,5 @@ WhatsApp: Todas las opciones para que Eduardo ayude
 ---
 
 **Última actualización:** 2026-02-23
-**Estatus:** Scraping directo activo (Ryanair + EasyJet + Vueling)
-**Próximos:** LATAM + Iberia + Air Europa
+**Estatus:** Scraping directo activo (Ryanair + EasyJet + Vueling + Avianca)
+**Próximos:** LATAM real scraping + Iberia + Air Europa

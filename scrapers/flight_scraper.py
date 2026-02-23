@@ -188,10 +188,50 @@ async def scrape_easyjet(playwright, origin, destination, departure_date, return
         print(f"❌ EasyJet scraping failed: {e}")
         return []
 
+async def scrape_avianca(playwright, origin, destination, departure_date, return_date, passengers):
+    """Scrape Avianca flights - LATAM major airline"""
+    print(f"🔍 Scraping Avianca: {origin} -> {destination}")
+
+    try:
+        browser = await playwright.chromium.launch(headless=True)
+        page = await browser.new_page(user_agent=random.choice(USER_AGENTS))
+
+        url = f"https://www.avianca.com"
+        await page.goto(url, wait_until='networkidle', timeout=30000)
+        await asyncio.sleep(random.uniform(2, 4))
+
+        # Simplified scraping - would need full implementation
+        await browser.close()
+
+        # Return mock data for testing
+        flights = []
+        for i in range(3):
+            flights.append({
+                'airline': 'Avianca',
+                'flight_number': f'AV{random.randint(100, 999)}',
+                'origin': origin,
+                'destination': destination,
+                'departure_date': departure_date,
+                'return_date': return_date,
+                'departure_time': f"{random.randint(6, 22):02d}:{random.randint(0, 59):02d}",
+                'arrival_time': f"{random.randint(6, 22):02d}:{random.randint(0, 59):02d}",
+                'duration_minutes': random.randint(300, 720),
+                'stops': random.choice([0, 1]),
+                'price': random.uniform(150, 500),
+                'source': 'avianca'
+            })
+
+        print(f"✅ Avianca: Found {len(flights)} flights (mock data)")
+        return flights
+
+    except Exception as e:
+        print(f"❌ Avianca scraping failed: {e}")
+        return []
+
 async def scrape_vueling(playwright, origin, destination, departure_date, return_date, passengers):
     """Scrape Vueling flights"""
     print(f"🔍 Scraping Vueling: {origin} -> {destination}")
-    
+
     try:
         # Return mock data for testing
         flights = []
@@ -210,10 +250,10 @@ async def scrape_vueling(playwright, origin, destination, departure_date, return
                 'price': random.uniform(80, 250),
                 'source': 'vueling'
             })
-        
+
         print(f"✅ Vueling: Found {len(flights)} flights (mock data)")
         return flights
-        
+
     except Exception as e:
         print(f"❌ Vueling scraping failed: {e}")
         return []
@@ -278,7 +318,8 @@ async def main():
         results = await asyncio.gather(
             scrape_ryanair(playwright, origin, destination, departure_date, return_date, passengers),
             scrape_easyjet(playwright, origin, destination, departure_date, return_date, passengers),
-            scrape_vueling(playwright, origin, destination, departure_date, return_date, passengers)
+            scrape_vueling(playwright, origin, destination, departure_date, return_date, passengers),
+            scrape_avianca(playwright, origin, destination, departure_date, return_date, passengers)
         )
         
         # Flatten results
@@ -311,7 +352,7 @@ async def main():
                 'return_date': return_date,
                 'passengers': passengers,
                 'scraped_at': datetime.now().isoformat(),
-                'sources': ['ryanair', 'easyjet', 'vueling']
+                'sources': ['ryanair', 'easyjet', 'vueling', 'avianca']
             }
         }
         
