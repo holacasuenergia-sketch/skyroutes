@@ -1,25 +1,23 @@
 {
   "name": "skyroutes",
-  "version": "2.0.0",
-  "description": "SkyRoutes Payment Dashboard - PayPal, Ría, Western Union",
-  "main": "index.js",
+  "version": "1.0.0",
+  "description": "SkyRoutes - Agencia de viajes con scraping",
   "scripts": {
-    "dev": "vercel dev"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "scrape": "python3 scripts/scrapers.py"
   },
   "dependencies": {
-    "jsonwebtoken": "^9.0.2"
+    "next": "^14.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "playwright": "^1.40.0",
+    "puppeteer": "^21.0.0"
   },
   "devDependencies": {
-    "@types/jsonwebtoken": "^9.0.6",
-    "@types/node": "^20.0.0"
-  },
-  "keywords": [
-    "payment",
-    "paypal",
-    "ria",
-    "western-union",
-    "skyroutes"
-  ],
-  "author": "",
-  "license": "MIT"
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
 }
