@@ -11,6 +11,9 @@ services:
     buildCommand: npm run build
     startCommand: npm start
 
+    # Specify Node.js version (Next.js 15.1.0 requires Node >=18.17)
+    nodeVersion: 18.17.0
+
     # Environment variables (configured in Render dashboard)
     envVars:
       # Next.js configuration
@@ -40,6 +43,7 @@ services:
         - public/**
         - package.json
         - next.config.js
+        - pages/**
       ignoredPaths:
         - .vercelignore
         - vercel.json

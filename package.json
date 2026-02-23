@@ -2,6 +2,9 @@
   "name": "skyroutes",
   "version": "1.0.0",
   "description": "SkyRoutes - Agencia de viajes con scraping",
+  "engines": {
+    "node": ">=18.17.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
