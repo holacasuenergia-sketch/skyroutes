@@ -4160,6 +4160,184 @@
                 closeModal('booking-modal');
             }
         });
+
+        // ============================================
+        // TRAVEL TYPE HANDLER (Vuelo / Hotel / Paquete)
+        // ============================================
+
+        let currentTravelType = 'flight'; // 'flight' | 'hotel' | 'package'
+
+        // Event listeners for travel type radio buttons
+        document.querySelectorAll('input[name="travel-type"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                currentTravelType = this.value;
+                updateFormForTravelType();
+            });
+        });
+
+        // Update form based on travel type (vuelo, hotel, paquete)
+        function updateFormForTravelType() {
+            const origenFieldWrapper = document.querySelector('#search-form > .form-group:nth-of-type(1)');
+            const destinoFieldWrapper = document.querySelector('#search-form > .form-group:nth-of-type(2)');
+            const tripTypeField = document.querySelector('.trip-type-tabs').parentElement;
+            const nightsField = document.getElementById('nights-field');
+            const searchBtn = document.querySelector('.search-btn');
+            const hotelNightsSummary = document.getElementById('hotel-nights-summary');
+            const passengersBtnWrapper = document.querySelector('.passengers-wrapper');
+
+            // Reset display
+            origenFieldWrapper.style.display = 'none';
+            tripTypeField.style.display = 'none';
+            nightsField.style.display = 'none';
+            hotelNightsSummary.style.display = 'none';
+
+            if (currentTravelType === 'flight') {
+                // SOLO VUELO
+                origenFieldWrapper.style.display = 'block';
+
+                // Update labels
+                const destinoLabel = destinoFieldWrapper.querySelector('.form-label');
+                destinoLabel.textContent = 'Destino';
+
+                const fechasLabel = document.getElementById('fechas').parentElement.querySelector('.form-label');
+                fechasLabel.textContent = 'Fechas';
+
+                const passengersLabel = passengersBtnWrapper.querySelector('.form-label');
+                passengersLabel.textContent = 'Pasajeros';
+
+                // Update passenger labels
+                passengersBtnWrapper.querySelector('.passenger-row:nth-child(1) .passenger-label').textContent = 'Adultos';
+                passengersBtnWrapper.querySelector('.passenger-row:nth-child(1) .passenger-info').textContent = '13+ años';
+                passengersBtnWrapper.querySelector('.passenger-row:nth-child(2) .passenger-label').textContent = 'Niños';
+                passengersBtnWrapper.querySelector('.passenger-row:nth-child(2) .passenger-info').textContent = '2-12 años';
+
+                // Reset flatpickr mode
+                if (flatpickrInstance) {
+                    flatpickrInstance.destroy();
+                    initFlatpickr(); // Reinitialize with default (range mode)
+                }
+
+                // Update trip type tabs visibility
+                tripTypeField.style.display = 'block';
+
+                // Update search button text
+                searchBtn.innerHTML = `<span class="icon icon-20"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span> BUSCAR VUELOS`;
+
+            } else if (currentTravelType === 'hotel') {
+                // SOLO HOTEL
+
+                // Update labels
+                const destinoLabel = destinoFieldWrapper.querySelector('.form-label');
+                destinoLabel.textContent = 'Ubicación / Destino';
+
+                const fechasLabel = document.getElementById('fechas').parentElement.querySelector('.form-label');
+                fechasLabel.textContent = 'Fechas de estancia';
+
+                const passengersLabel = passengersBtnWrapper.querySelector('.form-label');
+                passengersLabel.textContent = 'Huéspedes';
+
+                // Update passenger labels
+                passengersBtnWrapper.querySelector('.passenger-row:nth-child(1) .passenger-label').textContent = 'Adultos';
+                passengersBtnWrapper.querySelector('.passenger-row:nth-child(1) .passenger-info').textContent = '18+ años';
+                passengersBtnWrapper.querySelector('.passenger-row:nth-child(2) .passenger-label').textContent = 'Niños';
+                passengersBtnWrapper.querySelector('.passenger-row:nth-child(2) .passenger-info').textContent = '2-17 años';
+
+                // Show hotel nights summary
+                hotelNightsSummary.style.display = 'block';
+
+                // Reset flatpickr for hotel (range mode for check-in/check-out)
+                if (flatpickrInstance) {
+                    flatpickrInstance.destroy();
+                    initFlatpickrHotel(); // Initialize for hotel dates
+                }
+
+                // Update search button text
+                searchBtn.innerHTML = `<span class="icon icon-20"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span> BUSCAR ALOJAMIENTO`;
+
+            } else if (currentTravelType === 'package') {
+                // VUELO + HOTEL (PAQUETE)
+                origenFieldWrapper.style.display = 'block';
+
+                // Update labels
+                const destinoLabel = destinoFieldWrapper.querySelector('.form-label');
+                destinoLabel.textContent = 'Destino';
+
+                const fechasLabel = document.getElementById('fechas').parentElement.querySelector('.form-label');
+                fechasLabel.textContent = 'Fechas';
+
+                const passengersLabel = passengersBtnWrapper.querySelector('.form-label');
+                passengersLabel.textContent = 'Viajeros';
+
+                // Update passenger labels
+                passengersBtnWrapper.querySelector('.passenger-row:nth-child(1) .passenger-label').textContent = 'Adultos';
+                passengersBtnWrapper.querySelector('.passenger-row:nth-child(1) .passenger-info').textContent = '18+ años';
+                passengersBtnWrapper.querySelector('.passenger-row:nth-child(2) .passenger-label').textContent = 'Niños';
+                passengersBtnWrapper.querySelector('.passenger-row:nth-child(2) .passenger-info').textContent = '2-17 años';
+
+                // Show trip type tabs
+                tripTypeField.style.display = 'block';
+
+                // Show hotel nights summary
+                hotelNightsSummary.style.display = 'block';
+
+                // Reset flatpickr mode
+                if (flatpickrInstance) {
+                    flatpickrInstance.destroy();
+                    initFlatpickr(); // Range mode
+                }
+
+                // Update search button text
+                searchBtn.innerHTML = `<span class="icon icon-20"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span> BUSCAR PAQUETE`;
+            }
+
+            // Update travel options visual state
+            document.querySelectorAll('.travel-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            if (currentTravelType === 'flight') {
+                document.getElementById('option-flight').classList.add('selected');
+            } else if (currentTravelType === 'hotel') {
+                document.getElementById('option-hotel').classList.add('selected');
+            } else if (currentTravelType === 'package') {
+                document.getElementById('option-package').classList.add('selected');
+            }
+        }
+
+        // Initialize travel type selector
+        updateFormForTravelType(); // Run on load
+
+        // ============================================
+        // FLATPICKR FOR HOTEL MODE (Check-in / Check-out)
+        // ============================================
+
+        function initFlatpickrHotel() {
+            flatpickrInstance = flatpickr('#fechas', {
+                mode: 'range',
+                dateFormat: 'd/m/Y',
+                minDate: 'today',
+                maxDate: new Date().fp_incr(365), // 1 year from now
+                locale: Spanish,
+                dateFormat: 'd/m/Y',
+                disableMobile: 'true',
+                inline: false,
+                showMonths: 2,
+                onChange: function(selectedDates, dateStr, instance) {
+                    updateHotelNightsSummary(selectedDates);
+                }
+            });
+        }
+
+        // Update hotel nights summary
+        function updateHotelNightsSummary(selectedDates) {
+            if (selectedDates && selectedDates.length === 2) {
+                const checkIn = selectedDates[0];
+                const checkOut = selectedDates[1];
+                const nightsDiff = Math.floor((checkOut - checkIn) / (1000 * 60 * 60 * 24));
+
+                document.getElementById('total-nights').textContent = nightsDiff;
+                document.getElementById('nights-plural').textContent = nightsDiff === 1 ? '' : 's';
+            }
+        }
     </script>
 </body>
 </html>
