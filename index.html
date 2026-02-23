@@ -2815,31 +2815,90 @@
                                     <span class="badge">${flight.markup_percent}%</span>
                                 </div>
                             </div>
-                            
-                            <button onclick="bookFlight()" 
-                                    class="book-btn">
-                                Ver Todas las Opciones ✈️
-                            </button>
+
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <button onclick="bookThisFlight(${index})"
+                                        class="book-btn">
+                                    Reservar Esta Opción 💳
+                                </button>
+                                <button onclick="askDoubts(${index})"
+                                        class="doubts-btn">
+                                    ¿Tienes dudas? Consultar por WhatsApp
+                                </button>
+                            </div>
                         </div>
                     </div>
                 `;
             });
-            
+
             html += `</div>`;
-            
+            html += `
+                <div style="text-align: center; margin-top: 24px; padding: 20px;">
+                    <button onclick="bookFlight()" class="secondary-book-btn">
+                        Ver Todas las Opciones en WhatsApp ✈️
+                    </button>
+                </div>
+            `;
+
             resultsContainer.innerHTML = html;
         }
         
-        function bookFlight() {
+        function bookThisFlight(flightIndex) {
+            const flight = currentFlights[flightIndex];
+            const origen = document.getElementById('origen').value;
+            const destino = document.getElementById('destino').value;
+
+            // Add origin and destination to flight object for checkout page
+            flight.origin = origen;
+            flight.destination = destino;
+
+            // Redirect to checkout page with flight data in URL
+            const checkoutUrl = `checkout.html?flight=${encodeURIComponent(JSON.stringify(flight))}&origin=${encodeURIComponent(origen)}&destination=${encodeURIComponent(destino)}`;
+            window.location.href = checkoutUrl;
+        }
+
+        function askDoubts(flightIndex) {
+            const flight = currentFlights[flightIndex];
             const origen = document.getElementById('origen').value;
             const destino = document.getElementById('destino').value;
             const fechas = document.getElementById('fechas').value;
-            
+
             let passengersText = `${passengers.adults} adulto${passengers.adults > 1 ? 's' : ''}`;
             if (passengers.children > 0) {
                 passengersText += `, ${passengers.children} niño${passengers.children > 1 ? 's' : ''}`;
             }
-            
+
+            const hours = Math.floor(flight.duration_minutes / 60);
+            const minutes = flight.duration_minutes % 60;
+            const stopsText = flight.stops === 0 ? 'Directo' : `${flight.stops} escala${flight.stops > 1 ? 's' : ''}`;
+
+            let mensaje = `Hola! ✈️ *Tengo una duda sobre este vuelo*\n\n`;
+            mensaje += `💫 *Vuelo que me interesa:*\n`;
+            mensaje += `🛫 ${flight.airline} ${flight.flight_number}\n`;
+            mensaje += `📍 ${origen} → ${destino}\n`;
+            mensaje += `📅 ${fechas}\n`;
+            mensaje += `⏰ ${flight.departure_time} → ${flight.arrival_time}\n`;
+            mensaje += `⏱️ ${hours}h ${minutes}m | ${stopsText}\n`;
+            mensaje += `💰 Precio SkyRoutes: €${flight.skyroutes_price.toFixed(2)}\n\n`;
+            mensaje += `👥 Viajo: ${passengersText}\n\n`;
+            mensaje += `❓ *Mi duda es:*\n\n`;
+            mensaje += `(Por favor escribir tu duda aquí)\n\n`;
+            mensaje += `¡Gracias! 🙏`;
+
+            const whatsapp = `https://wa.me/34610243061?text=${encodeURIComponent(mensaje)}`;
+            window.open(whatsapp, '_blank');
+        }
+
+        function bookFlight() {
+            const origen = document.getElementById('origen').value;
+            const destino = document.getElementById('destino').value;
+            const fechas = document.getElementById('fechas').value;
+
+            let passengersText = `${passengers.adults} adulto${passengers.adults > 1 ? 's' : ''}`;
+            if (passengers.children > 0) {
+                passengersText += `, ${passengers.children} niño${passengers.children > 1 ? 's' : ''}`;
+            }
+
             let mensaje = `Hola! ✈️ *SkyRoutes - Vuelos Encontrados*\n\n`;
             mensaje += `💫 *Búsqueda:*\n`;
             mensaje += `📍 *Origen:* ${origen}\n`;
@@ -2847,7 +2906,7 @@
             mensaje += `📅 *Fechas:* ${fechas}\n`;
             mensaje += `👥 *Pasajeros:* ${passengersText}\n\n`;
             mensaje += `✨ *Top ${currentFlights.length} Opciones (Aerolíneas Directas):*\n\n`;
-            
+
             currentFlights.forEach((flight, index) => {
                 mensaje += `━━━━━━━━━━━━━━━━━\n`;
                 mensaje += `*Opción ${index + 1}\n\n`;
@@ -2856,12 +2915,12 @@
                 mensaje += `⏱️ ${Math.floor(flight.duration_minutes / 60)}h ${flight.duration_minutes % 60}m | ${flight.stops === 0 ? 'Directo' : flight.stops + ' escalas'}\n`;
                 mensaje += `💰 Precio: *€${flight.skyroutes_price.toFixed(2)}* (markup ${flight.markup_percent}%)\n\n`;
             });
-            
+
             mensaje += `━━━━━━━━━━━━━━━━━\n\n`;
             mensaje += `📌 *Precios incluyen markup SkyRoutes*\n`;
             mensaje += `Por favor, indicarme cuál opción prefieres para proceder con la reserva.\n\n`;
             mensaje += `¡Gracias! 🙏`;
-            
+
             const whatsapp = `https://wa.me/34610243061?text=${encodeURIComponent(mensaje)}`;
             window.open(whatsapp, '_blank');
         }
@@ -3394,6 +3453,44 @@
         .book-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+        }
+
+        .doubts-btn {
+            background: var(--gray-100);
+            color: var(--gray-600);
+            border: 1px solid var(--gray-200);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .doubts-btn:hover {
+            background: var(--gray-200);
+            color: var(--dark);
+            transform: translateY(-1px);
+        }
+
+        .secondary-book-btn {
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .secondary-book-btn:hover {
+            background: #128C7E;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
         }
 
         @keyframes fadeInUp {
