@@ -3179,6 +3179,9 @@
             }
         }
 
+        // Global variables for search results
+        let currentHotels = []; // Store hotels globally
+
         // HOTEL SEARCH HANDLER
         async function handleHotelSearch(e) {
             e.preventDefault();
@@ -3366,9 +3369,6 @@
 
             resultsContainer.innerHTML = html;
         }
-
-        // Variables globales para hoteles
-        let currentHotels = [];
 
         // Book this hotel
         function bookThisHotel(hotelIndex) {
