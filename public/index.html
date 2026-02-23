@@ -3274,7 +3274,8 @@
             flight.destination = destino;
 
             // Redirect to checkout page with flight data in URL
-            const checkoutUrl = `checkout.html?flight=${encodeURIComponent(JSON.stringify(flight))}&origin=${encodeURIComponent(origen)}&destination=${encodeURIComponent(destino)}`;
+            const checkoutUrl = `/checkout.html?flight=${encodeURIComponent(JSON.stringify(flight))}&origin=${encodeURIComponent(origen)}&destination=${encodeURIComponent(destino)}`;
+            window.location.href = checkoutUrl;
             window.location.href = checkoutUrl;
         }
 
